@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.j1.dao.ProductIndexMapper">
+
+
+    <resultMap id="productResultMap" type="hashMap">
+        <result column="good_eval_amount" property="goodEvalAmount" />
+        <result column="click_amount" property="clickAmount" />
+        <result column="product_common_name" property="productCommonName" />
+        <result column="sale_time" property="saleTime" />
+        <result column="pro_catalog_id" property="proCatalogId" />
+        <result column="catalog_list_id" property="cataLogListId" javaType="String"/>
+        <result column="catalog_list_name" property="cataLogListName" javaType="String"/>
+        <result column="pro_catalog_name" property="proCatalogName" />
+        <result column="PROMOTE_PHRASE" property="promotePhrase" javaType="String" />
+        <result column="EC_PRICE" property="ecPrice" javaType="String" />
+        <result column="MARKET_PRICE" property="marketPrice" javaType="decimal" />
+        <result column="PRO_IMAGE_URL" property="proImageUrl" javaType="String" />
+        <result column="TAG_ICON_URL" property="tagIconUrl" javaType="String" />
+        <result column="DRUG_PRESCRIPTION_TYPE" property="drugPrescriptionType"
+                javaType="String" />
+        <result column="PRODUCT_LEAST_ORDER" property="productLeastOrder"
+                javaType="decimal" />
+        <result column="ORDER_LIMIT_AMOUNT" property="orderLimitAmount"
+                javaType="decimal" />
+        <result column="AVAILABLE_STOCK" property="availableStock"
+                javaType="decimal" />
+        <result column="PRODUCT_ID" property="productId" />
+        <result column="SALE_SCORE" property="saleScore"  javaType="decimal" />
+        <result column="GOODS_ID" property="goodsId" />
+        <result column="goods_no" property="goodsNo"/>
+        <result column="stock" property="stock"/>
+        <result column="thumb" property="thumb"/>
+        <result column="SALE_AMOUNT" property="saleAmount"/>
+        <result column="GOODS_NAME" property="productName" />
+        <result column="producer" property="producer" />
+        <result column="product_name1" property="productName1" />
+        <result column="PRODUCT_CHN_NO" property="productChnNo"/>
+        <result column="DRUG_TREATMENT" property="drugTreatment"
+                javaType="String" />
+        <result column="product_keyword" property="productKeyword"/>
+        <result column="product_brand_id" property="productBrandId"/>
+        <result column="product_brand_name" property="productBrandName"/>
+        <result column="product_brand_name1" property="productBrandName1"/>
+        <result column="product_order" property="productOrder"/>
+        <result column="comment_sum" property="commentSum" />
+        <result column="full_index" property="cataLogPathId" />
+        <result column="discount" property="discount"/>
+        <result column="goods_seller" property="goodsSeller"/>
+       <!--  <result column="PRODUCT_ID" property="attrs" select="ProductAttribute.getAttrListByProduct" javaType="List"/>
+        <result column="PRODUCT_ID" property="keywordScore" select="ProductKeyword.getKeywordListByProduct" javaType="List"/>
+      -->
+
+    </resultMap>
+
+    <!-- lucene通过ID建立索引sql语句 -->
+    <select id="getAllProduct" parameterType="com.j1.pojo.Product" resultMap="productResultMap">
+        select
+        p.product_name,
+        p.producer,
+        p.drug_treatment,
+        p.product_common_name,
+        p.drug_prescription_type,
+        p.onsale_time sale_time ,
+        p.product_least_order || '' as "product_least_order",
+        p.order_limit_amount || '' as "order_limit_amount",
+        g.goods_id,
+        g.goods_no,
+        g.goods_name,
+        g.goods_name   product_name1,
+        pw.sale_weight as "sale_score",
+        g.market_price || '' as "market_price",
+        g.sale_amount,
+        g.click_amount,
+        (
+        case   when pi.pro_image_url is null then
+        0
+        else
+        1
+        end
+        )  thumb,
+        (
+        case
+        when g.available_stock=0 then
+        0
+        else
+        1
+        end
+        )  stock,
+        nvl(g.available_stock, 0) || '' as "available_stock",
+        p.pro_catalog_id || '' as "pro_catalog_id",
+        (select zh_concat(pcd.pro_catalog_id)
+        from product_catalog_def pcd
+        where pcd.product_id = p.product_id) || '' "catalog_list_id",
+        (select zh_concat(pc0.pro_catalog_name)
+        from product_catalog_def pcd
+        left join product_catalog pc0
+        on pc0.pro_catalog_id = pcd.pro_catalog_id
+        where pcd.product_id = p.product_id) || '' "catalog_list_name",
+        pi.pro_image_url,
+        tag.tag_id || '' as "tag_id",
+        tag.tag_icon_url,
+        (case
+        when g.discount_state = 'enable' and g.member_ranks = '0' and
+        to_char(sysdate, 'yyyy-mm-dd hh24:mi:dd') between g.begin_time and
+        g.end_time and g.discount_price is not null and
+        g.discount_price != 0 then
+        g.discount_price
+        else
+        g.ec_price
+        end) || ' ' as ec_price,
+        (case
+        when g.discount_state = 'enable' and
+        to_char(sysdate, 'yyyy-mm-dd hh24:mi:dd') between g.begin_time and
+        g.end_time then
+        g.promote_phrase
+        else
+        ''
+        end) as promote_phrase,
+        (case
+        when g.discount_state = 'enable' and
+        to_char(sysdate, 'yyyy-mm-dd hh24:mi:dd') between g.begin_time and
+        g.end_time then
+        'Y'
+        else
+        'N'
+        end) as discount,
+        pc.pro_catalog_name,
+        replace(pc.full_index,'.',',') full_index ,
+        p.product_keyword,
+        p.PRODUCT_CHN_NO,
+        pb.product_brand_id,
+        pb.product_brand_name   product_brand_name1,
+        pb.product_brand_name,
+        nvl(p.product_order, 0) product_order,
+        (case
+        when ge0.comment_sum is not null then
+        ge0.comment_sum
+        else
+        0
+        end) as comment_sum,
+        (case
+        when ge0.comment_hp is not null then
+        ge0.comment_hp
+        else
+        0
+        end) as good_eval_amount,g.goods_seller
+        from product p
+        inner join goods g
+        on p.product_id = g.product_id
+        and g.is_delete = 'N'
+        and g.is_default = 'Y'
+        left join product_catalog pc
+        on pc.pro_catalog_id = p.pro_catalog_id
+        and pc.is_delete = 'N'
+        left join product_weight pw
+        on pw.product_id = p.product_id
+        left join product_brand pb
+        on pb.product_brand_id = p.product_brand_id
+        and pb.is_delete = 'N'
+        left join (select min(pt.tag_id) as tag_id,
+        min(ptd.goods_id) as goods_id,
+        min(pt.tag_icon_url) as tag_icon_url
+        from product_tag_def ptd, product_tag pt
+        where ptd.tag_id = pt.tag_id
+        and pt.is_delete = 'N'
+        and pt.tag_type = 'icon'
+        group by ptd.goods_id) tag
+        on tag.goods_id = g.goods_id
+        left join (select pig.product_id    as product_id,
+        pig.image_order,
+        pig.pro_image_url as pro_image_url
+        from product_img pig
+        where pig.image_type = 'list'
+        and pig.image_order = 1) pi
+        on p.product_id = pi.product_id
+        left join (select ge.PRODUCT_ID       as goodsid,
+        ge.EVALUATION_COUNT as comment_sum,
+        ge.evaluation_count_hp as comment_hp
+        from PRODUCT_EXPAND ge
+        where ge.IS_DELETE = 'N') ge0
+        on p.product_id = ge0.goodsid
+        where p.is_delete = 'N'
+        and p.is_onsale = 'Y'
+        and p.pro_catalog_id is not null
+        and p.product_code NOT like 'AJ%'
+        and g.is_delete='N'
+        and g.goods_id is not null
+
+
+        <if test="productId != null and productId != '' ">
+            and   p.product_id = #productId#
+        </if>
+
+        <if test="addTime !=null || addTime!='' ">
+            and  <![CDATA[
+			   (   to_date(P.ADD_TIME, 'YYYY-MM-DD HH24:MI:SS') >= SYSDATE - 1 / 48 OR
+			       to_date(G.ADD_TIME, 'YYYY-MM-DD HH24:MI:SS') >= SYSDATE - 1 / 48) ]]>
+        </if>
+        <if test="editTime!=null || editTime!= '' ">
+           and  <![CDATA[
+			   (to_date(p.edit_time, 'YYYY-MM-DD HH24:MI:SS') >= SYSDATE - 1 / 48 OR
+			       to_date(G.edit_time, 'YYYY-MM-DD HH24:MI:SS') >= SYSDATE - 1 / 48) ]]>
+        </if>
+
+
+
+
+
+
+    </select>
+</mapper>

@@ -1,0 +1,29 @@
+spring:
+  data:
+   elasticsearch:
+     cluster-name: myelasticsearch7.x
+     cluster-nodes: localhost:9300
+  artemis:
+    embedded:
+      enabled: true
+  datasource:
+    #url: jdbc:mysql://localhost:3306/study
+   # username: root
+    #password: 123456
+   # driver-class-name: com.mysql.jdbc.Driver
+
+     url: jdbc:oracle:thin:@192.168.2.136/orclapp
+     username: fec
+     password: fechy123
+     driver-class-name: oracle.jdbc.OracleDriver
+es:
+ indexname: hy_web_index
+ indextype: _doc
+mybatis:
+  mapper-locations: classpath:com/j1/mapper/*.xml
+  type-aliases-package: org.spring.springboot.demo.dao
+logging:
+  config: classpath:log/logback-spring.xml
+  path: /Users/wangchuanfu/soft/es_7.6/log
+server:
+  port: 8081
