@@ -191,19 +191,19 @@
         <if test="productId != null and productId != '' ">
             and   p.product_id = #productId#
         </if>
+        <!--
+              <if test="addTime !=null || addTime!='' ">
+                  and  <![CDATA[
+                     (   to_date(P.ADD_TIME, 'YYYY-MM-DD HH24:MI:SS') >= SYSDATE - 1 / 48 OR
+                         to_date(G.ADD_TIME, 'YYYY-MM-DD HH24:MI:SS') >= SYSDATE - 1 / 48) ]]>
+              </if>
+              <if test="editTime!=null || editTime!= '' ">
+                 and  <![CDATA[
+                     (to_date(p.edit_time, 'YYYY-MM-DD HH24:MI:SS') >= SYSDATE - 1 / 48 OR
+                         to_date(G.edit_time, 'YYYY-MM-DD HH24:MI:SS') >= SYSDATE - 1 / 48) ]]>
+              </if>
 
-        <if test="addTime !=null || addTime!='' ">
-            and  <![CDATA[
-			   (   to_date(P.ADD_TIME, 'YYYY-MM-DD HH24:MI:SS') >= SYSDATE - 1 / 48 OR
-			       to_date(G.ADD_TIME, 'YYYY-MM-DD HH24:MI:SS') >= SYSDATE - 1 / 48) ]]>
-        </if>
-        <if test="editTime!=null || editTime!= '' ">
-           and  <![CDATA[
-			   (to_date(p.edit_time, 'YYYY-MM-DD HH24:MI:SS') >= SYSDATE - 1 / 48 OR
-			       to_date(G.edit_time, 'YYYY-MM-DD HH24:MI:SS') >= SYSDATE - 1 / 48) ]]>
-        </if>
-
-
+                 -->
 
 
 

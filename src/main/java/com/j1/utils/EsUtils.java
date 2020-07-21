@@ -101,7 +101,7 @@ public class EsUtils {
                     //封装成json 数据
                     indexRequest.id(String.valueOf(goodsId));
 
-                    sources.field(DefaultIndexField.MODIFIED, new Date());
+                   // sources.field(DefaultIndexField.MODIFIED, new Date());
                     indexRequest.source ( JSON.toJSONString ( dataList.get(i) ), XContentType.JSON );
                     IndexResponse indexResponse = client.index ( indexRequest, RequestOptions.DEFAULT );
                     bulkRequest.add(indexRequest);

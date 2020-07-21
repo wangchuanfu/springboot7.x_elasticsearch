@@ -9,7 +9,7 @@ import java.util.*;
  * Created by wangchuanfu on 20/7/16.
  */
 //搜索排序
-public class Sort {
+public class Sort implements Iterable {
     public static final Direction DEFAULT_DIRECTION = Direction.ASC;
 
     private List<Order> orders;
@@ -29,7 +29,7 @@ public class Sort {
     static
     {
         // 默认排序(评分)
-        Order order99 = new Order(Direction.DESC, DefaultParams.DEFAULT_ORDER_BY);
+        Order order99 = new Order(Direction.DESC, "_score");
         orderMap.put("99", order99);
         // 自定义评分（目前用于库存0排至最后）
         Order order98 = new Order(Direction.DESC, ProductFieldEnum.stock.name());
@@ -256,10 +256,9 @@ public class Sort {
         }
     }
 
-    public static class Order implements Serializable
+    public static class Order
     {
 
-        private static final long serialVersionUID = 1522511010900108987L;
 
         private final Direction direction;
         private final String property;

@@ -171,7 +171,7 @@ public class WebProductVo {
     /**
      * 总销量
      */
-    @Field(type = FieldType.Double ,index =false, store = true)
+    @Field(type = FieldType.Double ,index =true, store = true)
     private String saleAmount;
 
     /**

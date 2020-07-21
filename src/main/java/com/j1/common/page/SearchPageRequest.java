@@ -1,7 +1,6 @@
 package com.j1.common.page;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.j1.common.base.DefaultParams;
 import com.j1.common.base.Sort;
 import com.j1.common.utils.Integers;
 import com.j1.common.utils.ValidateUtils;
@@ -16,7 +15,7 @@ public class SearchPageRequest {
     /**
      *  页面传过来的，分页参数接口实现，从0页开始，最大页面99
      */
- //是否进行SEM查询，基于关键字的排序
+    //是否进行SEM查询，基于关键字的排序
     @JSONField(serialize = false)
     public boolean isSEM;
     /**
@@ -261,8 +260,7 @@ public class SearchPageRequest {
         Sort.Order orderkeyword = null;
         if (StringUtils.isNotBlank(this.decodeKeyword))
             orderkeyword = new Sort.Order(Sort.Direction.DESC, this.decodeKeyword);
-        Sort.Order order99 = new Sort.Order(Sort.Direction.DESC,
-                DefaultParams.DEFAULT_ORDER_BY);
+        Sort.Order order99 = new Sort.Order(Sort.Direction.DESC,"_score");
         if (isSEM && (SearchType.SEGMENT_C_AND.equals(searchType)
                 || SearchType.SEGMENT_C_OR.equals(searchType))
                 && orderkeyword !=null) {
