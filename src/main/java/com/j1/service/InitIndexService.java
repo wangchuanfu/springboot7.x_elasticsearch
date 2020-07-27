@@ -1,6 +1,7 @@
 package com.j1.service;
 
 
+
 import com.j1.common.base.PageRequest;
 import com.j1.common.base.Pageable;
 import com.j1.common.base.Sort;
@@ -18,8 +19,17 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.text.Text;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.index.query.*;
+import org.elasticsearch.search.DocValueFormat;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
+import org.elasticsearch.search.aggregations.Aggregation;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.Aggregations;
+import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramAggregationBuilder;
+import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramInterval;
+import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
+import org.elasticsearch.search.aggregations.metrics.AvgAggregationBuilder;
+import org.elasticsearch.search.aggregations.metrics.Stats;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
@@ -140,163 +150,4 @@ public class InitIndexService {
 
     }
 
-    //此处方法可以抽出来,但是为了加强记忆,还是手写一遍
-    public String querySearchGoods(String keyword, Integer pageNo, Integer pageSize) {
-        Sort.Order order = new Sort.Order(Sort.Direction.DESC, "_score");
-        Sort sort = new Sort("98");
-        sort.add(order);
-        PageRequest pageRequest = new PageRequest(pageNo, pageSize, sort);
-        BoolQueryBuilder boolQuery = getBoolQueryBuilder(keyword);
-        //getQueryByBoost(keyword, boolQuery);
-        BoolQueryBuilder boolQuery2 = QueryBuilders.boolQuery().should(boolQuery);
-        return searchGoodsList(boolQuery2, pageRequest);
-
-    }
-
-
-    private String searchGoodsList(BoolQueryBuilder boolQuery2, Pageable page) {
-        List<Map<String, Object>> list = new ArrayList<>();
-        try {
-
-            int start = page.getOffset();
-            int size = page.getPageSize();
-            SearchRequest searchRequest = new SearchRequest(esAttribute.getIndexName());
-            SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-            //过滤
-            BoolQueryBuilder postFilter = QueryBuilders.boolQuery();
-            postFilter.mustNot(QueryBuilders.termQuery("ecPrice", -1));
-            //显示高亮
-            HighlightBuilder highlightBuilder = new HighlightBuilder();
-            highlightBuilder.field("productName");
-            highlightBuilder.preTags("<span style='color:red'>");
-            highlightBuilder.postTags("</span>");
-            searchSourceBuilder.highlighter(highlightBuilder);
-            searchSourceBuilder.query(boolQuery2);
-            searchSourceBuilder.postFilter(postFilter);
-
-            searchRequest.source(searchSourceBuilder);
-
-            searchSourceBuilder.from(start);
-            searchSourceBuilder.size(size);
-            List<SortBuilder> sorts = parsePageSort(page.getSort());
-            // 排序
-
-            if (sorts != null) {
-                for (SortBuilder sort : sorts) {
-                    searchSourceBuilder.sort(sort);
-                }
-            }
-            //另一种排序的写法
-            FieldSortBuilder ecPrice = new FieldSortBuilder("ecPrice").order(SortOrder.ASC);
-            //  FieldSortBuilder _score = new FieldSortBuilder("_score").order(SortOrder.DESC);
-            FieldSortBuilder saleTime = new FieldSortBuilder("saleTime").order(SortOrder.DESC);
-            //searchSourceBuilder.sort(_score);
-            searchSourceBuilder.sort(ecPrice); //根据field DESC 排序
-            searchSourceBuilder.sort(saleTime);
-            log.error(searchSourceBuilder.toString());
-            logger.error(searchSourceBuilder.toString());
-            SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
-            //循环遍历
-            SearchHit[] searchHits = searchResponse.getHits().getHits();
-            SearchHits hits = searchResponse.getHits();
-            //查询出来的总数据
-            long total = hits.getTotalHits().value;
-            log.error( Long.toString(total));
-            for (SearchHit searchHit : searchHits) {
-                Map<String, Object> sourceAsMap = searchHit.getSourceAsMap();//查询的原来的结果
-                Map<String, HighlightField> highlightFields = searchHit.getHighlightFields();
-                HighlightField title = highlightFields.get("productName");
-                if (title != null) {
-                    //解析高亮字段,将之前查出来的没高亮的字段 替换为高亮字段
-                    Text[] fragments = title.fragments();
-                    StringBuilder newTitle = new StringBuilder();
-                    for (Text fragment : fragments) {
-                        newTitle.append(fragment.string());
-                    }
-                    sourceAsMap.put("productName", newTitle);
-                }
-                list.add(sourceAsMap);
-
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        return list.toString();
-    }
-
-
-    //构建boolQuery
-    private BoolQueryBuilder getBoolQueryBuilder(String keyword) {
-        //构造查询条件
-        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
-
-        for (int i = 0; i < DefaultIndexField.secondAnalyzeFields.length ; i++) {
-            String tfieldName = DefaultIndexField.secondAnalyzeFields[i];
-            float tboost = DefaultIndexField.secondAnalyzeFieldsBoost[i] != null ? DefaultIndexField.secondAnalyzeFieldsBoost[i] : 1.0f;
-
-            BoolQueryBuilders.shouldFieldQueryAND(boolQuery, tfieldName, keyword, tboost);
-        }
-        BoolQueryBuilders.shouldFieldQueryAND(boolQuery, "productName", keyword);
-        return boolQuery;
-    }
-
-    /**
-     * 构建排序对象列表
-     *
-     * @param sort
-     * @return
-     */
-    protected List<SortBuilder> parsePageSort(Sort sort) {
-        List<SortBuilder> sorts = null;
-        if (sort != null) {
-            sorts = new ArrayList<SortBuilder>();
-            Iterator<Sort.Order> orders = sort.iterator();
-            while (orders.hasNext()) {
-                Sort.Order order = orders.next();
-                SortBuilder esSort = buildSort(order.getProperty(), order.getDirection().toString());
-                sorts.add(esSort);
-            }
-        }
-        return sorts;
-    }
-
-    /**
-     * 组装排序对象，若非asc，就使用desc
-     *
-     * @param field排序字段
-     * @param order排序方式asc ,desc
-     * @return
-     */
-    protected static SortBuilder buildSort(String field, String order) {
-        SortBuilder sort = SortBuilders.fieldSort(field);
-        if ("asc".equalsIgnoreCase(order)) {
-            sort.order(SortOrder.ASC);
-        } else {
-            sort.order(SortOrder.DESC);
-        }
-        return sort;
-    }
-
-    private BoolQueryBuilder getQueryByBoost(String keyword, BoolQueryBuilder boolQuery) {
-        BoolQueryBuilder saleAmountBoolQuery = QueryBuilders.boolQuery();
-
-        /**
-         * 人工维护的关键字分为6个权重级别 分别是 50 40 30 20 10 5
-         */
-
-        /**
-         * 销量权重设置级别 一共有2个级别 (50-,100)
-         */
-        QueryBuilder saleAmountRangeQuery = QueryBuilders.rangeQuery("saleScore").gt(50).boost(200);
-        QueryBuilder saleAmountRangeQuery2 = QueryBuilders.rangeQuery("saleScore").lt(50).boost(1);
-
-        saleAmountBoolQuery.should(saleAmountRangeQuery);
-        saleAmountBoolQuery.should(saleAmountRangeQuery2);
-
-        boolQuery.must(saleAmountBoolQuery);
-        return boolQuery;
-    }
 }
