@@ -199,6 +199,7 @@ public class BucketAndMetricServiceImpl implements BucketAndMetricService {
             //打印DSL
             log.error(searchSourceBuilder.toString());
             SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+            BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
 
             /**
              * count 查询
@@ -235,7 +236,10 @@ public class BucketAndMetricServiceImpl implements BucketAndMetricService {
 
         List<String> colors = new ArrayList<>();
         //避免类型转换异常
-        Terms terms1 = searchResponse.getAggregations().get("group_by_color");
+        //Terms terms1 = searchResponse.getAggregations().get("group_by_color");
+        Map<String, Aggregation> asMap1 = searchResponse.getAggregations().getAsMap();
+        Terms terms1 = (Terms)asMap1.get("group_by_color");
+
         for (Terms.Bucket bucket1 : terms1.getBuckets()) {
             String key = bucket1.getKey().toString();// Keys
             String keyAsString = bucket1.getKeyAsString(); // Key as String

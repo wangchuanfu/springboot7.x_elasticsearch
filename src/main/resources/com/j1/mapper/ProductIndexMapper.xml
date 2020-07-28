@@ -3,55 +3,50 @@
 <mapper namespace="com.j1.dao.ProductIndexMapper">
 
 
-    <resultMap id="productResultMap" type="hashMap">
-        <result column="good_eval_amount" property="goodEvalAmount" />
-        <result column="click_amount" property="clickAmount" />
+    <resultMap id="productResultMap" type="com.j1.pojo.Product">
+
         <result column="product_common_name" property="productCommonName" />
-        <result column="sale_time" property="saleTime" />
         <result column="pro_catalog_id" property="proCatalogId" />
-        <result column="catalog_list_id" property="cataLogListId" javaType="String"/>
-        <result column="catalog_list_name" property="cataLogListName" javaType="String"/>
         <result column="pro_catalog_name" property="proCatalogName" />
-        <result column="PROMOTE_PHRASE" property="promotePhrase" javaType="String" />
-        <result column="EC_PRICE" property="ecPrice" javaType="String" />
-        <result column="MARKET_PRICE" property="marketPrice" javaType="decimal" />
-        <result column="PRO_IMAGE_URL" property="proImageUrl" javaType="String" />
-        <result column="TAG_ICON_URL" property="tagIconUrl" javaType="String" />
         <result column="DRUG_PRESCRIPTION_TYPE" property="drugPrescriptionType"
                 javaType="String" />
         <result column="PRODUCT_LEAST_ORDER" property="productLeastOrder"
                 javaType="decimal" />
         <result column="ORDER_LIMIT_AMOUNT" property="orderLimitAmount"
                 javaType="decimal" />
-        <result column="AVAILABLE_STOCK" property="availableStock"
-                javaType="decimal" />
         <result column="PRODUCT_ID" property="productId" />
-        <result column="SALE_SCORE" property="saleScore"  javaType="decimal" />
-        <result column="GOODS_ID" property="goodsId" />
-        <result column="goods_no" property="goodsNo"/>
-        <result column="stock" property="stock"/>
-        <result column="thumb" property="thumb"/>
-        <result column="SALE_AMOUNT" property="saleAmount"/>
+
         <result column="GOODS_NAME" property="productName" />
         <result column="producer" property="producer" />
-        <result column="product_name1" property="productName1" />
         <result column="PRODUCT_CHN_NO" property="productChnNo"/>
         <result column="DRUG_TREATMENT" property="drugTreatment"
                 javaType="String" />
         <result column="product_keyword" property="productKeyword"/>
         <result column="product_brand_id" property="productBrandId"/>
-        <result column="product_brand_name" property="productBrandName"/>
-        <result column="product_brand_name1" property="productBrandName1"/>
         <result column="product_order" property="productOrder"/>
-        <result column="comment_sum" property="commentSum" />
-        <result column="full_index" property="cataLogPathId" />
-        <result column="discount" property="discount"/>
-        <result column="goods_seller" property="goodsSeller"/>
-       <!--  <result column="PRODUCT_ID" property="attrs" select="ProductAttribute.getAttrListByProduct" javaType="List"/>
+        <!--
+        <result column="PRODUCT_ID" property="attrs" select="ProductAttribute.getAttrListByProduct" javaType="List"/>
         <result column="PRODUCT_ID" property="keywordScore" select="ProductKeyword.getKeywordListByProduct" javaType="List"/>
-      -->
+        -->
+
+        <collection property="attrList" column="PRODUCT_ID" ofType="com.j1.pojo.ProductAttrs" >
+            <result property="attrId" column="attribute_id" />
+            <result property="attrCode" column="attr_code" />
+        </collection>
 
     </resultMap>
+
+
+    <resultMap type="com.j1.pojo.ProductAttrs" id="productAttributeMap">
+        <result property="attrId" column="attribute_id" />
+        <result property="attrCode" column="attr_code" />
+    </resultMap>
+
+
+
+
+
+
 
     <!-- lucene通过ID建立索引sql语句 -->
     <select id="getAllProduct" parameterType="com.j1.pojo.Product" resultMap="productResultMap">
@@ -209,4 +204,18 @@
 
 
     </select>
+
+    <select id="getAttrListByProduct" resultMap="productAttributeMap" parameterType="java.lang.Integer">
+        select
+        pa.attribute_id,
+        pav.attr_code
+        from product_attribute pa
+        left join product_attr_def pad on pa.attribute_id = pad.attribute_id
+        right join product p on p.product_id = pad.product_id
+        right join product_attribute_value pav on pad.attribute_value = pav.attr_name
+        where p.product_id =#{value}
+        and pa.attribute_id is not null
+        and pav.attr_code is not null
+    </select>
+
 </mapper>

@@ -16,12 +16,14 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.GetIndexRequest;
 import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.rest.RestStatus;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -76,7 +78,6 @@ public class EsUtils {
         XContentBuilder sources = null;
         try {
             //先判断索引是否存在
-
             BulkRequest bulkRequest = new BulkRequest();
             if (null != dataList && dataList.size() > 0) {
 
@@ -85,6 +86,8 @@ public class EsUtils {
                    // UpdateRequest request = this.getUpdateRequest(indexName, type);
                     try {
                          goodsId = dataList.get(i).get("goodsId").toString();
+                        //生成doc
+                       // XContentBuilder XContentBuilder=getDoc(dataList.get(i));
                     }catch (Exception e){
                         log.error("{} 获取id失败", goodsId, e);
                     }
@@ -111,11 +114,42 @@ public class EsUtils {
 
             BulkResponse bulk = this.client.bulk(bulkRequest, RequestOptions.DEFAULT);
 
+            Map<String, Object> product=new HashMap<>();
+
+
+
         } catch (Exception e) {
             log.error("{} 批量插入失败",goodsId, e);
         }
+
+
         return true;
     }
+
+    private XContentBuilder getDoc(Map product) {
+        XContentBuilder sources = null;
+        try {
+            sources = XContentFactory.jsonBuilder().startObject();
+            // 产品属性集
+            List<Map<String, Object>> attrList = (List<Map<String, Object>>) product.get("");
+            StringBuffer sb = new StringBuffer();
+            for (Map<String, Object> attr : attrList) {
+                try {
+                    if (attr.containsKey("attrId") && attr.containsKey("attrCode")) {
+                        sb.append(attr.get("attrId").toString() + "_" + attr.get("attrCode").toString() + ",");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            sources.endObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return sources;
+    }
+
     //更新
     private UpdateRequest getUpdateRequest(String indexName, String type) {
         UpdateRequest request = new UpdateRequest();

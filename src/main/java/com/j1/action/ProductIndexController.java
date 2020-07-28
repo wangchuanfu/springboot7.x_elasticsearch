@@ -42,6 +42,10 @@ public class ProductIndexController {
         String msg = "";
         try {
             long start =System.currentTimeMillis();
+            if(esUtils.existsIndex(esAttribute.getIndexName())){
+                //删除索引
+                elasticsearchTemplate.deleteIndex(esAttribute.getIndexName());
+            }
             //通过注解创建index,mapping
             if (!esUtils.existsIndex(esAttribute.getIndexName())) {
                 elasticsearchTemplate.createIndex(WebProductVo.class);

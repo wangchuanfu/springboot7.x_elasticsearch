@@ -83,7 +83,7 @@ public class WebProductVo {
     /**
      * 分类筛选属性
      */
-    @Field(type = FieldType.Text ,index =true, analyzer="standard",    searchAnalyzer = "standard"  ,store = true)
+    @Field(type = FieldType.Keyword ,index =true ,store = true)
     private String attrs;
     /**
      * 分类名称
