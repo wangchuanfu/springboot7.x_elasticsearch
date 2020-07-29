@@ -3,6 +3,13 @@
 <mapper namespace="com.j1.dao.ProductIndexMapper">
 
 
+
+
+    <resultMap type="com.j1.pojo.ProductAttrs" id="productAttributeMap">
+        <result property="attrId" column="attribute_id" />
+        <result property="attrCode" column="attr_code" />
+    </resultMap>
+
     <resultMap id="productResultMap" type="com.j1.pojo.Product">
 
         <result column="product_common_name" property="productCommonName" />
@@ -28,19 +35,14 @@
         <result column="PRODUCT_ID" property="attrs" select="ProductAttribute.getAttrListByProduct" javaType="List"/>
         <result column="PRODUCT_ID" property="keywordScore" select="ProductKeyword.getKeywordListByProduct" javaType="List"/>
         -->
+        <association property="attrList" column="PRODUCT_ID" select="getAttrListByProduct"/>
 
-        <collection property="attrList" column="PRODUCT_ID" ofType="com.j1.pojo.ProductAttrs" >
-            <result property="attrId" column="attribute_id" />
-            <result property="attrCode" column="attr_code" />
-        </collection>
+        <!-- <association property="attrList" resultMap="productAttributeMap"/>  -->
 
     </resultMap>
 
 
-    <resultMap type="com.j1.pojo.ProductAttrs" id="productAttributeMap">
-        <result property="attrId" column="attribute_id" />
-        <result property="attrCode" column="attr_code" />
-    </resultMap>
+
 
 
 
@@ -52,6 +54,7 @@
     <select id="getAllProduct" parameterType="com.j1.pojo.Product" resultMap="productResultMap">
         select
         p.product_name,
+        p.product_id ,
         p.producer,
         p.drug_treatment,
         p.product_common_name,
@@ -184,7 +187,7 @@
 
 
         <if test="productId != null and productId != '' ">
-            and   p.product_id = #productId#
+            and   p.product_id =#{productId}
         </if>
         <!--
               <if test="addTime !=null || addTime!='' ">
@@ -213,7 +216,7 @@
         left join product_attr_def pad on pa.attribute_id = pad.attribute_id
         right join product p on p.product_id = pad.product_id
         right join product_attribute_value pav on pad.attribute_value = pav.attr_name
-        where p.product_id =#{value}
+        where p.product_id =#{productId}
         and pa.attribute_id is not null
         and pav.attr_code is not null
     </select>
