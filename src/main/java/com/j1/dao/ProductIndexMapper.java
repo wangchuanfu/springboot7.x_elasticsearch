@@ -15,4 +15,6 @@ import java.util.Map;
 @Repository
 public interface ProductIndexMapper {
     List<Map<String, Object>> getAllProduct();
+
+    List getAttrListByProduct(Integer productId);
 }

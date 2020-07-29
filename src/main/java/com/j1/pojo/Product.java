@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * Created by wangchuanfu on 20/7/17.
@@ -61,6 +62,30 @@ public class Product extends BaseBO {
      * 延伸字段
      */
     private String unitName;
+
+    private List<ProductAttrs> attrList;
+    private Integer cataLogListId;
+    private  String cataLogListName;
+
+    private long goodEvalAmount;
+    private long clickAmount;
+    private String promotePhrase;
+    private String ecPrice;
+
+    private BigDecimal marketPrice;
+
+    private String proImageUrl;
+    private String tagIconUrl;
+    private  BigDecimal availableStock;
+    private BigDecimal saleScore;
+    private  Integer saleAmount;
+
+
+
+
+
+
+
 
 
 }

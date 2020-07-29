@@ -129,17 +129,10 @@ public class WebProductVo {
     /**
      * 上架时间
      */
-    // @Field(type = FieldType.Date, format = DateFormat.basic_date_time)
-    // @Field(type = FieldType.Date,format = DateFormat.custom,pattern ="yyyy-MM-dd HH:mm:ss")
-   //  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-   // @Field(type = FieldType.Date, index =false, store = true,
-           // format = DateFormat.custom, pattern = "YYYY-MM-dd'T'HH:mm:ss")
-  //  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="YYYY-MM-dd'T'HH:mm:ss")
-   // private String saleTime;
-   // @Field(type = FieldType.Date,name = "saleTime",format =DateFormat.date_optional_time)
+
     @Field(type = FieldType.Keyword ,index =false ,store = true)
 
-    private String saleTime;
+    private Date saleTime;
 
     @Field(type = FieldType.Date,format = DateFormat.custom,pattern ="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
