@@ -50,7 +50,7 @@ public class ProductIndexController {
                 elasticsearchTemplate.createIndex(WebProductVo.class);
                 elasticsearchTemplate.putMapping(WebProductVo.class);
             }
-            List<Map<String, Object>> allProduct = productIndexService.getAllProduct();
+            List<Product> allProduct = productIndexService.getAllProduct();
             if (allProduct.size() > 0) {
                 esUtils.insertIntoEsByBulk(esAttribute.getIndexName(), esAttribute.getIndexType(), allProduct, "goodsId");
 

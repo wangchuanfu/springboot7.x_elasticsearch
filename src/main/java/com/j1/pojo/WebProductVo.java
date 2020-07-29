@@ -132,7 +132,7 @@ public class WebProductVo {
 
     @Field(type = FieldType.Keyword ,index =false ,store = true)
 
-    private Date saleTime;
+    private String saleTime;
 
     @Field(type = FieldType.Date,format = DateFormat.custom,pattern ="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")

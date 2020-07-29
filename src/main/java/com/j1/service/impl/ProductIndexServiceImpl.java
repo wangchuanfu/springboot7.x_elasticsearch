@@ -20,8 +20,8 @@ public class ProductIndexServiceImpl implements ProductIndexService {
     ProductIndexMapper productIndexMapper;
     @Override
     @ResponseBody
-    public List<Map<String, Object>>  getAllProduct() {
-        List<Map<String, Object>>allProduct = productIndexMapper.getAllProduct();
+    public List<Product>  getAllProduct() {
+        List<Product>allProduct = productIndexMapper.getAllProduct();
 
         return allProduct;
     }

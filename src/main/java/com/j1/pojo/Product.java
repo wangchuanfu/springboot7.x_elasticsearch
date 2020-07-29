@@ -19,7 +19,6 @@ public class Product extends BaseBO {
     private String productCode;
     private String productName;
     private String productCommonName;
-    private String productAliasName;
     private String productChnNo;
     private Integer productOrder;
     private Integer proCatalogId;
@@ -39,7 +38,7 @@ public class Product extends BaseBO {
     private String productDesc;
     private Integer unitId;
     private String isOnsale;
-    private String onsaleTime;
+    private String saleTime;
     private BigDecimal productLeastOrder;
     private BigDecimal orderLimitAmount;
     private String isStockWarn;
@@ -64,7 +63,7 @@ public class Product extends BaseBO {
     private String unitName;
 
     private List<ProductAttrs> attrList;
-    private Integer cataLogListId;
+    private String cataLogListId;
     private  String cataLogListName;
 
     private long goodEvalAmount;
@@ -80,8 +79,18 @@ public class Product extends BaseBO {
     private BigDecimal saleScore;
     private  Integer saleAmount;
 
-
-
+    private Integer goodsId;
+    private String goodsNo;
+    private Integer stock;
+    private String thumb;
+    private String productName1;
+    private  String productBrandName;
+    private String productBrandName1;
+    private  Integer commentSum;
+    private Integer cataLogPathId;
+    private String discountState;
+    private String goodsSeller;
+    private String productAliasName;
 
 
 

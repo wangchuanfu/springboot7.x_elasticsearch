@@ -3,11 +3,14 @@
 <mapper namespace="com.j1.dao.ProductIndexMapper">
 
 
-    <resultMap id="productResultMap" type="hashMap">
+    <resultMap id="productResultMap" type="com.j1.pojo.Product">
         <result column="good_eval_amount" property="goodEvalAmount" />
         <result column="click_amount" property="clickAmount" />
-        <result column="product_common_name" property="productCommonName" />
+       <!-- <result column="onsale_time" property="onSaleTime" />-->
         <result column="sale_time" property="saleTime" />
+        <result column="product_code" property="productCode" />
+        <result column="product_common_name" property="productCommonName" />
+        <result column="PRODUCT_ALIAS_NAME" property="productAliasName" />
         <result column="pro_catalog_id" property="proCatalogId" />
         <result column="catalog_list_id" property="cataLogListId" javaType="String"/>
         <result column="catalog_list_name" property="cataLogListName" javaType="String"/>
@@ -44,8 +47,8 @@
         <result column="product_brand_name1" property="productBrandName1"/>
         <result column="product_order" property="productOrder"/>
         <result column="comment_sum" property="commentSum" />
-        <result column="full_index" property="cataLogPathId" />
-        <result column="discount" property="discount"/>
+        <!--<result column="full_index" property="cataLogPathId" />-->
+        <result column="discount_state" property="discountState"/>
         <result column="goods_seller" property="goodsSeller"/>
        <!--  <result column="PRODUCT_ID" property="attrs" select="ProductAttribute.getAttrListByProduct" javaType="List"/>
         <result column="PRODUCT_ID" property="keywordScore" select="ProductKeyword.getKeywordListByProduct" javaType="List"/>
@@ -53,7 +56,7 @@
         <association property="attrList" column="PRODUCT_ID" select="getAttrListByProduct"/>
  -->
         <association property="attrList" column="PRODUCT_ID"
-                     resultMap="productAttributeMap" />
+                     select="getAttrListByProduct" />
 
 
 
@@ -65,12 +68,26 @@
     <!-- lucene通过ID建立索引sql语句 -->
     <select id="getAllProduct" parameterType="com.j1.pojo.Product" resultMap="productResultMap">
         select
+        p.product_id,
+        p.PRODUCT_CODE,
         p.product_name,
+        p.PRODUCT_ALIAS_NAME,
+        p.PRODUCT_CHN_NO,
+        p.DRUG_APPROVE_NO,
+        p.DRUG_APPROVE_TYPE,
+        p.DRUG_COMPOSITION,
+        p.DRUG_TYPE,
+        p.QUALITY_LIMIT,
+        p.PRODUCT_MARKET_DATE,
+        p.PRODUCT_TYPE_ID,
+        p.UNIT_ID,
+        p.PRODUCT_DESC,
+        p.IS_ONSALE,
         p.producer,
         p.drug_treatment,
         p.product_common_name,
         p.drug_prescription_type,
-        p.onsale_time sale_time ,
+        p.onsale_time sale_time,
         p.product_least_order || '' as "product_least_order",
         p.order_limit_amount || '' as "order_limit_amount",
         g.goods_id,
@@ -133,7 +150,7 @@
         'Y'
         else
         'N'
-        end) as discount,
+        end) as discount_state,
         pc.pro_catalog_name,
         replace(pc.full_index,'.',',') full_index ,
         p.product_keyword,

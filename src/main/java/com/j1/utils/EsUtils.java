@@ -71,7 +71,7 @@ public class EsUtils {
         return true;
     }
     //批量插入数据到es中
-    public boolean insertIntoEsByBulk(String indexName, String type, List <Map<String, Object>> dataList, String idFieldName) throws Exception {
+    public boolean insertIntoEsByBulk(String indexName, String type, List <Product> dataList, String idFieldName) throws Exception {
         String goodsId=null;
         XContentBuilder sources = null;
         try {
@@ -84,7 +84,7 @@ public class EsUtils {
                     IndexRequest indexRequest = this.getIndexRequest(indexName, type);
                    // UpdateRequest request = this.getUpdateRequest(indexName, type);
                     try {
-                         goodsId = dataList.get(i).get("goodsId").toString();
+                         goodsId = dataList.get(i).getGoodsId().toString();
                     }catch (Exception e){
                         log.error("{} 获取id失败", goodsId, e);
                     }
