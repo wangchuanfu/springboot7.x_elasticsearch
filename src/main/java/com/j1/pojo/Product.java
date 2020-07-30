@@ -38,7 +38,9 @@ public class Product extends BaseBO {
     private String productDesc;
     private Integer unitId;
     private String isOnsale;
-    private String saleTime;
+    private String saleTime;//saleTime 和mapping的model保持一致,同时.xml也要保持一致   <result column="sale_time" property="saleTime" />
+                            //不过为了代码的可读性,还是保持和数据库的字段一致,各个方面都是onsale_time
+
     private BigDecimal productLeastOrder;
     private BigDecimal orderLimitAmount;
     private String isStockWarn;
@@ -62,7 +64,7 @@ public class Product extends BaseBO {
      */
     private String unitName;
 
-    private List<ProductAttrs> attrList;
+    private List<ProductAttrs> attrs;
     private String cataLogListId;
     private  String cataLogListName;
 

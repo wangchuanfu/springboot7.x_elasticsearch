@@ -55,7 +55,7 @@
 
         <association property="attrList" column="PRODUCT_ID" select="getAttrListByProduct"/>
  -->
-        <association property="attrList" column="PRODUCT_ID"
+        <association property="attrs" column="PRODUCT_ID"
                      select="getAttrListByProduct" />
 
 
