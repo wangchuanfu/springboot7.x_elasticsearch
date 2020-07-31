@@ -2,6 +2,7 @@ package com.j1.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.j1.pojo.Product;
+import com.j1.pojo.ProductAttrs;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -100,22 +101,36 @@ public class EsUtils {
 
                     //封装成json 数据
                     indexRequest.id(String.valueOf(goodsId));
-
+                    //拼接attrs
+                    String attrs=loadAttrs(dataList.get(i));
                    // sources.field(DefaultIndexField.MODIFIED, new Date());
                     indexRequest.source ( JSON.toJSONString ( dataList.get(i) ), XContentType.JSON );
                     IndexResponse indexResponse = client.index ( indexRequest, RequestOptions.DEFAULT );
                     bulkRequest.add(indexRequest);
                 }
             }
-
+            long start =System.currentTimeMillis();
 
             BulkResponse bulk = this.client.bulk(bulkRequest, RequestOptions.DEFAULT);
+            long end = System.currentTimeMillis();
+            log.error("bulk共用时间 -->> "+(end - start) + " 毫秒");
 
         } catch (Exception e) {
             log.error("{} 批量插入失败",goodsId, e);
         }
         return true;
     }
+
+    private String loadAttrs(Product product) {
+        List<ProductAttrs> attrs = product.getAttrs();
+        StringBuffer sb = new StringBuffer();
+        for (ProductAttrs attr:attrs) {
+            sb.append(attr.getAttrId().toString() + "_" + attr.getAttrCode().toString() + ",");
+        }
+        return sb.toString();
+
+    }
+
     //更新
     private UpdateRequest getUpdateRequest(String indexName, String type) {
         UpdateRequest request = new UpdateRequest();
