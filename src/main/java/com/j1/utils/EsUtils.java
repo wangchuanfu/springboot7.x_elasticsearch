@@ -3,8 +3,8 @@ package com.j1.utils;
 import com.alibaba.fastjson.JSON;
 import com.j1.pojo.Product;
 import com.j1.pojo.ProductAttrs;
+import com.j1.pojo.SuggestPrompt;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
@@ -18,15 +18,11 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.GetIndexRequest;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentType;
-import org.elasticsearch.rest.RestStatus;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by wangchuanfu on 20/7/10.
@@ -170,4 +166,43 @@ public class EsUtils {
         return indexRequest;
     }
 
+    public void insertIntoSuggestByBulk(String suggestIndexName, String indexType, List<SuggestPrompt> allSuggestProduct, String idFieldName) {
+
+            //同步数据
+        String promptId=null;
+
+        try {
+            //先判断索引是否存在
+
+            BulkRequest bulkRequest = new BulkRequest();
+            if (null != allSuggestProduct && allSuggestProduct.size() > 0) {
+
+                for (int i = 0; i < allSuggestProduct.size(); i++) {
+                    IndexRequest indexRequest = this.getIndexRequest(suggestIndexName, indexType);
+                    try {
+                        promptId = allSuggestProduct.get(i).getPromptId().toString();
+                    }catch (Exception e){
+                        log.error("{} 获取id失败", promptId, e);
+                    }
+
+
+                    //封装成json 数据
+                    indexRequest.id(String.valueOf(promptId));
+
+                    // sources.field(DefaultIndexField.MODIFIED, new Date());
+                    indexRequest.source ( JSON.toJSONString ( allSuggestProduct.get(i) ), XContentType.JSON );
+                    IndexResponse indexResponse = client.index ( indexRequest, RequestOptions.DEFAULT );
+                    bulkRequest.add(indexRequest);
+                }
+            }
+            long start =System.currentTimeMillis();
+
+            BulkResponse bulk = this.client.bulk(bulkRequest, RequestOptions.DEFAULT);
+            long end = System.currentTimeMillis();
+            log.error("bulk共用时间 -->> "+(end - start) + " 毫秒");
+
+        } catch (Exception e) {
+            log.error("{} 批量插入失败",promptId, e);
+        }
+    }
 }

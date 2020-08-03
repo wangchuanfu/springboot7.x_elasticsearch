@@ -19,6 +19,7 @@ spring:
 es:
  indexname: hy_web_index
  indextype: _doc
+ suggestindexName: suggest_keyword
 mybatis:
   mapper-locations: classpath:com/j1/mapper/*.xml
   type-aliases-package: org.spring.springboot.demo.dao

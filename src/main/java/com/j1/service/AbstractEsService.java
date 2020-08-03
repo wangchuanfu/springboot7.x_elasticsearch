@@ -39,7 +39,7 @@ public abstract class AbstractEsService <T>{
      * 初始化时，从超类中找到泛型对象，从泛型对象的EsIndex注解中获得索引名、索引类型
      */
     public AbstractEsService() {
-        init();
+        //init();
     }
     private void init() {
         try {

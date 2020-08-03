@@ -1,7 +1,9 @@
 package com.j1.action;
 
 import com.j1.service.InitIndexService;
+import com.j1.service.SuggestionSearchService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +22,9 @@ import java.util.Map;
     @RestController
 public class SearchGoodsAction {
 
+    //搜索提示
+    @Autowired
+    SuggestionSearchService suggestionSearchService;
     @Resource
     InitIndexService initIndexService;
     //根据关键字搜索
@@ -36,12 +41,13 @@ public class SearchGoodsAction {
 
     }
 
-    //根据关键字查询
+    //搜索提示
     @RequestMapping("/search/suggest")
     public List<String> searchSuggest(@RequestParam(required = false) String keyword) {
-        if (StringUtils.isBlank(keyword)) {
-            return new ArrayList<>(Arrays.asList("Welcome", "Hello"));
-        }
-        return new ArrayList<>(Arrays.asList(keyword, keyword + "怎么样"));
+
+
+        List<String> strings = suggestionSearchService.querySuggest(keyword);
+
+        return strings;
     }
 }

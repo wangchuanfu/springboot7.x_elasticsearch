@@ -22,4 +22,7 @@ public class EsAttribute {
     @Value("${es.indextype}")
     private String indexType;
 
+    @Value("${es.suggestindexName}")
+    private String suggestIndexName;
+
 }

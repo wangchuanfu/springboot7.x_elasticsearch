@@ -55,7 +55,6 @@ import java.util.Map;
 @Service
 @Slf4j
 public class InitIndexService {
-    private static Logger logger = LoggerFactory.getLogger(InitIndexService.class);
 
     @Resource
     IntoEsUtils intoEsUtils;
@@ -66,8 +65,76 @@ public class InitIndexService {
     EsAttribute esAttribute;
 
     public List<Map<String, Object>> search(String keyword, Integer pageNo, Integer pageSize) throws Exception {
-        return querySearch(keyword, pageNo, pageSize);
+        return querySearchjd(keyword, pageNo, pageSize);
     }
+
+    private List<Map<String,Object>> querySearchjd(String keyword, Integer pageNo, Integer pageSize) {
+        try {
+        //创建searchRequest
+        SearchRequest searchRequest = new SearchRequest("jd_goods");
+        //构建查询条件
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery("title", keyword);//term 精确查找
+        MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery("title", keyword);//一般match查询
+        searchSourceBuilder.query(matchQueryBuilder);
+
+
+
+        //boolean 查询
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+
+        boolQueryBuilder.mustNot(QueryBuilders.termQuery("ecPrice",-1));
+
+        searchSourceBuilder.postFilter(boolQueryBuilder);
+
+
+
+
+
+
+        searchSourceBuilder.size(pageSize);
+        searchSourceBuilder.from(pageNo);
+        //显示高亮
+        HighlightBuilder highlightBuilder = new HighlightBuilder();
+        highlightBuilder.field("title");
+        highlightBuilder.preTags("<span style='color:red'>");
+        highlightBuilder.postTags("</span>");
+
+        searchSourceBuilder.highlighter(highlightBuilder);
+        searchRequest.source(searchSourceBuilder);
+
+        log.info(searchRequest.toString());
+        //执行查询
+        SearchResponse searchResponse = null;
+
+            searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+
+        //循环遍历
+        SearchHit[] searchHits = searchResponse.getHits().getHits();
+        List<Map<String, Object>> list = new ArrayList<>();
+        for (SearchHit searchHit : searchHits) {
+            Map<String, Object> sourceAsMap = searchHit.getSourceAsMap();//查询的原来的结果
+            Map<String, HighlightField> highlightFields = searchHit.getHighlightFields();
+            HighlightField title = highlightFields.get("title");
+            if (title != null) {
+                //解析高亮字段,将之前查出来的没高亮的字段 替换为高亮字段
+                Text[] fragments = title.fragments();
+                StringBuilder newTitle = new StringBuilder();
+                for (Text fragment : fragments) {
+                    newTitle.append(fragment.string());
+                }
+                sourceAsMap.put("title", newTitle);
+            }
+            list.add(sourceAsMap);
+
+        }
+        return list;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+      return null;
+      }
+
 
 
     //根据关键字查询

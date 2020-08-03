@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.j1.dao.SuggestIndexMapper">
+    <resultMap type="com.j1.pojo.SuggestPrompt" id="suggestPromptMap">
+        <result property="promptId" column="prompt_Id"/>
+        <result property="promptName" column="prompt_Name"/>
+        <result property="searchName" column="search_Name"/>
+        <result property="promptOrder" column="prompt_Order"/>
+    </resultMap>
+
+
+    <select id="getAllSuggestProduct" resultMap="suggestPromptMap" parameterType="com.j1.pojo.SuggestPrompt">
+
+   select
+       sp.PROMPT_ID,
+       sp.PROMPT_NAME,
+       sp.SEARCH_NAME,
+       sp.PROMPT_ORDER
+   from
+   SEARCH_KEYWORD_PROMPT sp
+
+
+    </select>
+
+</mapper>

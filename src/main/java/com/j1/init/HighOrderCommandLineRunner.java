@@ -13,39 +13,18 @@ import java.lang.reflect.Type;
 
 /**
  * Created by wangchuanfu on 20/7/30.
- */
+
 @Slf4j
 @Component
 public class HighOrderCommandLineRunner<T> implements CommandLineRunner,Ordered {
 
-    /**
-     * 泛型T的类型
-     */
-    protected Class<T> clazz;
-    /**
-     * 泛型T中的属性
-     */
-    protected Field[] fields;
-    /**
-     * 索引名
-     */
-    protected String indexName;
-    /**
-     * 索引类型
-     */
-    protected String[] indexTypes;
-    /**
-     * springboot 项目启动完成之后立刻执行
-     * @param strings
-     * @throws Exception
-     */
+
     @Override
     public void run(String... strings) throws Exception {
 
 
         log.info("i am highOrderRunner");
         System.out.println("MyApplicationRunner==========haha======" );
-        /**
          *
         try {
             // 获得超类，e.g.：Service2 extends
@@ -80,7 +59,7 @@ public class HighOrderCommandLineRunner<T> implements CommandLineRunner,Ordered 
         } catch (Exception e) {
             e.printStackTrace();
         }
-         */
+
     }
 
     @Override
@@ -88,4 +67,4 @@ public class HighOrderCommandLineRunner<T> implements CommandLineRunner,Ordered 
 
         return Integer.MIN_VALUE+1;
     }
-}
+}  */
