@@ -5,10 +5,15 @@ import com.j1.pojo.EsAttribute;
 import com.j1.service.InitIndexService;
 import com.j1.service.IntoEsUtils;
 import com.j1.service.SuggestionSearchService;
+import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.action.admin.indices.analyze.AnalyzeAction;
+import org.elasticsearch.action.admin.indices.analyze.AnalyzeRequestBuilder;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.index.query.DisMaxQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.suggest.Suggest;
 import org.elasticsearch.search.suggest.SuggestBuilder;
@@ -31,6 +36,7 @@ import java.util.Set;
 /**
  * Created by wangchuanfu on 20/8/3.
  */
+@Slf4j
 @Service
 //提示词搜索
 public class SuggestionSearchServiceImpl implements SuggestionSearchService {
@@ -50,6 +56,141 @@ public class SuggestionSearchServiceImpl implements SuggestionSearchService {
     @Override
     public List<String> querySuggest(String keyword) {
         try {
+
+
+            //全拼前缀匹配
+            CompletionSuggestionBuilder fullPinyinSuggest = new CompletionSuggestionBuilder("full_pinyin_suggest")
+                    .prefix("full_pinyin").text(keyword).size(100);
+            //汉字前缀匹配
+            CompletionSuggestionBuilder suggestText = new CompletionSuggestionBuilder("suggestText")
+                    .prefix("suggestText").text(keyword).size(100);
+            //拼音搜字母前缀匹配
+            CompletionSuggestionBuilder prefixPinyinSuggest = new CompletionSuggestionBuilder("prefix_pinyin_text")
+                    .prefix("prefix_pinyin").text(keyword).size(100);
+
+
+            /**
+             * 中英文搜索提示
+             *
+             *
+             *
+             PUT /station_test/
+             {
+                 "settings": {
+                 "index": {
+                 "analysis": {
+                 "analyzer": {
+                 "pinyin_analyzer": {
+                 "tokenizer": "my_pinyin"
+                 }
+             },
+                 "tokenizer": {
+                     "my_pinyin": {
+                     "type": "pinyin",
+                     "keep_first_letter":true,
+                     "keep_separate_first_letter": true,
+                     "keep_full_pinyin": true,
+                     "keep_original": true,
+                     "limit_first_letter_length": 16,
+                     "lowercase": true
+                            }
+                       }
+                    }
+                }
+             },
+             "mappings": {
+
+                     "properties": {
+                     "station_name": {
+                     "type": "text",
+                     "analyzer": "ik_max_word",
+                     "fields": {
+                     "s-pinyin": {
+                     "type": "completion",
+                     "analyzer": "pinyin_analyzer"
+                     }
+                 }
+             },
+                 "station_code": {
+                 "type": "completion"
+                    }
+                 }
+              }
+
+             }
+
+             PUT /station_test/_doc/1
+             {
+             "station_code": "VAP",
+             "station_name": "北京北"
+             }
+
+             PUT /station_test/_doc/2
+             {
+             "station_code": "BOP",
+             "station_name": "北京东"
+             }
+
+             PUT /station_test/_doc/3
+             {
+             "station_code": "GGQ",
+             "station_name": "广州南"
+             }
+
+             PUT /station_test/_doc/4
+             {
+             "station_code": "SHH",
+             "station_name": "上海"
+             }
+
+             */
+            //查询条件
+            CompletionSuggestionBuilder stationName = SuggestBuilders.completionSuggestion("station_name.s-pinyin").prefix(keyword);
+            CompletionSuggestionBuilder stationCode = SuggestBuilders.completionSuggestion("station_code").prefix(keyword);
+
+            SearchRequest suggestSearchRequest = new SearchRequest().indices("station_test").source(new SearchSourceBuilder().suggest(
+                    new SuggestBuilder().addSuggestion("pinyin-suggest", stationName)
+                            .addSuggestion("code-suggest", stationCode)
+            ));
+            /**
+             * GET station_test/_search
+             {
+                     "suggest": {
+                     "code-suggest": {
+                     "prefix": "bj",
+                     "completion": {
+                     "field": "station_code"
+                     }
+                 },
+                     "pinyin-suggest": {
+                     "prefix": "bj",
+                     "completion": {
+                     "field": "station_name.s-pinyin"
+                       }
+                     }
+               }
+             }
+             */
+            log.error(suggestSearchRequest.source().toString());
+
+            SearchResponse suggestResponse = client.search(suggestSearchRequest, RequestOptions.DEFAULT);
+            Suggest suggestResult = suggestResponse.getSuggest();
+
+            List<? extends Suggest.Suggestion.Entry<? extends Suggest.Suggestion.Entry.Option>> results = suggestResult.getSuggestion("pinyin-suggest").getEntries();
+            for (Suggest.Suggestion.Entry<? extends Suggest.Suggestion.Entry.Option> op : results) {
+                List<? extends Suggest.Suggestion.Entry.Option> options = op.getOptions();
+                for (Suggest.Suggestion.Entry.Option pp : options) {
+                    System.out.println( pp.getText());
+                }
+            }
+
+
+
+
+
+
+
+
 
 
             SuggestBuilder suggestBuilder = new SuggestBuilder();
