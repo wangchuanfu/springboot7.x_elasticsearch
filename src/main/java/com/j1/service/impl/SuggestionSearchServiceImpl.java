@@ -145,12 +145,12 @@ public class SuggestionSearchServiceImpl implements SuggestionSearchService {
 
              */
             //查询条件
-            CompletionSuggestionBuilder stationName = SuggestBuilders.completionSuggestion("station_name.s-pinyin").prefix(keyword);
+            CompletionSuggestionBuilder stationName = SuggestBuilders.completionSuggestion("promptName.s-pinyin").prefix(keyword);
             CompletionSuggestionBuilder stationCode = SuggestBuilders.completionSuggestion("station_code").prefix(keyword);
 
-            SearchRequest suggestSearchRequest = new SearchRequest().indices("station_test").source(new SearchSourceBuilder().suggest(
+            SearchRequest suggestSearchRequest = new SearchRequest().indices("station_test1").source(new SearchSourceBuilder().suggest(
                     new SuggestBuilder().addSuggestion("pinyin-suggest", stationName)
-                            .addSuggestion("code-suggest", stationCode)
+                           // .addSuggestion("code-suggest", stationCode)
             ));
             /**
              * GET station_test/_search
@@ -171,6 +171,7 @@ public class SuggestionSearchServiceImpl implements SuggestionSearchService {
                }
              }
              */
+
             log.error(suggestSearchRequest.source().toString());
 
             SearchResponse suggestResponse = client.search(suggestSearchRequest, RequestOptions.DEFAULT);
@@ -195,21 +196,24 @@ public class SuggestionSearchServiceImpl implements SuggestionSearchService {
 
             SuggestBuilder suggestBuilder = new SuggestBuilder();
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-            SearchRequest searchRequest = new SearchRequest(esAttribute.getSuggestIndexName());
+            //SearchRequest searchRequest = new SearchRequest(esAttribute.getSuggestIndexName());
+            SearchRequest searchRequest = new SearchRequest("station_test1");
 
             SuggestionBuilder suggestionBuilder = SuggestBuilders.completionSuggestion("promptName").prefix(keyword);
             suggestBuilder.addSuggestion("my_index_suggest", suggestionBuilder);
             searchSourceBuilder.suggest(suggestBuilder);
             searchRequest.source(searchSourceBuilder);
-
-
-            SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+            log.error(searchSourceBuilder.toString());
+            /**
+             *
+             */
+           // SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
             List<String> keywords = null;
-            Suggest suggest = searchResponse.getSuggest();
+            Suggest suggest = suggestResponse.getSuggest();
             if (suggest != null) {
                 keywords = new ArrayList<>();
                 List<? extends Suggest.Suggestion.Entry<? extends Suggest.Suggestion.Entry.Option>> entries =
-                        suggest.getSuggestion("my_index_suggest").getEntries();
+                        suggest.getSuggestion("pinyin-suggest").getEntries();
 
                 for (Suggest.Suggestion.Entry<? extends Suggest.Suggestion.Entry.Option> entry : entries) {
                     for (Suggest.Suggestion.Entry.Option option : entry.getOptions()) {
