@@ -124,7 +124,8 @@ html {
 }
 
 .header-extra {
-    overflow: hidden
+    overflow: hidden;
+
 }
 
 #mallSearch {
@@ -709,7 +710,8 @@ i.f-ico-triangle-mb {
 
 .productTitle {
     display: block;
-    color: #666;
+
+    color: #ff0036;
     height: 14px;
     line-height: 12px;
     margin-bottom: 3px;

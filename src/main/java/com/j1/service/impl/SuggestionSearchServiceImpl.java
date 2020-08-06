@@ -241,6 +241,9 @@ public class SuggestionSearchServiceImpl implements SuggestionSearchService {
                             if (keyword1.equals(keyword))
                                 continue;
                             keywords.add(keyword1);
+                            if (keywords.size() >= 7) {
+                                break;
+                            }
                         }
 
                     }
