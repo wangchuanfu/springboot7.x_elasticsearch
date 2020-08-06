@@ -178,7 +178,7 @@ public class EsUtils {
             if (null != allSuggestProduct && allSuggestProduct.size() > 0) {
 
                 for (int i = 0; i < allSuggestProduct.size(); i++) {
-                    IndexRequest indexRequest = this.getIndexRequest("station_test1", indexType);
+                    IndexRequest indexRequest = this.getIndexRequest(suggestIndexName, indexType);
                     try {
                         promptId = allSuggestProduct.get(i).getPromptId().toString();
                     }catch (Exception e){

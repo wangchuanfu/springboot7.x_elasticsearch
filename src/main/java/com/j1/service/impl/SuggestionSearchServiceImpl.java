@@ -56,7 +56,7 @@ public class SuggestionSearchServiceImpl implements SuggestionSearchService {
     @Override
     public List<String> querySuggest(String keyword) {
         try {
-
+            List<String>  keywords = new ArrayList<>();
 
             //全拼前缀匹配
             CompletionSuggestionBuilder fullPinyinSuggest = new CompletionSuggestionBuilder("full_pinyin_suggest")
@@ -177,14 +177,6 @@ public class SuggestionSearchServiceImpl implements SuggestionSearchService {
             SearchResponse suggestResponse = client.search(suggestSearchRequest, RequestOptions.DEFAULT);
             Suggest suggestResult = suggestResponse.getSuggest();
 
-            List<? extends Suggest.Suggestion.Entry<? extends Suggest.Suggestion.Entry.Option>> results = suggestResult.getSuggestion("pinyin-suggest").getEntries();
-            for (Suggest.Suggestion.Entry<? extends Suggest.Suggestion.Entry.Option> op : results) {
-                List<? extends Suggest.Suggestion.Entry.Option> options = op.getOptions();
-                for (Suggest.Suggestion.Entry.Option pp : options) {
-                    System.out.println( pp.getText());
-                }
-            }
-
 
 
 
@@ -196,22 +188,22 @@ public class SuggestionSearchServiceImpl implements SuggestionSearchService {
 
             SuggestBuilder suggestBuilder = new SuggestBuilder();
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-            //SearchRequest searchRequest = new SearchRequest(esAttribute.getSuggestIndexName());
-            SearchRequest searchRequest = new SearchRequest("station_test1");
+            SearchRequest searchRequest = new SearchRequest(esAttribute.getSuggestIndexName());
+           // SearchRequest searchRequest = new SearchRequest("station_test1");
 
             SuggestionBuilder suggestionBuilder = SuggestBuilders.completionSuggestion("promptName").prefix(keyword);
-            suggestBuilder.addSuggestion("my_index_suggest", suggestionBuilder);
+            suggestBuilder.addSuggestion("pinyin-suggest", suggestionBuilder);
             searchSourceBuilder.suggest(suggestBuilder);
             searchRequest.source(searchSourceBuilder);
             log.error(searchSourceBuilder.toString());
             /**
              *
              */
-           // SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
-            List<String> keywords = null;
-            Suggest suggest = suggestResponse.getSuggest();
+            SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+
+            Suggest suggest = searchResponse.getSuggest();
             if (suggest != null) {
-                keywords = new ArrayList<>();
+
                 List<? extends Suggest.Suggestion.Entry<? extends Suggest.Suggestion.Entry.Option>> entries =
                         suggest.getSuggestion("pinyin-suggest").getEntries();
 
@@ -224,10 +216,33 @@ public class SuggestionSearchServiceImpl implements SuggestionSearchService {
                             if (keyword1.equals(keyword))
                                 continue;
                             keywords.add(keyword1);
-                            if (keywords.size() >= 9) {
-                                break;
-                            }
+                            /**
+                             *  if (keywords.size() >= 9) {
+                             break;
+                             }
+                             */
+
                         }
+                    }
+                }
+            }
+            if(suggestResult!=null){
+
+
+                List<? extends Suggest.Suggestion.Entry<? extends Suggest.Suggestion.Entry.Option>> results = suggestResult.getSuggestion("pinyin-suggest").getEntries();
+                for (Suggest.Suggestion.Entry<? extends Suggest.Suggestion.Entry.Option> op : results) {
+                    List<? extends Suggest.Suggestion.Entry.Option> options = op.getOptions();
+                    for (Suggest.Suggestion.Entry.Option option : options) {
+                        System.out.println( option.getText());
+                        /** 最多返回9个推荐，每个长度最大为20 */
+                        String keyword1 = option.getText().string();
+                        if (!StringUtils.isEmpty(keyword) && keyword.length() <= 20) {
+                            /** 去除输入字段 */
+                            if (keyword1.equals(keyword))
+                                continue;
+                            keywords.add(keyword1);
+                        }
+
                     }
                 }
             }
