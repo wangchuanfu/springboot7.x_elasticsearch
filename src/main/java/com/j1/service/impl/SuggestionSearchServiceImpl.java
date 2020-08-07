@@ -172,7 +172,7 @@ public class SuggestionSearchServiceImpl implements SuggestionSearchService {
              }
              */
 
-            log.error(suggestSearchRequest.source().toString());
+            log.error("index为 {}, DSL为 {}", suggestSearchRequest.indices(), suggestSearchRequest.source().toString());
 
             SearchResponse suggestResponse = client.search(suggestSearchRequest, RequestOptions.DEFAULT);
             Suggest suggestResult = suggestResponse.getSuggest();
@@ -195,7 +195,8 @@ public class SuggestionSearchServiceImpl implements SuggestionSearchService {
             suggestBuilder.addSuggestion("pinyin-suggest", suggestionBuilder);
             searchSourceBuilder.suggest(suggestBuilder);
             searchRequest.source(searchSourceBuilder);
-            log.error(searchSourceBuilder.toString());
+            log.error("index为 {}, DSL为 {}", searchRequest.indices(), searchRequest.source().toString());
+
             /**
              *
              */
