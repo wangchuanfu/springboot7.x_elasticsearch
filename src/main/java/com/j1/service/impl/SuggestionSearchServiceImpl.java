@@ -2,6 +2,8 @@ package com.j1.service.impl;
 
 import com.alibaba.druid.util.StringUtils;
 import com.j1.pojo.EsAttribute;
+import com.j1.result.BaseServiceImpl;
+import com.j1.result.ServiceMessage;
 import com.j1.service.InitIndexService;
 import com.j1.service.IntoEsUtils;
 import com.j1.service.SuggestionSearchService;
@@ -39,7 +41,7 @@ import java.util.Set;
 @Slf4j
 @Service
 //提示词搜索
-public class SuggestionSearchServiceImpl implements SuggestionSearchService {
+public class SuggestionSearchServiceImpl extends BaseServiceImpl implements SuggestionSearchService {
     @Resource
     InitIndexService initIndexService;
 
@@ -54,7 +56,7 @@ public class SuggestionSearchServiceImpl implements SuggestionSearchService {
     ElasticsearchRestTemplate elasticsearchRestTemplate;
 
     @Override
-    public List<String> querySuggest(String keyword) {
+    public ServiceMessage<List<String> > querySuggest(String keyword) {
         try {
             List<String>  keywords = new ArrayList<>();
 
@@ -234,7 +236,6 @@ public class SuggestionSearchServiceImpl implements SuggestionSearchService {
                 for (Suggest.Suggestion.Entry<? extends Suggest.Suggestion.Entry.Option> op : results) {
                     List<? extends Suggest.Suggestion.Entry.Option> options = op.getOptions();
                     for (Suggest.Suggestion.Entry.Option option : options) {
-                        System.out.println( option.getText());
                         /** 最多返回9个推荐，每个长度最大为20 */
                         String keyword1 = option.getText().string();
                         if (!StringUtils.isEmpty(keyword) && keyword.length() <= 20) {
@@ -250,8 +251,10 @@ public class SuggestionSearchServiceImpl implements SuggestionSearchService {
                     }
                 }
             }
-          return keywords;
-            } catch (IOException e) {
+        //  return keywords;
+            return super.returnCorrectResult("查询活动成功！",keywords);
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

@@ -1,5 +1,6 @@
 package com.j1.service;
 
+import com.j1.result.ServiceMessage;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -11,5 +12,5 @@ import java.util.Set;
 @Component
 public interface SuggestionSearchService {
 
-    public List<String> querySuggest(String keyword);
+    public ServiceMessage<List<String> > querySuggest(String keyword);
 }

@@ -1,5 +1,6 @@
 package com.j1.action;
 
+import com.j1.result.ServiceMessage;
 import com.j1.service.SuggestionSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,10 +25,13 @@ public class SuggestionSearchAction {
     @ResponseBody
     @RequestMapping(value = "/searchSuggestion/{keyword}")
 
-    public List<String> setSuggestionSearchService(HttpServletRequest request,
+    public ServiceMessage<List<String>>setSuggestionSearchService(HttpServletRequest request,
                                                    HttpServletResponse response, @PathVariable String keyword ) {
 
-        List<String> strings = suggestionSearchService.querySuggest(keyword);
+        if (keyword == null || "".equals(keyword.trim())) {
+        return  null;
+        }
+        ServiceMessage<List<String>> strings = suggestionSearchService.querySuggest(keyword);
         return strings;
 
     }
