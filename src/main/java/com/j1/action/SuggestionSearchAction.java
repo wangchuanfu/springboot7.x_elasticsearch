@@ -28,9 +28,6 @@ public class SuggestionSearchAction {
                                                    HttpServletResponse response, @PathVariable String keyword ) {
 
         List<String> strings = suggestionSearchService.querySuggest(keyword);
-        for (String str : strings) {
-            System.out.println(str);
-        }
         return strings;
 
     }
