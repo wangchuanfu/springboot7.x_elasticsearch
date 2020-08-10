@@ -2,7 +2,7 @@ package com.j1.action;
 
 import com.j1.pojo.EsAttribute;
 import com.j1.pojo.Product;
-import com.j1.pojo.WebProductVo;
+import com.j1.pojo.vo.WebProductVo;
 import com.j1.service.ProductIndexService;
 import com.j1.utils.EsUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by wangchuanfu on 20/7/17.

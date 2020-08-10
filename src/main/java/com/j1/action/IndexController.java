@@ -2,6 +2,7 @@ package com.j1.action;
 
 import com.j1.pojo.*;
 import com.j1.pojo.Product;
+import com.j1.pojo.vo.WebProductVo;
 import com.j1.utils.EsUtils;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.slf4j.Logger;

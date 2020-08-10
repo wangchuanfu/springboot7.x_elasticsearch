@@ -1,12 +1,8 @@
 package com.j1.action;
 
-import com.alibaba.fastjson.JSONObject;
 import com.j1.common.base.*;
-import com.j1.common.utils.DateUtils;
-import com.j1.common.utils.WebUtils;
-import com.j1.pojo.WebProductVo;
+import com.j1.pojo.vo.WebProductVo;
 import com.j1.service.SearchProductService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,7 +12,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.*;
 
 /**

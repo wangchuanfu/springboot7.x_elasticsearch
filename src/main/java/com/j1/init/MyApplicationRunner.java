@@ -1,11 +1,5 @@
 package com.j1.init;
 
-import com.j1.pojo.WebProductVo;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
-
 /**
  * Created by wangchuanfu on 20/7/30.
 

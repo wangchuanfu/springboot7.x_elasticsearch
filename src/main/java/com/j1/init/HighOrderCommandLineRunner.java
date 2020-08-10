@@ -1,16 +1,5 @@
 package com.j1.init;
 
-import com.j1.common.utils.ExceptionUtils;
-import com.j1.pojo.WebProductVo;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.Ordered;
-import org.springframework.stereotype.Component;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-
 /**
  * Created by wangchuanfu on 20/7/30.
 

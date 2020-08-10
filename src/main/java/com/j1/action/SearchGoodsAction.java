@@ -76,7 +76,7 @@ public class SearchGoodsAction extends SoaApiBaseAction {
                             .fromObject(listSuggest));
             this._result.setObjData(resultObject);
 
-            //this.setResultInfo(MsgStatus.NORMAL.getCode(), ResultMsg.Common.OK).write(request,response);
+           // this.setResultInfo(MsgStatus.NORMAL.getCode(), ResultMsg.Common.OK).write(request,response);
 
             return listSuggest.getResult();
         } catch (Exception e) {

@@ -1,6 +1,6 @@
 package com.j1.service.impl;
 
-import com.j1.pojo.WebProductVo;
+import com.j1.pojo.vo.WebProductVo;
 import com.j1.service.AbstractEsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
