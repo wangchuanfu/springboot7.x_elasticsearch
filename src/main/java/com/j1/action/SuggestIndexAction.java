@@ -2,7 +2,7 @@ package com.j1.action;
 
 import com.j1.pojo.EsAttribute;
 import com.j1.pojo.SuggestPrompt;
-import com.j1.pojo.SuggestKeyWordVo;
+import com.j1.pojo.vo.SuggestKeyWordVo;
 import com.j1.service.SuggestIndexService;
 import com.j1.utils.EsUtils;
 import lombok.extern.slf4j.Slf4j;
