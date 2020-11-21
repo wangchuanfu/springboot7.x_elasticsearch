@@ -1,4 +1,4 @@
-package com.j1.pojo.vo;
+package com.j1.pojo.pojo.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

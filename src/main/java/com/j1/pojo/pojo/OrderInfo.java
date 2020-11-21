@@ -1,12 +1,13 @@
-package com.j1.pojo.vo;
+package com.j1.pojo.pojo;
 
+import com.j1.pojo.BaseBO;
 import com.j1.pojo.Goods;
 import com.j1.pojo.GoodsGift;
 import com.j1.pojo.OrderItem;
+import com.j1.pojo.ProductYwCatalog;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -16,11 +17,9 @@ import java.util.List;
  * Created by wangchuanfu on 20/8/10.
  */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Document(indexName = "#{order_info_index}", type = "#{esAttribute.indexType}", shards = 5, replicas = 1)
-
-public class OrderInfoVo {
+@NoArgsConstructor
+public class OrderInfo extends BaseBO {
 
     private Long sealedMemberId;
     private String receiverCardno;
@@ -241,11 +240,10 @@ public class OrderInfoVo {
     //来源渠道的集合
     private List<BigDecimal> mults = new ArrayList<BigDecimal>();
     //运维Id的集合
+    private List<ProductYwCatalog> ywIds = new ArrayList<ProductYwCatalog>();
+    private List<ProductYwCatalog> ywIds1 = new ArrayList<ProductYwCatalog>();
+    private List<ProductYwCatalog> inListTot = new ArrayList<ProductYwCatalog>();
 
-
-
-    private Integer ywCatalogId;
-    private String ywCatalogName;
     private String refundOrderNotes;//退款流水号
     private String cancelTimeBg;
     private String cancelTimeEd;

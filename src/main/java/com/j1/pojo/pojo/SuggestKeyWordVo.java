@@ -1,10 +1,9 @@
-package com.j1.pojo.vo;
+package com.j1.pojo.pojo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.elasticsearch.index.mapper.Mapper;
 import org.springframework.data.elasticsearch.annotations.*;
 import org.springframework.data.elasticsearch.core.completion.Completion;
 
@@ -78,11 +77,10 @@ public class SuggestKeyWordVo {
      * 关键词，拼音前缀查找
      */
     @CompletionField(searchAnalyzer="standard",analyzer = "standard")
-    private CompletionField searchName;
+    private Completion searchName;
     //搜索提示
     @CompletionField(searchAnalyzer="standard",analyzer = "standard")
     private Completion promptName;
 
-    @DynamicMapping(DynamicMappingValue.True)
-    private Mapper mapping;
+
 }
