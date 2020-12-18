@@ -18,7 +18,16 @@ public class Test {
         //test4();
        // testList();
       //  test6();
-        test7();
+     //   test7();
+        test8();
+     /* String str=  realSkWord("eeeee");
+        System.out.print(str);*/
+    }
+
+    private static void test8() {
+        String s="1.2.3.4";
+       s= s.replace(".","-");
+       System.out.print(s);
     }
 
     private static void test7() {
@@ -155,6 +164,9 @@ public class Test {
         while(it.hasNext()){  //循环遍历迭代器
             System.out.println(it.next());  //输出集合中元素
         }
+    }
+    public static String realSkWord(String str){
+        return  str.replaceAll(str, "bbbb");
     }
 
 }

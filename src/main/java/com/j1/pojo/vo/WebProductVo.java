@@ -83,7 +83,7 @@ public class WebProductVo {
     /**
      * 分类筛选属性
      */
-    @Field(type = FieldType.Object ,index =true,store = true)
+    @Field(type = FieldType.Nested ,index =true,store = true)
     private String attrs;
     /**
      * 分类名称

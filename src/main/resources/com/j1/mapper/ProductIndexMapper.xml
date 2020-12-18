@@ -61,10 +61,11 @@
 
 
     </resultMap>
+
     <resultMap type="com.j1.pojo.ProductAttrs" id="productAttributeMap">
-        <result property="attrId" column="attribute_id" />
-        <result property="attrCode" column="attr_code" />
-    </resultMap>
+    <result property="attrId" column="attribute_id" />
+    <result property="attrCode" column="attr_code" />
+</resultMap>
     <!-- lucene通过ID建立索引sql语句 -->
     <select id="getAllProduct" parameterType="com.j1.pojo.Product" resultMap="productResultMap">
         select
