@@ -1,6 +1,4 @@
 package com.j1.stream;
-/**
- *
 
 
 import org.junit.Test;
@@ -25,11 +23,6 @@ public class WhatThis {
     public void test1(){
             WhatThis wt = new WhatThis();
             wt.whatThis();
-            /**
-             * com.es.stream.WhatThis
-             * com.es.stream.WhatThis
-             * com.es.stream.WhatThis
 
         }
     }
-                */

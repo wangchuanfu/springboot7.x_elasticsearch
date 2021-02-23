@@ -20,6 +20,9 @@ es:
  indexname: hy_web_index
  indextype: _doc
  suggestindexName: suggest_keyword
+ host: 192.168.1.107
+ port: 9200
+ scheme: http
 mybatis:
   mapper-locations: classpath:com/j1/mapper/*.xml
   type-aliases-package: org.spring.springboot.demo.dao

@@ -6,7 +6,7 @@ import com.j1.dao.TGmGoodsMapper;
 import com.j1.pojo.ShoesTradeExpand;
 import com.j1.pojo.vo.ShoesTrade;
 import com.j1.utils.DateUtils;
-import com.j1.utils.HanyuPinyinHelper;
+//import com.j1.utils.HanyuPinyinHelper;
 import com.j1.xiaoxiang.constant.ShoesTradeAggs;
 import com.j1.xiaoxiang.constant.ShoesTradeConstant;
 import com.j1.xiaoxiang.constant.ShoesTradeGoodsPropertyEnum;
@@ -343,7 +343,7 @@ public class ShoesTradeMallServiceImpl implements ShoesTradeMallService {
                 suitCrowdList = suitCrowdList.stream().distinct().collect(Collectors.toList());
             }
             shoesTrade.setSuitCrowdAll(suitCrowdList);
-            shoesTrade.setGPyTitle(HanyuPinyinHelper.hanyuIkAnalyzedToPinYin(g.getGoodsName()));
+           // shoesTrade.setGPyTitle(HanyuPinyinHelper.hanyuIkAnalyzedToPinYin(g.getGoodsName()));
             shoesTrade.setMeasures(measures);
             List<String> measuresList = Arrays.asList(measures.split(ShoesTradeConstant.SEPARATOR_DIAGONAL));
             if (CollectionUtils.isNotEmpty(measuresList)) {
@@ -383,7 +383,7 @@ public class ShoesTradeMallServiceImpl implements ShoesTradeMallService {
                     shoesTrade.getShoesFashtion().replace(ShoesTradeConstant.SEPARATOR_DIAGONAL, " ")
             );
             shoesTrade.setSk(sk);
-            shoesTrade.setSkPyTitle(HanyuPinyinHelper.hanyuIkAnalyzedToPinYin(shoesTrade.getSk()));
+           // shoesTrade.setSkPyTitle(HanyuPinyinHelper.hanyuIkAnalyzedToPinYin(shoesTrade.getSk()));
             // searchAsyncHandle.asyncImportSuggestWord(shoesTrade);
             return shoesTrade;
         }).collect(Collectors.toList());
