@@ -6,6 +6,7 @@ import com.j1.result.ServiceMessage;
 import com.j1.result.SoaApiBaseAction;
 import com.j1.service.InitIndexService;
 import com.j1.service.SuggestionSearchService;
+import com.j1.spring.HelloMyAnnotation;
 import com.j1.type.MsgStatus;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONArray;
@@ -40,6 +41,7 @@ public class SearchGoodsAction extends SoaApiBaseAction {
     InitIndexService initIndexService;
 
     //根据关键字搜索
+    @HelloMyAnnotation
     @RequestMapping("/search/{keyword}/{pageNo}/{pageSize}")
     public List searchPage(@PathVariable("keyword") String keyword,
                            @PathVariable("pageNo") Integer pageNo,

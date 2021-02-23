@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-
+//http://localhost:8081/add1?deviceId=01
 public class HelloController {
     //这是加上自定义注解
     @HelloMyAnnotation
