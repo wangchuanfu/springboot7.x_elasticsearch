@@ -5,8 +5,8 @@ package com.j1.stream;
  */
 
 public class Employee {
-    private  String name;
-    private  Integer age;
+    private String name;
+    private Integer age;
     private Integer salary;
 
     public String getName() {

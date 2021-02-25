@@ -22,6 +22,7 @@ public class RegUtil {
         Matcher matcher = illegalCharPattern.matcher(str);
         return matcher.matches();
     }
+
     /**
      * 判断包含非法字符
      *
@@ -72,6 +73,7 @@ public class RegUtil {
 
     /**
      * 替换字符串中特殊字符为空格
+     *
      * @param s 输入的字符串
      * @return 替换之后的字符串
      */
@@ -80,11 +82,11 @@ public class RegUtil {
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             // These characters are part of the query syntax and must be escaped
-            if (c == '\\' || c == '+' || c == '!' || c == '(' || c == ')' || c == ':'||c == '.'
+            if (c == '\\' || c == '+' || c == '!' || c == '(' || c == ')' || c == ':' || c == '.'
                     || c == '^' || c == '[' || c == ']' || c == '\"' || c == '{' || c == '}' || c == '~'
                     || c == '*' || c == '?' || c == '|' || c == '&' || c == '/' || c == '（' || c == '）') {
                 sb.append(" ");
-            }else{
+            } else {
                 sb.append(c);
             }
         }
@@ -101,18 +103,19 @@ public class RegUtil {
         String regex1 = ".*[a-zA-z].*";
         return str.matches(regex1);
     }
+
     /**
      * 判断字符串bai是否du全为英文字母zhi，是则返回 true
      *
      * @return boolean
      */
     public static boolean isNoShuZi(String str) {
-        boolean isWord=str.matches("[a-zA-Z]+");
+        boolean isWord = str.matches("[a-zA-Z]+");
         return isWord;
     }
 
-    public static String realSkWord(String str){
-        return   str.trim().toLowerCase().replaceAll("\\s+", " ");
+    public static String realSkWord(String str) {
+        return str.trim().toLowerCase().replaceAll("\\s+", " ");
     }
 
     // 判断一个字符串是否都为数字
@@ -150,6 +153,7 @@ public class RegUtil {
         }
         return flag;
     }
+
     public static String getRealSkDaiKongGe(String sk) {
         StringBuilder newStr = new StringBuilder();
         for (int i = 0; i < sk.length(); i++) {
@@ -164,11 +168,12 @@ public class RegUtil {
         }
         return RegUtil.realSkWord(newStr.toString());
     }
-    public static String getRealSkNoShuZi(String sk){
+
+    public static String getRealSkNoShuZi(String sk) {
         String realSkDaiKongGe = getRealSkDaiKongGe(sk);
-        StringBuilder newStr= new StringBuilder();
+        StringBuilder newStr = new StringBuilder();
         for (int i = 0; i < realSkDaiKongGe.length(); i++) {
-            if (Character.isDigit(realSkDaiKongGe.charAt(i))==false) {
+            if (Character.isDigit(realSkDaiKongGe.charAt(i)) == false) {
                 newStr.append(realSkDaiKongGe.charAt(i));
             }
         }

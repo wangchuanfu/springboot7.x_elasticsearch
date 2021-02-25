@@ -40,8 +40,8 @@ public class ProductIndexController {
         log.error("【" + DateUtils.formatDate(new Date()) + "】" + "WebProduct推送数据至ES 任务更新开始=...");
         String msg = "";
         try {
-            long start =System.currentTimeMillis();
-            if(esUtils.existsIndex(esAttribute.getIndexName())){
+            long start = System.currentTimeMillis();
+            if (esUtils.existsIndex(esAttribute.getIndexName())) {
                 elasticsearchTemplate.deleteIndex(esAttribute.getIndexName());
             }
             //通过注解创建index,mapping

@@ -12,7 +12,7 @@ public enum ShoesTradeAggs {
     /**
      * 品牌聚合
      */
-    shoesTradeBrandAgg("brandAgg","brandName"),
+    shoesTradeBrandAgg("brandAgg", "brandName"),
 
     /**
      * 平台来源聚合的聚合名与聚合字段
@@ -34,7 +34,7 @@ public enum ShoesTradeAggs {
      * 三级类目聚合的聚合名与聚合字段
      */
     shoesTradeCategoryAgg("categoryAgg", "productCategoryName");
-    private  String aggName;
+    private String aggName;
     private String fieldName;
 
     public String getAggName() {

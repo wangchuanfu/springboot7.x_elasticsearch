@@ -11,7 +11,7 @@ public class Test1 {
 
     public static void main(String[] args) {
 
-        Map<String, String> collect = Stream.of("a", "b", "c", "a").collect(Collectors.toMap(x -> x, x -> x + x,(oldVal, newVal) -> newVal));
-        collect.forEach((k,v) -> System.out.println(k + ":" + v));
+        Map<String, String> collect = Stream.of("a", "b", "c", "a").collect(Collectors.toMap(x -> x, x -> x + x, (oldVal, newVal) -> newVal));
+        collect.forEach((k, v) -> System.out.println(k + ":" + v));
     }
 }

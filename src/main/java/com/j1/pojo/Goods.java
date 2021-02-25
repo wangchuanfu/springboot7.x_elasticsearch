@@ -14,7 +14,7 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Goods extends  BaseBO {
+public class Goods extends BaseBO {
 
     // 是否存在手机促销
     private Boolean isMobilePromote;
@@ -160,9 +160,9 @@ public class Goods extends  BaseBO {
     private Integer allUV;
     private Integer allPV;
 
-	/*
-	 * add by zp 2014-05-05
-	 */
+    /*
+     * add by zp 2014-05-05
+     */
 
     /*
      * add by dongqing 2014-06-09 隐形眼镜使用
@@ -324,7 +324,7 @@ public class Goods extends  BaseBO {
     private String stockName;
 
     /**
-     *积分赠送
+     * 积分赠送
      */
     private Integer giftPoints;
 

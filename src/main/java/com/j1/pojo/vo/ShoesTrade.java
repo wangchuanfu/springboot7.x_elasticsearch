@@ -28,7 +28,7 @@ public class ShoesTrade {
     @Field(type = FieldType.Text, analyzer = "jt_cn_max", searchAnalyzer = "jt_cn_smart")
     private String goodsName;
     /**
-     *搜索查询关键字
+     * 搜索查询关键字
      * sk: goodsName+productCategoryName+serisName+brandName+suitCrowdAll(元素空格分开) 全部以空格分开 后面可能要添加其他属性
      */
     @Field(type = FieldType.Text, analyzer = "jt_cn_max", searchAnalyzer = "jt_cn_smart")
@@ -59,13 +59,13 @@ public class ShoesTrade {
     @Field(type = FieldType.Integer)
     private Integer clickCount;
     /**
-     *  实际售价
+     * 实际售价
      */
     @Field(type = FieldType.Integer)
     private Integer sellPrice;
 
     /**
-     *  实际售价
+     * 实际售价
      */
     @Field(type = FieldType.Double)
     private Double priceScore;
@@ -159,72 +159,80 @@ public class ShoesTrade {
     private List<String> measuresAll;
 
     /**
-     {
-     "key":"配色", colourMatching
-     "value":"白"
-     }, */
+     * {
+     * "key":"配色", colourMatching
+     * "value":"白"
+     * },
+     */
     private String colourMatching;
 
     /**
-     {
-     "key":"配色", colourMatching 列表
-     "value":"白"
-     }, */
+     * {
+     * "key":"配色", colourMatching 列表
+     * "value":"白"
+     * },
+     */
     @Field(type = FieldType.Keyword)
     private List<String> colourMatchingAll;
     /**
-     {
-     "key":"闭合方式", closingMode
-     "value":"系带"
-     },*/
+     * {
+     * "key":"闭合方式", closingMode
+     * "value":"系带"
+     * },
+     */
     private String closingMode;
     /**
-     {
-     "key":"鞋头款式",shoesStyle
-     "value":"圆头"
-     },*/
+     * {
+     * "key":"鞋头款式",shoesStyle
+     * "value":"圆头"
+     * },
+     */
     private String shoesStyle;
     /**
-     {
-     "key":"鞋帮高度",shoesHeight
-     "value":"高帮"
-     },*/
+     * {
+     * "key":"鞋帮高度",shoesHeight
+     * "value":"高帮"
+     * },
+     */
     private String shoesHeight;
     /**
-     {
-     "key":"鞋底材料",shoesMaterial
-     "value":"橡胶底"
-     },*/
+     * {
+     * "key":"鞋底材料",shoesMaterial
+     * "value":"橡胶底"
+     * },
+     */
     private String shoesMaterial;
     /**
-     {
-     "key":"鞋跟类型",shoesType
-     "value":"平跟"
-     },*/
+     * {
+     * "key":"鞋跟类型",shoesType
+     * "value":"平跟"
+     * },
+     */
     private String shoesType;
     /**
-     {
-     "key":"鞋面材质",upperMaterial
-     "value":"帆布"
-     },*/
+     * {
+     * "key":"鞋面材质",upperMaterial
+     * "value":"帆布"
+     * },
+     */
     private String upperMaterial;
     /**
-     {
-     "key":"风格",shoesFashtion 以/分开，不是以逗号分隔
-     "value":"潮流,复古"
-     }
+     * {
+     * "key":"风格",shoesFashtion 以/分开，不是以逗号分隔
+     * "value":"潮流,复古"
+     * }
      */
     private String shoesFashtion;
     /**
-     {
-     "key":"风格",shoesFashtion 以/分开的元素集合
-     "value":"潮流,复古"
-     }
+     * {
+     * "key":"风格",shoesFashtion 以/分开的元素集合
+     * "value":"潮流,复古"
+     * }
      */
     @Field(type = FieldType.Keyword)
     private List<String> shoesFashtionAll;
     /**
-     *是否置顶
+     * 是否置顶
      */
     @Field(type = FieldType.Long)
     private Long isOnTop;

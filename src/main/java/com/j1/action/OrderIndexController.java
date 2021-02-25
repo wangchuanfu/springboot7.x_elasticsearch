@@ -33,12 +33,13 @@ public class OrderIndexController {
     @Autowired
     EsAttribute esAttribute;
     @Autowired
-    OrderItemService  orderItemService;
+    OrderItemService orderItemService;
     /**
      * 健一网 订单搜索索引创建
      */
 
-    private static  final  String orderIndex="order_info";
+    private static final String orderIndex = "order_info";
+
     //创建订单详情index,mapping
     //基于注解创建index,mapping
     @RequestMapping("/orderInfoIndex")
@@ -48,10 +49,10 @@ public class OrderIndexController {
              *  */
 
             //创建之前先判断索引是否存在,
-            if(esUtils.existsIndex(orderIndex)){
+            if (esUtils.existsIndex(orderIndex)) {
                 elasticsearchTemplate.deleteIndex(orderIndex);
             }
-            if(!esUtils.existsIndex(orderIndex) ){
+            if (!esUtils.existsIndex(orderIndex)) {
                 elasticsearchTemplate.createIndex(OrderItemVo.class);
                 elasticsearchTemplate.putMapping(OrderItemVo.class);
 
@@ -60,7 +61,7 @@ public class OrderIndexController {
             List<OrderItem> orderItemList = orderItemService.getOrderItemById();
             //同步数据至es指定索引中
             if (orderItemList.size() > 0) {
-               // esUtils.insertIntoOrderByBulk(orderIndex, esAttribute.getIndexType(), orderItemList, "orderId");
+                // esUtils.insertIntoOrderByBulk(orderIndex, esAttribute.getIndexType(), orderItemList, "orderId");
 
             }
 

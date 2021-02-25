@@ -1,6 +1,6 @@
 package com.j1.xiaoxiang.exception;
 
-public enum  SGErrors {
+public enum SGErrors {
 
     CHECK_PARAMS_ERRORS(1001, "参数校验错误"),
     ILLEGAL_PARAMS(1002, "非法入参!"),

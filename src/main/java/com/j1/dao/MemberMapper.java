@@ -12,6 +12,6 @@ import java.util.List;
 @Mapper
 @Repository
 public interface MemberMapper {
-    List<Member>   queryMemberPage(Member member);
+    List<Member> queryMemberPage(Member member);
 
 }

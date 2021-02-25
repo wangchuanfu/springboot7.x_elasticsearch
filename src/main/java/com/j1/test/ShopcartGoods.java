@@ -10,8 +10,8 @@ public class ShopcartGoods {
 
     private String shopcartGoodsType;//海外商品还是j1商品
     /*
-         * ID
-         */
+     * ID
+     */
     private Long shopcartGoodsId;
     /*
      * 识别码
@@ -83,7 +83,6 @@ public class ShopcartGoods {
 
     // 支付卡黑名单提示(多个用、隔开)
     private String blackPaymentPrompt;
-
 
 
     public String getBlackPaymentPrompt() {

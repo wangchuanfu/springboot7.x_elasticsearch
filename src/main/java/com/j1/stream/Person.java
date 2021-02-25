@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 public class Person implements Comparable<Person> {
 
 
-
     private Integer id;
     private String name;
     private String sex;
     private Integer age;
+
     @Override
     public int compareTo(Person o) {
         return this.age - o.getAge();
@@ -31,10 +31,10 @@ public class Person implements Comparable<Person> {
 
     public static void main(String[] args) {
         List<Person> list = new ArrayList<>();
-        Person p1 = new Person(1,"xiaoming","man",23);
-        Person p2 = new Person(2,"xiaohong","woman",27);
-        Person p3 = new Person(1,"xiaolei","man",24);
-        Person p4 = new Person(1,"xiaoli","man",26);
+        Person p1 = new Person(1, "xiaoming", "man", 23);
+        Person p2 = new Person(2, "xiaohong", "woman", 27);
+        Person p3 = new Person(1, "xiaolei", "man", 24);
+        Person p4 = new Person(1, "xiaoli", "man", 26);
         list.add(p1);
         list.add(p2);
         list.add(p3);
@@ -43,19 +43,19 @@ public class Person implements Comparable<Person> {
         List<Person> collect1 = list.stream().sorted().collect(Collectors.toList());
 
 
-      //  System.out.print(collect1);
+        //  System.out.print(collect1);
         List<Person> collect = list.stream()
                 .sorted((Comparator.comparingInt(Person::getAge)).reversed())
                 .collect(Collectors.toList());
-       // System.out.println(collect);
-        Set<Person> collect2= list.stream().limit(4).collect(Collectors.toSet());
+        // System.out.println(collect);
+        Set<Person> collect2 = list.stream().limit(4).collect(Collectors.toSet());
         Map<Integer, Person> map = list.stream().collect(Collectors.toMap(Person::getId, Function.identity()));
         Map<Integer, String> collect3 = list.stream().collect(Collectors.toMap(Person::getId, Person::getName));
 
 
         List<Person> data = new ArrayList<>();
-        Person p6 = new Person(1,"xiaoming","man",24);
-        Person p5 = new Person(5,"xiaomeng","man",23);
+        Person p6 = new Person(1, "xiaoming", "man", 24);
+        Person p5 = new Person(5, "xiaomeng", "man", 23);
         data.add(p1);
         data.add(p2);
         data.add(p3);

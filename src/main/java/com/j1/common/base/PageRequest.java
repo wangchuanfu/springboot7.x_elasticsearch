@@ -3,40 +3,34 @@ package com.j1.common.base;
 /**
  * Created by wangchuanfu on 20/7/20.
  */
-public class PageRequest implements Pageable{
+public class PageRequest implements Pageable {
     private int p = 0;
     private int s = 28;
     private Sort sort;
 
-    public PageRequest()
-    {
+    public PageRequest() {
 
     }
 
-    public PageRequest(int page, int size)
-    {
+    public PageRequest(int page, int size) {
 
         this(page, size, null);
     }
 
     public PageRequest(int page, int size, Sort.Direction direction,
-                       String... properties)
-    {
+                       String... properties) {
 
         this(page, size, new Sort(direction, properties));
     }
 
-    public PageRequest(int page, int size, Sort sort)
-    {
+    public PageRequest(int page, int size, Sort sort) {
 
-        if (0 > page)
-        {
+        if (0 > page) {
             throw new IllegalArgumentException(
                     "Page index must not be less than zero!");
         }
 
-        if (0 >= size)
-        {
+        if (0 >= size) {
             throw new IllegalArgumentException(
                     "Page size must not be less than or equal to zero!");
         }
@@ -49,16 +43,14 @@ public class PageRequest implements Pageable{
     /**
      * 获得每页显示内容数
      */
-    public int getPageSize()
-    {
+    public int getPageSize() {
         return s;
     }
 
     /**
      * 获得当前页数
      */
-    public int getPageNumber()
-    {
+    public int getPageNumber() {
 
         return p;
     }
@@ -66,29 +58,24 @@ public class PageRequest implements Pageable{
     /**
      * 偏移值=每页显示内容数*当前页数
      */
-    public int getOffset()
-    {
+    public int getOffset() {
 
         return p * s;
     }
 
-    public Sort getSort()
-    {
+    public Sort getSort() {
 
         return sort;
     }
 
     @Override
-    public boolean equals(final Object obj)
-    {
+    public boolean equals(final Object obj) {
 
-        if (this == obj)
-        {
+        if (this == obj) {
             return true;
         }
 
-        if (!(obj instanceof PageRequest))
-        {
+        if (!(obj instanceof PageRequest)) {
             return false;
         }
 
@@ -104,8 +91,7 @@ public class PageRequest implements Pageable{
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
 
         int result = 17;
 
@@ -116,40 +102,33 @@ public class PageRequest implements Pageable{
         return result;
     }
 
-    public int getPage()
-    {
+    public int getPage() {
         return p;
     }
 
-    public void setPage(int p)
-    {
+    public void setPage(int p) {
         this.p = p < 1 ? 0 : p;
         this.p = p > 99 ? 99 : p;
     }
 
-    public void setP(int p)
-    {
+    public void setP(int p) {
         this.p = p < 1 ? 0 : p;
         this.p = p > 99 ? 99 : p;
     }
 
-    public int getSize()
-    {
+    public int getSize() {
         return s;
     }
 
-    public void setSize(int s)
-    {
+    public void setSize(int s) {
         this.s = s;
     }
 
-    public void setS(int s)
-    {
+    public void setS(int s) {
         this.s = s;
     }
 
-    public void setSort(Sort sort)
-    {
+    public void setSort(Sort sort) {
         this.sort = sort;
     }
 }

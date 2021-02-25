@@ -6,5 +6,5 @@ package com.j1.service;
 public interface BucketAndMetricService {
 
     //dateHistogramAggregation
-     void dateHistogramAggregation();
+    void dateHistogramAggregation();
 }

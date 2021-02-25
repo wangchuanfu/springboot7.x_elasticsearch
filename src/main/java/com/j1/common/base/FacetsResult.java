@@ -16,31 +16,26 @@ public class FacetsResult {
     private int totalHits;
     private List<Map<String, Object>> results;
 
-    public void install(List<Map<String, Object>> result, int totalHits)
-    {
+    public void install(List<Map<String, Object>> result, int totalHits) {
         this.results = result;
         this.totalHits = totalHits;
     }
 
-    public int getTotalHits()
-    {
+    public int getTotalHits() {
         if (totalHits < 0)
             totalHits = 0;
         return totalHits;
     }
 
-    public void setTotalHits(int totalHits)
-    {
+    public void setTotalHits(int totalHits) {
         this.totalHits = totalHits;
     }
 
-    public List<Map<String, Object>> getResults()
-    {
+    public List<Map<String, Object>> getResults() {
         return results;
     }
 
-    public void setResults(List<Map<String, Object>> results)
-    {
+    public void setResults(List<Map<String, Object>> results) {
         this.results = results;
     }
 }

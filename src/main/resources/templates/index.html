@@ -33,7 +33,7 @@
                                                 <input v-model="keyword" type="text" autocomplete="off" value="dd"
                                                        id="mq"
                                                        class="s-combobox-input" aria-haspopup="true"
-                                                        @input="searchSuggest">
+                                                       @input="searchSuggest">
                                             </div>
 
 
@@ -45,7 +45,7 @@
                             </form>
                             <!--搜索提示  -->
 
-                            <div  v-for="result in searchSuggestResults">
+                            <div v-for="result in searchSuggestResults">
                                 <!-- 标题 -->
                                 <p class="productTitle">
                                     <em>{{result}}</em>

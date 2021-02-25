@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: bsd-se
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          elasticsearch:
+            core: DEBUG
+server:
+  application:
+    logenv: dev

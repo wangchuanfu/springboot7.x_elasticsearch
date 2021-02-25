@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created by wangchuanfu on 20/7/16.
  */
-public enum  SearchType {
+public enum SearchType {
 
     /**
      * 无结果
@@ -49,10 +49,8 @@ public enum  SearchType {
 
     private final static Map<SearchType, Float[]> fieldBoostMap = new HashMap<SearchType, Float[]>();
 
-    static
-    {
-        for (SearchType searchType : SearchType.values())
-        {
+    static {
+        for (SearchType searchType : SearchType.values()) {
             codeMap.put(searchType.getCode(), searchType);
         }
 
@@ -107,7 +105,7 @@ public enum  SearchType {
         fieldMap.put(SearchType.SEGMENT_AB_OR, segmentABOrFields);
         fieldMap.put(SearchType.CORRECTED_TYPOS, correctedTyposFields);
         // 初始化查询类型对应的查询字段boost
-        Float[] accurateFieldsBoost = { 4.0f,// 商品通用名
+        Float[] accurateFieldsBoost = {4.0f,// 商品通用名
                 4.0f,// 产品名称
                 4.0f,// 产品名称
                 1.0f,// 拼音码
@@ -116,7 +114,7 @@ public enum  SearchType {
                 4.0f,// 品牌
                 4.0f // 品牌
         };
-        Float[] segmentAAndFieldsBoost = { 4.0f,// 商品通用名
+        Float[] segmentAAndFieldsBoost = {4.0f,// 商品通用名
                 4.0f,// 产品名称
                 4.0f,// 产品名称
                 1.0f,// 拼音码
@@ -125,10 +123,10 @@ public enum  SearchType {
                 4.0f,// 品牌
                 4.0f // 品牌
         };
-        Float[] segmentBAndFieldsBoost = { 1.0f,// 主治功能
+        Float[] segmentBAndFieldsBoost = {1.0f,// 主治功能
                 1.0f // 关键字
         };
-        Float[] segmentABOrFieldsBoost = { 4.0f,// 商品通用名
+        Float[] segmentABOrFieldsBoost = {4.0f,// 商品通用名
                 4.0f,// 产品名称
                 4.0f,// 产品名称
                 1.0f,// 拼音码
@@ -137,7 +135,7 @@ public enum  SearchType {
                 4.0f,// 品牌
                 4.0f // 品牌
         };
-        Float[] correctedTyposFieldsBoost = { 4.0f,// 商品通用名
+        Float[] correctedTyposFieldsBoost = {4.0f,// 商品通用名
                 4.0f,// 产品名称
                 4.0f,// 产品名称
                 1.0f,// 拼音码
@@ -154,47 +152,37 @@ public enum  SearchType {
                 .put(SearchType.CORRECTED_TYPOS, correctedTyposFieldsBoost);
     }
 
-    private SearchType(String n)
-    {
+    private SearchType(String n) {
         this.i = n;
     }
 
-    public String getCode()
-    {
+    public String getCode() {
         return this.i;
     }
 
-    public static SearchType resolve(String i)
-    {
-        try
-        {
+    public static SearchType resolve(String i) {
+        try {
             return SearchType.valueOf(i);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return null;
         }
     }
 
-    public static String getTypeName(String type)
-    {
-        try
-        {
+    public static String getTypeName(String type) {
+        try {
             return SearchType.resolve(type).getCode();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return "";
         }
     }
 
     /**
      * 通过查询编码得到查询枚举
+     *
      * @param code
      * @return
      */
-    public static SearchType codeOf(String code)
-    {
+    public static SearchType codeOf(String code) {
         SearchType searchType = codeMap.get(code);
         if (searchType != null)
             return searchType;
@@ -204,26 +192,25 @@ public enum  SearchType {
 
     /**
      * 通过查询枚举获得要查询的字段
+     *
      * @param searchType
      * @return
      */
-    public static String[] getFields(SearchType searchType)
-    {
+    public static String[] getFields(SearchType searchType) {
         return fieldMap.get(searchType);
     }
 
     /**
      * 通过查询枚举获得要查询的字段boost
+     *
      * @param searchType
      * @return
      */
-    public static Float[] getFieldsBoost(SearchType searchType)
-    {
+    public static Float[] getFieldsBoost(SearchType searchType) {
         return fieldBoostMap.get(searchType);
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         System.out.println(SearchType.codeOf("-1"));
     }
 

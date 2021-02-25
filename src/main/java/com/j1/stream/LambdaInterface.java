@@ -9,19 +9,25 @@ public interface LambdaInterface {
         void method(int a, int b);
     }
 
-    /**无参无返回值*/
+    /**
+     * 无参无返回值
+     */
     @FunctionalInterface
     public interface NoReturnNoParam {
         void method();
     }
 
-    /**一个参数无返回*/
+    /**
+     * 一个参数无返回
+     */
     @FunctionalInterface
     public interface NoReturnOneParam {
         void method(int a);
     }
 
-    /**多个参数有返回值*/
+    /**
+     * 多个参数有返回值
+     */
     @FunctionalInterface
     public interface ReturnMultiParam {
         int method(int a, int b);
@@ -33,7 +39,9 @@ public interface LambdaInterface {
         int method();
     }
 
-    /**一个参数有返回值*/
+    /**
+     * 一个参数有返回值
+     */
     @FunctionalInterface
     public interface ReturnOneParam {
         int method(int a);

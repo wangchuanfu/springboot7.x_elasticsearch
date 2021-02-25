@@ -1,143 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.j1.dao.TGmGoodsMapper">
-  <resultMap id="BaseResultMap" type="com.j1.pojo.TGmGoods">
-    <!--@mbg.generated generated on Fri May 29 17:24:14 CST 2020.-->
-    <!--@Table t_gm_goods-->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="goods_code" jdbcType="VARCHAR" property="goodsCode" />
-    <result column="goods_bar_code" jdbcType="VARCHAR" property="goodsBarCode" />
-    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
-    <result column="video_url" jdbcType="VARCHAR" property="videoUrl" />
-    <result column="thumbnail_url" jdbcType="VARCHAR" property="thumbnailUrl" />
-    <result column="repertory" jdbcType="INTEGER" property="repertory" />
-    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
-    <result column="series_id" jdbcType="INTEGER" property="seriesId" />
-    <result column="brand_id" jdbcType="INTEGER" property="brandId" />
-    <result column="haitao_flag" jdbcType="INTEGER" property="haitaoFlag" />
-    <result column="goods_number" jdbcType="VARCHAR" property="goodsNumber" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="click_count" jdbcType="INTEGER" property="clickCount" />
-    <result column="sale_count" jdbcType="INTEGER" property="saleCount" />
-    <result column="put_away_time" jdbcType="TIMESTAMP" property="putAwayTime" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="delete_flag" jdbcType="BOOLEAN" property="deleteFlag" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
-    <result column="ext1" jdbcType="INTEGER" property="ext1" />
-    <result column="ext2" jdbcType="VARCHAR" property="ext2" />
-    <result column="ext3" jdbcType="VARCHAR" property="ext3" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.j1.pojo.TGmGoods">
+        <!--@mbg.generated generated on Fri May 29 17:24:14 CST 2020.-->
+        <!--@Table t_gm_goods-->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="goods_code" jdbcType="VARCHAR" property="goodsCode"/>
+        <result column="goods_bar_code" jdbcType="VARCHAR" property="goodsBarCode"/>
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <result column="video_url" jdbcType="VARCHAR" property="videoUrl"/>
+        <result column="thumbnail_url" jdbcType="VARCHAR" property="thumbnailUrl"/>
+        <result column="repertory" jdbcType="INTEGER" property="repertory"/>
+        <result column="category_id" jdbcType="INTEGER" property="categoryId"/>
+        <result column="series_id" jdbcType="INTEGER" property="seriesId"/>
+        <result column="brand_id" jdbcType="INTEGER" property="brandId"/>
+        <result column="haitao_flag" jdbcType="INTEGER" property="haitaoFlag"/>
+        <result column="goods_number" jdbcType="VARCHAR" property="goodsNumber"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="click_count" jdbcType="INTEGER" property="clickCount"/>
+        <result column="sale_count" jdbcType="INTEGER" property="saleCount"/>
+        <result column="put_away_time" jdbcType="TIMESTAMP" property="putAwayTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="delete_flag" jdbcType="BOOLEAN" property="deleteFlag"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="ext1" jdbcType="INTEGER" property="ext1"/>
+        <result column="ext2" jdbcType="VARCHAR" property="ext2"/>
+        <result column="ext3" jdbcType="VARCHAR" property="ext3"/>
+    </resultMap>
 
-  <resultMap id="ShoesTradeGoodsResultMap" type="com.j1.pojo.ShoesTradeExpand">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="goods_code" jdbcType="VARCHAR" property="goodsCode" />
-    <result column="goods_bar_code" jdbcType="VARCHAR" property="goodsBarCode" />
-    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
-    <result column="thumbnail_url" jdbcType="VARCHAR" property="thumbnailUrl" />
-    <result column="series_id" jdbcType="INTEGER" property="serisId" />
-    <result column="brand_id" jdbcType="INTEGER" property="brandId" />
-    <result column="category_id" jdbcType="INTEGER" property="productCategoryId" />
-    <result column="productCategoryName" jdbcType="VARCHAR" property="productCategoryName" />
-    <result column="seriesName" jdbcType="VARCHAR" property="serisName" />
-    <result column="brand_name" jdbcType="VARCHAR" property="brandName" />
-    <result column="haitao_flag" jdbcType="INTEGER" property="haitaoFlag" />
-    <result column="goods_number" jdbcType="VARCHAR" property="goodsNumber" />
-    <result column="click_count" jdbcType="INTEGER" property="clickCount" />
-    <result column="sale_count" jdbcType="INTEGER" property="saleCount" />
-    <result column="put_away_time" jdbcType="TIMESTAMP" property="putAwayTime" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="original_price" jdbcType="INTEGER" property="originalPrice" />
-    <result column="sell_price" jdbcType="INTEGER" property="sellPrice" />
-    <result column="third_platform_code" jdbcType="VARCHAR" property="thirdPlatformCode" />
-    <collection property="tGmGoodsProperties" ofType="com.j1.pojo.TGmGoodsProperty">
-      <id column="property_id" jdbcType="INTEGER" property="id" />
-      <result column="property_code" jdbcType="INTEGER" property="propertyCode" />
-      <result column="property_name" jdbcType="VARCHAR" property="propertyName" />
-      <result column="property_value" jdbcType="VARCHAR" property="propertyValue" />
-      <result column="type" jdbcType="VARCHAR" property="type" />
-    </collection>
-  </resultMap>
+    <resultMap id="ShoesTradeGoodsResultMap" type="com.j1.pojo.ShoesTradeExpand">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="goods_code" jdbcType="VARCHAR" property="goodsCode"/>
+        <result column="goods_bar_code" jdbcType="VARCHAR" property="goodsBarCode"/>
+        <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+        <result column="thumbnail_url" jdbcType="VARCHAR" property="thumbnailUrl"/>
+        <result column="series_id" jdbcType="INTEGER" property="serisId"/>
+        <result column="brand_id" jdbcType="INTEGER" property="brandId"/>
+        <result column="category_id" jdbcType="INTEGER" property="productCategoryId"/>
+        <result column="productCategoryName" jdbcType="VARCHAR" property="productCategoryName"/>
+        <result column="seriesName" jdbcType="VARCHAR" property="serisName"/>
+        <result column="brand_name" jdbcType="VARCHAR" property="brandName"/>
+        <result column="haitao_flag" jdbcType="INTEGER" property="haitaoFlag"/>
+        <result column="goods_number" jdbcType="VARCHAR" property="goodsNumber"/>
+        <result column="click_count" jdbcType="INTEGER" property="clickCount"/>
+        <result column="sale_count" jdbcType="INTEGER" property="saleCount"/>
+        <result column="put_away_time" jdbcType="TIMESTAMP" property="putAwayTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="original_price" jdbcType="INTEGER" property="originalPrice"/>
+        <result column="sell_price" jdbcType="INTEGER" property="sellPrice"/>
+        <result column="third_platform_code" jdbcType="VARCHAR" property="thirdPlatformCode"/>
+        <collection property="tGmGoodsProperties" ofType="com.j1.pojo.TGmGoodsProperty">
+            <id column="property_id" jdbcType="INTEGER" property="id"/>
+            <result column="property_code" jdbcType="INTEGER" property="propertyCode"/>
+            <result column="property_name" jdbcType="VARCHAR" property="propertyName"/>
+            <result column="property_value" jdbcType="VARCHAR" property="propertyValue"/>
+            <result column="type" jdbcType="VARCHAR" property="type"/>
+        </collection>
+    </resultMap>
 
-  <sql id="Base_Column_List">
-    <!--@mbg.generated generated on Fri May 29 17:24:14 CST 2020.-->
-    id, goods_code, goods_bar_code, goods_name, video_url, thumbnail_url, repertory, 
-    category_id, series_id, brand_id, haitao_flag, goods_number, remark, sale_count, put_away_time,
-    `status`, delete_flag, create_time, update_time, ext1, ext2, ext3
-  </sql>
-  <sql id="Shoes_Trade_Goods_Column_List">
-      g.id, g.goods_code, g.goods_bar_code, g.brand_id, g.goods_name, g.thumbnail_url, g.series_id,g.category_id,g.click_count, g.haitao_flag, g.goods_number,
-    tc.combination_sale_count sale_count, g.put_away_time, g.create_time, b.brand_name, c.`name` productCategoryName, s.`name` seriesName, p.id property_id,p.property_code,
-    p.property_name, p.property_value,p.`type`,gp.sell_price,gp.original_price,gs.third_platform_code,g.delete_flag
-  </sql>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated generated on Fri May 29 17:24:14 CST 2020.-->
+        id, goods_code, goods_bar_code, goods_name, video_url, thumbnail_url, repertory,
+        category_id, series_id, brand_id, haitao_flag, goods_number, remark, sale_count, put_away_time,
+        `status`, delete_flag, create_time, update_time, ext1, ext2, ext3
+    </sql>
+    <sql id="Shoes_Trade_Goods_Column_List">
+        g.id, g.goods_code, g.goods_bar_code, g.brand_id, g.goods_name, g.thumbnail_url,
+        g.series_id,g.category_id,g.click_count, g.haitao_flag, g.goods_number,
+        tc.combination_sale_count sale_count, g.put_away_time, g.create_time, b.brand_name, c.`name`
+        productCategoryName, s.`name` seriesName, p.id property_id,p.property_code,
+        p.property_name, p.property_value,p.`type`,gp.sell_price,gp.original_price,gs.third_platform_code,g.delete_flag
+    </sql>
 
 
     <select id="selectShoesTradeMallGoodsList" resultMap="ShoesTradeGoodsResultMap">
-      SELECT
-          <include refid="Shoes_Trade_Goods_Column_List"/>
-      FROM
-      t_gm_goods g
-      LEFT JOIN t_gm_brand b ON g.brand_id = b.id AND b.`status` = 1  AND b.delete_flag=0
-      LEFT JOIN t_gm_category c ON g.category_id = c.id and c.`status` = 1 AND c.delete_flag=0
-      LEFT JOIN t_gm_series s ON g.series_id = s.id and s.`status` =1 AND s.delete_flag=0
-      LEFT JOIN t_gm_goods_property p ON g.goods_code = p.goods_code  AND p.delete_flag=0
-      LEFT JOIN t_gm_goods_price gp on g.goods_code = gp.goods_code  AND gp.delete_flag=0
-      LEFT JOIN t_gm_goods_source gs on g.goods_code = gs.goods_code  AND gs.delete_flag=0 and gs.`status` = 1
-     LEFT JOIN t_gm_goods_sale_count tc ON g.goods_code = tc.goods_code
-      WHERE
-      g.`status` = 1 AND g.delete_flag=0
-      and  g.id in
-      <foreach close=")" collection="goodsSubIds" item="id" open="(" separator=",">
-           #{id}
-      </foreach>
+        SELECT
+        <include refid="Shoes_Trade_Goods_Column_List"/>
+        FROM
+        t_gm_goods g
+        LEFT JOIN t_gm_brand b ON g.brand_id = b.id AND b.`status` = 1 AND b.delete_flag=0
+        LEFT JOIN t_gm_category c ON g.category_id = c.id and c.`status` = 1 AND c.delete_flag=0
+        LEFT JOIN t_gm_series s ON g.series_id = s.id and s.`status` =1 AND s.delete_flag=0
+        LEFT JOIN t_gm_goods_property p ON g.goods_code = p.goods_code AND p.delete_flag=0
+        LEFT JOIN t_gm_goods_price gp on g.goods_code = gp.goods_code AND gp.delete_flag=0
+        LEFT JOIN t_gm_goods_source gs on g.goods_code = gs.goods_code AND gs.delete_flag=0 and gs.`status` = 1
+        LEFT JOIN t_gm_goods_sale_count tc ON g.goods_code = tc.goods_code
+        WHERE
+        g.`status` = 1 AND g.delete_flag=0
+        and g.id in
+        <foreach close=")" collection="goodsSubIds" item="id" open="(" separator=",">
+            #{id}
+        </foreach>
     </select>
-  <select id="selectAllId" resultType="java.lang.Integer">
-    SELECT id FROM `t_gm_goods` where status=1 AND delete_flag=0   order by  id desc
- </select>
+    <select id="selectAllId" resultType="java.lang.Integer">
+        SELECT id FROM `t_gm_goods` where status=1 AND delete_flag=0 order by id desc
+    </select>
 
-<select id="selectAllBrands" resultType="java.lang.String">
-select  brand.brand_name from t_gm_goods good LEFT JOIN t_gm_brand  brand
-on good.brand_id=brand.id AND good.delete_flag=0 and good.`status`=1
-GROUP BY brand.brand_name
-</select>
-<select id="selectAllSeriesName" resultType="java.lang.String">
-select  series.`name` from t_gm_goods good LEFT JOIN t_gm_series  series
-on good.series_id=series.id AND good.delete_flag=0 and good.`status`=1
-GROUP BY series.`name`
-</select>
-<select id="selectAllCatagarys" resultType="java.lang.String">
-select  category.`name` from t_gm_goods good LEFT JOIN t_gm_category  category
-on good.category_id=category.id AND good.delete_flag=0 and good.`status`=1
-GROUP BY category.`name`
-</select>
-<select id="selectSeriesName" resultType="java.lang.String">
-SELECT `name` FROM `t_gm_series` GROUP BY `name` HAVING `name` is not null and `name` &lt;&gt;'';
-</select>
-<select id="selectBrandName" resultType="java.lang.String">
-SELECT DISTINCT(brand_name) FROM `t_gm_brand` GROUP BY `brand_name` HAVING `brand_name` is not null and `brand_name` &lt;&gt;''
-UNION all
-SELECT DISTINCT(other_name) FROM `t_gm_brand` GROUP BY `other_name` HAVING `other_name` is not null and `other_name` &lt;&gt;''
-</select>
-<select id="selectCategaryName" resultType="java.lang.String">
-SELECT DISTINCT(`name`) FROM `t_gm_category` GROUP BY `name` HAVING `name` is not null and `name` &lt;&gt;'';
-</select><select id="selectGoodsName" resultType="java.lang.String">
-SELECT goods_name FROM `t_gm_goods` where LENGTH(goods_name)&lt;=30
-</select>
-<select id="selectAllIdByBrandId" resultType="java.lang.Integer">
- SELECT id FROM `t_gm_goods` where status=1 AND delete_flag=0 and brand_id=#{brandId}  order by  id desc
-</select>
-<select id="selectAllIdByCategaryId" resultType="java.lang.Integer">
- SELECT id FROM `t_gm_goods` where status=1 AND delete_flag=0 and category_id=#{categaryId}  order by  id desc
-</select>
-<select id="selectAllIdSeriesId" resultType="java.lang.Integer">
- SELECT id FROM `t_gm_goods` where status=1 AND delete_flag=0 and series_id=#{seriesId}  order by  id desc
-</select>
-<select id="selectSaleCountIdById" resultType="java.lang.Integer">
-SELECT
-	g.id
-FROM
-	t_gm_goods g
-LEFT JOIN t_gm_goods_sale_count tc ON g.goods_code = tc.goods_code
-where tc.id=#{id,jdbcType=INTEGER}
-</select>
+    <select id="selectAllBrands" resultType="java.lang.String">
+        select brand.brand_name from t_gm_goods good LEFT JOIN t_gm_brand brand
+        on good.brand_id=brand.id AND good.delete_flag=0 and good.`status`=1
+        GROUP BY brand.brand_name
+    </select>
+    <select id="selectAllSeriesName" resultType="java.lang.String">
+        select series.`name` from t_gm_goods good LEFT JOIN t_gm_series series
+        on good.series_id=series.id AND good.delete_flag=0 and good.`status`=1
+        GROUP BY series.`name`
+    </select>
+    <select id="selectAllCatagarys" resultType="java.lang.String">
+        select category.`name` from t_gm_goods good LEFT JOIN t_gm_category category
+        on good.category_id=category.id AND good.delete_flag=0 and good.`status`=1
+        GROUP BY category.`name`
+    </select>
+    <select id="selectSeriesName" resultType="java.lang.String">
+        SELECT `name` FROM `t_gm_series` GROUP BY `name` HAVING `name` is not null and `name` &lt;&gt;'';
+    </select>
+    <select id="selectBrandName" resultType="java.lang.String">
+        SELECT DISTINCT(brand_name) FROM `t_gm_brand` GROUP BY `brand_name` HAVING `brand_name` is not null and
+        `brand_name` &lt;&gt;''
+        UNION all
+        SELECT DISTINCT(other_name) FROM `t_gm_brand` GROUP BY `other_name` HAVING `other_name` is not null and
+        `other_name` &lt;&gt;''
+    </select>
+    <select id="selectCategaryName" resultType="java.lang.String">
+        SELECT DISTINCT(`name`) FROM `t_gm_category` GROUP BY `name` HAVING `name` is not null and `name` &lt;&gt;'';
+    </select>
+    <select id="selectGoodsName" resultType="java.lang.String">
+        SELECT goods_name FROM `t_gm_goods` where LENGTH(goods_name)&lt;=30
+    </select>
+    <select id="selectAllIdByBrandId" resultType="java.lang.Integer">
+        SELECT id FROM `t_gm_goods` where status=1 AND delete_flag=0 and brand_id=#{brandId} order by id desc
+    </select>
+    <select id="selectAllIdByCategaryId" resultType="java.lang.Integer">
+        SELECT id FROM `t_gm_goods` where status=1 AND delete_flag=0 and category_id=#{categaryId} order by id desc
+    </select>
+    <select id="selectAllIdSeriesId" resultType="java.lang.Integer">
+        SELECT id FROM `t_gm_goods` where status=1 AND delete_flag=0 and series_id=#{seriesId} order by id desc
+    </select>
+    <select id="selectSaleCountIdById" resultType="java.lang.Integer">
+        SELECT
+        g.id
+        FROM
+        t_gm_goods g
+        LEFT JOIN t_gm_goods_sale_count tc ON g.goods_code = tc.goods_code
+        where tc.id=#{id,jdbcType=INTEGER}
+    </select>
 </mapper>

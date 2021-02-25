@@ -40,10 +40,10 @@ public class EsUtils {
     HashMapToBeanUtils hashMapToBeanUtils;
 
     //批量插入数据到es中
-    public boolean insertEsByBulk(String indexName, String type, List <?> dataList, String idFieldName) throws Exception {
+    public boolean insertEsByBulk(String indexName, String type, List<?> dataList, String idFieldName) throws Exception {
         try {
             //先判断索引是否存在
-            if(!existsIndex(indexName)){
+            if (!existsIndex(indexName)) {
                 creatIndex(indexName);
             }
             BulkRequest bulkRequest = new BulkRequest();
@@ -53,7 +53,7 @@ public class EsUtils {
                 try {
                     id = FieldUtils.readField(data, idFieldName, true);
                 } catch (Exception e) {
-                    e.printStackTrace ();
+                    e.printStackTrace();
                     log.error("{} 获取id失败", id, e);
                 }
                 request.id(String.valueOf(id));
@@ -67,9 +67,10 @@ public class EsUtils {
         }
         return true;
     }
+
     //批量插入数据到es中
-    public boolean insertIntoEsByBulk(String indexName, String type, List <Product> dataList, String idFieldName) throws Exception {
-        String goodsId=null;
+    public boolean insertIntoEsByBulk(String indexName, String type, List<Product> dataList, String idFieldName) throws Exception {
+        String goodsId = null;
         XContentBuilder sources = null;
         try {
             //先判断索引是否存在
@@ -79,40 +80,39 @@ public class EsUtils {
 
                 for (int i = 0; i < dataList.size(); i++) {
                     IndexRequest indexRequest = this.getIndexRequest(indexName, type);
-                   // UpdateRequest request = this.getUpdateRequest(indexName, type);
+                    // UpdateRequest request = this.getUpdateRequest(indexName, type);
                     try {
-                         goodsId = dataList.get(i).getGoodsId().toString();
-                    }catch (Exception e){
+                        goodsId = dataList.get(i).getGoodsId().toString();
+                    } catch (Exception e) {
                         log.error("{} 获取id失败", goodsId, e);
                     }
 
 
-
-                   // request.id(String.valueOf(goodsId));
+                    // request.id(String.valueOf(goodsId));
                     //request.doc(JSON.toJSONString(dataList.get(i)), XContentType.JSON);
-                   // request.upsert(JSON.toJSONString(dataList.get(i)), XContentType.JSON);
+                    // request.upsert(JSON.toJSONString(dataList.get(i)), XContentType.JSON);
                     //封装成map
-                   // indexRequest.id(String.valueOf(goodsId));
-                  //  indexRequest.source((Map)dataList.get(i));
+                    // indexRequest.id(String.valueOf(goodsId));
+                    //  indexRequest.source((Map)dataList.get(i));
 
                     //封装成json 数据
                     indexRequest.id(String.valueOf(goodsId));
                     //拼接attrs
-                    String attrs=loadAttrs(dataList.get(i));
-                   // sources.field(DefaultIndexField.MODIFIED, new Date());
-                    indexRequest.source ( JSON.toJSONString ( dataList.get(i) ), XContentType.JSON );
-                    IndexResponse indexResponse = client.index ( indexRequest, RequestOptions.DEFAULT );
+                    String attrs = loadAttrs(dataList.get(i));
+                    // sources.field(DefaultIndexField.MODIFIED, new Date());
+                    indexRequest.source(JSON.toJSONString(dataList.get(i)), XContentType.JSON);
+                    IndexResponse indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
                     bulkRequest.add(indexRequest);
                 }
             }
-            long start =System.currentTimeMillis();
+            long start = System.currentTimeMillis();
 
             BulkResponse bulk = this.client.bulk(bulkRequest, RequestOptions.DEFAULT);
             long end = System.currentTimeMillis();
-            log.error("bulk共用时间 -->> "+(end - start) + " 毫秒");
+            log.error("bulk共用时间 -->> " + (end - start) + " 毫秒");
 
         } catch (Exception e) {
-            log.error("{} 批量插入失败",goodsId, e);
+            log.error("{} 批量插入失败", goodsId, e);
         }
         return true;
     }
@@ -120,7 +120,7 @@ public class EsUtils {
     private String loadAttrs(Product product) {
         List<ProductAttrs> attrs = product.getAttrs();
         StringBuffer sb = new StringBuffer();
-        for (ProductAttrs attr:attrs) {
+        for (ProductAttrs attr : attrs) {
             sb.append(attr.getAttrId().toString() + "_" + attr.getAttrCode().toString() + ",");
         }
         return sb.toString();
@@ -130,10 +130,10 @@ public class EsUtils {
     //更新
     private UpdateRequest getUpdateRequest(String indexName, String type) {
         UpdateRequest request = new UpdateRequest();
-        request.index (indexName);
+        request.index(indexName);
         if (StringUtils.isNotBlank(type)) {
             //7.x之后type 可以不指定,默认为_doc
-          request.type(type);
+            request.type(type);
         }
 
         return request;
@@ -141,19 +141,19 @@ public class EsUtils {
     }
 
     //判断index是否存在
-   public boolean existsIndex(String indexName) throws  Exception{
-       GetIndexRequest request = new GetIndexRequest( indexName );
-       boolean exists = client.indices ().exists ( request, RequestOptions.DEFAULT );
+    public boolean existsIndex(String indexName) throws Exception {
+        GetIndexRequest request = new GetIndexRequest(indexName);
+        boolean exists = client.indices().exists(request, RequestOptions.DEFAULT);
         return exists;
-   }
+    }
 
     //创建index
-    public  boolean creatIndex(String indexName) throws Exception {
+    public boolean creatIndex(String indexName) throws Exception {
         //这里只是创建索引,并没有创建mapping,
         //创建索引请求
-        CreateIndexRequest request = new CreateIndexRequest( indexName );
+        CreateIndexRequest request = new CreateIndexRequest(indexName);
         //执行请求
-       client.indices ().create ( request, RequestOptions.DEFAULT );
+        client.indices().create(request, RequestOptions.DEFAULT);
         return true;
     }
 
@@ -168,8 +168,8 @@ public class EsUtils {
 
     public void insertIntoSuggestByBulk(String suggestIndexName, String indexType, List<SuggestPrompt> allSuggestProduct, String idFieldName) {
 
-            //同步数据
-        String promptId=null;
+        //同步数据
+        String promptId = null;
 
         try {
             //先判断索引是否存在
@@ -181,7 +181,7 @@ public class EsUtils {
                     IndexRequest indexRequest = this.getIndexRequest(suggestIndexName, indexType);
                     try {
                         promptId = allSuggestProduct.get(i).getPromptId().toString();
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         log.error("{} 获取id失败", promptId, e);
                     }
 
@@ -190,19 +190,19 @@ public class EsUtils {
                     indexRequest.id(String.valueOf(promptId));
 
                     // sources.field(DefaultIndexField.MODIFIED, new Date());
-                    indexRequest.source ( JSON.toJSONString ( allSuggestProduct.get(i) ), XContentType.JSON );
-                    IndexResponse indexResponse = client.index ( indexRequest, RequestOptions.DEFAULT );
+                    indexRequest.source(JSON.toJSONString(allSuggestProduct.get(i)), XContentType.JSON);
+                    IndexResponse indexResponse = client.index(indexRequest, RequestOptions.DEFAULT);
                     bulkRequest.add(indexRequest);
                 }
             }
-            long start =System.currentTimeMillis();
+            long start = System.currentTimeMillis();
 
             BulkResponse bulk = this.client.bulk(bulkRequest, RequestOptions.DEFAULT);
             long end = System.currentTimeMillis();
-            log.error("bulk共用时间 -->> "+(end - start) + " 毫秒");
+            log.error("bulk共用时间 -->> " + (end - start) + " 毫秒");
 
         } catch (Exception e) {
-            log.error("{} 批量插入失败",promptId, e);
+            log.error("{} 批量插入失败", promptId, e);
         }
     }
 }

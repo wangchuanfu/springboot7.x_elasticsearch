@@ -22,7 +22,7 @@ public class SuggestIndexServiceImpl implements SuggestIndexService {
     @Override
     public List<SuggestPrompt> getAllSuggestProduct() {
 
-        List<SuggestPrompt>allProduct = suggestIndexMapper.getAllSuggestProduct();
+        List<SuggestPrompt> allProduct = suggestIndexMapper.getAllSuggestProduct();
 
         return allProduct;
     }

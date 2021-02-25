@@ -11,10 +11,10 @@ import java.util.HashMap;
 @Component
 public class HashMapToBeanUtils extends HashMap<String, Object> {
 
-    public Object toBean(Class<?> clazz){
+    public Object toBean(Class<?> clazz) {
         try {
             Object obj = clazz.newInstance();
-            BeanUtils.populate(obj,this);
+            BeanUtils.populate(obj, this);
             return obj;
         } catch (Exception e) {
             e.printStackTrace();

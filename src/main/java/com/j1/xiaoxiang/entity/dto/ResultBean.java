@@ -9,7 +9,7 @@ public class ResultBean<T> {
     /**
      * 响应码
      */
-    private String resultCode=SUCCESS;
+    private String resultCode = SUCCESS;
     /**
      * 响应描述
      */
@@ -17,7 +17,7 @@ public class ResultBean<T> {
     /**
      * 接口调用成功标志
      */
-    private  boolean success;
+    private boolean success;
     /**
      * 封装的业务数据
      */

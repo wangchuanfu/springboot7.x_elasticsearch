@@ -6,8 +6,6 @@ package com.j1.result;
 public class ResultMsg {
     /**
      * 公用消息
-     *
-     *
      */
     public static class Common {
         public static final String OK = "ok";
@@ -26,8 +24,6 @@ public class ResultMsg {
 
     /**
      * 优惠券Action消息
-     *
-     *
      */
     public static class CouponAction {
         public static final String LIST_FAILURE = "获取优惠券列表失败";
@@ -35,8 +31,6 @@ public class ResultMsg {
 
     /**
      * 个人中心Action消息
-     *
-     *
      */
     public static class MemberCenterAction {
         public static final String INFO_FAILURE = "查询个人信息失败";
@@ -44,8 +38,6 @@ public class ResultMsg {
 
     /**
      * 提交订单Action消息
-     *
-     *
      */
     public static class CommitOrderAction {
         public static final String INDEX_FAILURE = "初始化订单信息失败";
@@ -54,8 +46,6 @@ public class ResultMsg {
 
     /**
      * 消息中心Action消息
-     *
-     *
      */
     public static class MessageCenterAction {
         public static final String SEND_FAILURE = "发送消息失败";
@@ -64,8 +54,6 @@ public class ResultMsg {
 
     /**
      * 用户Action消息
-     *
-     *
      */
     public static class UserActionMsg {
         public static final String LOGIN_FAILURE = "登录失败";
@@ -84,7 +72,7 @@ public class ResultMsg {
         public static final String FAST_LOGIN_FAILURE = "联合登陆失败";
         public static final String FIND_BY_LOGIN_NAME_FAILURE = "找回密码失败";
         public static final String SEND_EMAIL_FAILURE = "发送邮箱失败";
-        public static final String MOBILE_CODE ="手机号或验证码不能为空";
+        public static final String MOBILE_CODE = "手机号或验证码不能为空";
         public static final String SEND_MOBILE_FAILURE = "发送验证码失败";
         public static final String QUICK_LOGIN_FAILURE = "快速登录失败";
         public static final String REGISTER_STORE_FAILURE = "门店录入失败";
@@ -92,20 +80,16 @@ public class ResultMsg {
 
     /**
      * 会员Action消息
-     *
-     *
      */
     public static class MemberActionMsg {
         public static final String QUERY_FAILURE = "查询用户信息失败";
         public static final String SIGN_FAILURE = "签到失败";
         public static final String SUGGEST_FAILURE = "投诉建议提交失败";
-        public static final String  QUERY_ERROR= "查询积分失败";
+        public static final String QUERY_ERROR = "查询积分失败";
     }
 
     /**
      * 会员等级Action消息
-     *
-     *
      */
     public static class MemberRankActionMsg {
         public static final String QUERY_FAILURE = "会员等级信息查询失败";
@@ -113,8 +97,6 @@ public class ResultMsg {
 
     /**
      * 促销Action消息
-     *
-     *
      */
     public static class PromoteAction {
         public static final String PROMOTE_LIST_FAILURE = "促销列表获取失败";
@@ -130,8 +112,6 @@ public class ResultMsg {
 
     /**
      * 活动Action消息
-     *
-     *
      */
     public static class ActivityActionMsg {
         public static final String LIST_FAILURE = "查询活动失败";
@@ -139,8 +119,6 @@ public class ResultMsg {
 
     /**
      * 首页内容Action消息
-     *
-     *
      */
     public static class IndexActionMsg {
         public static final String QUERY_FAILURE = "查询失败";
@@ -149,15 +127,13 @@ public class ResultMsg {
         public static final String BANNER_FAILURE = "Banner获取失败";
         public static final String SORTS_FAILURE = "热门推荐获取失败";
         public static final String Approve_Failure = "钟意导航信息获取失败";
-        public static final String Special_Parameter_Failure="参数为空或错误";
-        public static final String Special_Failure="专题活动查询失败";
+        public static final String Special_Parameter_Failure = "参数为空或错误";
+        public static final String Special_Failure = "专题活动查询失败";
 
     }
 
     /**
      * 商品信息Action消息
-     *
-     *
      */
     public static class GoodsActionMsg {
         public static final String DETAIL_FAILURE = "商品详情查询失败";
@@ -168,8 +144,6 @@ public class ResultMsg {
 
     /**
      * 购物车Action消息
-     *
-     *
      */
     public static class ShopcartActionMsg {
         public static final String INIT_FAILURE = "获取购物车信息失败";
@@ -182,8 +156,6 @@ public class ResultMsg {
 
     /**
      * CommitOrder Action msg
-     *
-     *
      */
     public static class MakrUpOrderMsg {
         public static final String INIT_FAILURE = "获取凑单列表失败";
@@ -191,8 +163,6 @@ public class ResultMsg {
 
     /**
      * 订单Action消息
-     *
-     *
      */
     public static class OrderActionMsg {
         public static final String LIST_FAILRE = "查询订单失败";
@@ -204,13 +174,11 @@ public class ResultMsg {
         public static final String EXPECT_SIZE = "orderId参数错误";
         public static final String ORDER_ID_EMPTY = "缺少orderId参数";
         public static final String ORDER_NOT_EXISTS = "查询的订单不存在";
-        public static final String INSERT_STORE_FAILURE= "门店订单数据导入失败";
+        public static final String INSERT_STORE_FAILURE = "门店订单数据导入失败";
     }
 
     /**
      * 商品评价Action消息
-     *
-     *
      */
     public static class GoodsCommentActionMsg {
         public static final String LIST_FAILURE = "获取商品评价失败";
@@ -221,8 +189,6 @@ public class ResultMsg {
 
     /**
      * 商品分类Action消息
-     *
-     *
      */
     public static class CatalogActionMsg {
         public static final String LIST_FAILURE = "商品分类查询失败";
@@ -230,8 +196,6 @@ public class ResultMsg {
 
     /**
      * 会员收货地址Action消息
-     *
-     *
      */
     public static class MemberAddressActionMsg {
         public static final String LIST_FAILURE = "查询收货地址失败";
@@ -247,15 +211,14 @@ public class ResultMsg {
         public static final String QUERY_FAILURE = "账户余额查询失败";
         public static final String Q_A_FAILURE = "安全问题或答案不能为空";
     }
+
     /**
      * 摇一摇Action消息
-     *
-     *
      */
     public static class ShakeActionMsg {
         public static final String TO_MAIN_FAILURE = "进入摇一摇失败";
         public static final String SHAKE_FAILURE = "摇一摇获取结果失败";
-        public static final String Q_A_FAILURE ="安全问题或答案不能为空";
+        public static final String Q_A_FAILURE = "安全问题或答案不能为空";
     }
 
     // public static class ShakeActionMsg {
@@ -263,9 +226,10 @@ public class ResultMsg {
     // public static final String QUERY_FAILURE = "账户余额查询失败";
     // public static final String Q_A_FAILURE ="安全问题或答案不能为空";
     // }
+
     /**
      * CrcAction
-     **
+     * *
      */
     public static class CrcActionMsg {
         public static final String QUERY_HOT_PAGEINDEXIMG_FAILURE = "查询轮播图片失败";
@@ -289,22 +253,22 @@ public class ResultMsg {
     /**
      * SubMallAction
      * 越测越开心
-     *
      */
     public static class SubMallAction {
         public static final String SUB_MALL_LIST_FAILURE = "越策越开心列表获取失败";
         public static final String SUB_MALL_DETAIL_FAILURE = "越策越开心详情获取失败";
     }
+
     /**
      * PointsMall
      * 积分商城
-     *
      */
     public static class PointsMall {
         public static final String TO_FREE_COUPON_MAIN_FAILURE = "积分兑换优惠券活动查询失败";
         public static final String TO_FREE_PROMOTE_MAIN_FAILURE = "积分兑换商品活动查询失败";
-        public static final String POINTS_BUY_COUPON__FAILURE ="积分兑换优惠券失败";
+        public static final String POINTS_BUY_COUPON__FAILURE = "积分兑换优惠券失败";
     }
+
     public static class MemberShareActivityMsg {
         public static final String INIT_FAILURE = "初始化失败";
 //		public static final String INIT_FAILURE = "初始化失败";
@@ -313,22 +277,22 @@ public class ResultMsg {
 //		public static final String INIT_FAILURE = "初始化失败";
     }
 
-    public static class WeixinActionMsg{
+    public static class WeixinActionMsg {
         public static final String WEIXIN_FAILURE = "微信接口查询失败";
     }
+
     /**
      * 门店录入成功
-     * @author wangchuanfu
      *
+     * @author wangchuanfu
      */
-    public static class StoreSendMsg{
-        public static final String  MESSAGE_SEND= "恭喜你成为健一网会员,下载健一网APP后,可以直接使用手机号码登录,如有疑问请拔致电4007-800-800";
-        public static final String  INSERT_FALSE= "录入失败";
+    public static class StoreSendMsg {
+        public static final String MESSAGE_SEND = "恭喜你成为健一网会员,下载健一网APP后,可以直接使用手机号码登录,如有疑问请拔致电4007-800-800";
+        public static final String INSERT_FALSE = "录入失败";
     }
 
     /**
      * 太平用户联合登录消息
-
      */
     public static class MemberTpActionMsg {
         public static final String PARAMS_EMPTY = "参数不能为空!";
@@ -340,6 +304,6 @@ public class ResultMsg {
         public static final String TP_LOGIN_ERROR = "太平用户登录失败";
         public static final String PARAMS_VERIFY_CODE_ERROR = "验证码错误";
         public static final String PARAMS_MEMBERKEY_INVALID = "无效的memberKey";
-        public static final String NORMAL ="ok";
+        public static final String NORMAL = "ok";
     }
 }

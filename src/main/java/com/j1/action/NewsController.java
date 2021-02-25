@@ -20,13 +20,14 @@ public class NewsController {
     //查询这是mysql
     @RequestMapping(value = {"/getNewsInfo/{id}"})
     @ResponseBody
-    public News selectNewsInfo(@PathVariable("id") Long id){
+    public News selectNewsInfo(@PathVariable("id") Long id) {
         return newsService.selectNewsInfo(id);
     }
+
     //查询 这是oracle  springboot 可以同时配置多数据源,待写
     @RequestMapping(value = {"/getMemberById/{id}"})
     @ResponseBody
-    public Member getMemberById(@PathVariable("id") Long id){
+    public Member getMemberById(@PathVariable("id") Long id) {
         return newsService.getMemberById(id);
     }
 

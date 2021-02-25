@@ -8,7 +8,7 @@ import java.util.List;
  * Created by wangchuanfu on 20/8/13.
  */
 public interface MemberService {
-    List<Member>   queryMemberPage(Member member);
+    List<Member> queryMemberPage(Member member);
 
     String searchMemberInfo(String keyword);
 }

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by wangchuanfu on 20/7/21.
  */
-public class PageImpl <T> implements Page<T>{
+public class PageImpl<T> implements Page<T> {
     private final List<T> data = new ArrayList<T>();
     private final Pageable pageable;
     private final long totalCount;
@@ -17,18 +17,15 @@ public class PageImpl <T> implements Page<T>{
     private String params;//chen_zhenyu添加的，用于传递查询的参数
     private String extraInfo;//请求地址的扩展信息，例如?keyword=ABC]
 
-    public PageImpl(List<T> content, Pageable pageable, long total)
-    {
-        if (content != null)
-        {
+    public PageImpl(List<T> content, Pageable pageable, long total) {
+        if (content != null) {
             this.data.addAll(content);
         }
         this.totalCount = total;
         this.pageable = pageable;
     }
 
-    public PageImpl(List<T> content)
-    {
+    public PageImpl(List<T> content) {
 
         this(content, null, (null == content) ? 0 : content.size());
     }
@@ -36,8 +33,7 @@ public class PageImpl <T> implements Page<T>{
     /**
      * 当前页
      */
-    public int getPage()
-    {
+    public int getPage() {
         //pageable不为空，才取pageable中的当前页码。因为PageRequest构造时当前会-1，所以页面取时+1，如果+1后大于总页数，就取总页数
         return pageable == null ? 0 : ((pageable.getPageNumber() + 1) > getTotalPage() ? getTotalPage() : (pageable.getPageNumber() + 1));
     }
@@ -45,8 +41,7 @@ public class PageImpl <T> implements Page<T>{
     /**
      * 每页显示的内容数
      */
-    public int getSize()
-    {
+    public int getSize() {
 
         return pageable == null ? 0 : pageable.getPageSize();
     }
@@ -54,8 +49,7 @@ public class PageImpl <T> implements Page<T>{
     /**
      * 总页数
      */
-    public int getTotalPage()
-    {
+    public int getTotalPage() {
 
         return getSize() == 0 ? 0 : (int) Math.ceil((double) totalCount
                 / (double) getSize());
@@ -64,8 +58,7 @@ public class PageImpl <T> implements Page<T>{
     /**
      * 内容列表的元素总数
      */
-    public int getNumberOfElements()
-    {
+    public int getNumberOfElements() {
 
         return data.size();
     }
@@ -73,8 +66,7 @@ public class PageImpl <T> implements Page<T>{
     /**
      * 总内容数
      */
-    public long getTotalCount()
-    {
+    public long getTotalCount() {
 
         return totalCount;
     }
@@ -82,8 +74,7 @@ public class PageImpl <T> implements Page<T>{
     /**
      * 是否有上一页
      */
-    public boolean hasPreviousPage()
-    {
+    public boolean hasPreviousPage() {
 
         return getPage() > 0;
     }
@@ -91,8 +82,7 @@ public class PageImpl <T> implements Page<T>{
     /**
      * 是否是第一页
      */
-    public boolean isFirstPage()
-    {
+    public boolean isFirstPage() {
 
         return !hasPreviousPage();
     }
@@ -100,8 +90,7 @@ public class PageImpl <T> implements Page<T>{
     /**
      * 是否有下一页
      */
-    public boolean hasNextPage()
-    {
+    public boolean hasNextPage() {
 
         return ((getPage() + 1) * getSize()) < totalCount;
     }
@@ -109,8 +98,7 @@ public class PageImpl <T> implements Page<T>{
     /**
      * 是否为最后一页
      */
-    public boolean isLastPage()
-    {
+    public boolean isLastPage() {
 
         return !hasNextPage();
     }
@@ -118,8 +106,7 @@ public class PageImpl <T> implements Page<T>{
     /**
      * 遍历内容
      */
-    public Iterator<T> iterator()
-    {
+    public Iterator<T> iterator() {
 
         return data.iterator();
     }
@@ -127,8 +114,7 @@ public class PageImpl <T> implements Page<T>{
     /**
      * 页面呈现内容，返回不能修改的列表
      */
-    public List<T> getData()
-    {
+    public List<T> getData() {
 
         return Collections.unmodifiableList(data);
     }
@@ -136,8 +122,7 @@ public class PageImpl <T> implements Page<T>{
     /**
      * 内容列表是否为空
      */
-    public boolean hasData()
-    {
+    public boolean hasData() {
 
         return !data.isEmpty();
     }
@@ -145,8 +130,7 @@ public class PageImpl <T> implements Page<T>{
     /**
      * 获得排序
      */
-    public Sort getSort()
-    {
+    public Sort getSort() {
 
         return pageable == null ? null : pageable.getSort();
     }
@@ -155,13 +139,11 @@ public class PageImpl <T> implements Page<T>{
      * 打印方法重写
      */
     @Override
-    public String toString()
-    {
+    public String toString() {
 
         String contentType = "UNKNOWN";
 
-        if (data.size() > 0)
-        {
+        if (data.size() > 0) {
             contentType = data.get(0).getClass().getName();
         }
 
@@ -173,16 +155,13 @@ public class PageImpl <T> implements Page<T>{
      * 对比方法重写
      */
     @Override
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj) {
 
-        if (this == obj)
-        {
+        if (this == obj) {
             return true;
         }
 
-        if (!(obj instanceof PageImpl<?>))
-        {
+        if (!(obj instanceof PageImpl<?>)) {
             return false;
         }
 
@@ -200,8 +179,7 @@ public class PageImpl <T> implements Page<T>{
      * 哈希地址计算重写
      */
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
 
         int result = 17;
 
@@ -212,33 +190,27 @@ public class PageImpl <T> implements Page<T>{
         return result;
     }
 
-    public String getRequestURL()
-    {
+    public String getRequestURL() {
         return requestURL;
     }
 
-    public void setRequestURL(String requestURL)
-    {
+    public void setRequestURL(String requestURL) {
         this.requestURL = requestURL;
     }
 
-    public String getExtraInfo()
-    {
+    public String getExtraInfo() {
         return extraInfo;
     }
 
-    public void setExtraInfo(String extraInfo)
-    {
+    public void setExtraInfo(String extraInfo) {
         this.extraInfo = extraInfo;
     }
 
-    public String getParams()
-    {
+    public String getParams() {
         return params;
     }
 
-    public void setParams(String params)
-    {
+    public void setParams(String params) {
         this.params = params;
     }
 }

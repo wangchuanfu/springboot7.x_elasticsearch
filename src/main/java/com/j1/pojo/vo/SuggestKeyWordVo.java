@@ -25,16 +25,15 @@ public class SuggestKeyWordVo {
      */
 
 
-
     //搜索提示
-    @CompletionField(searchAnalyzer="standard",analyzer = "standard")
+    @CompletionField(searchAnalyzer = "standard", analyzer = "standard")
     private Completion operationName;
 
     //时间类型
     @Field(type = FieldType.Date,
             format = DateFormat.custom,
             pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
     /**
@@ -51,36 +50,35 @@ public class SuggestKeyWordVo {
     /**
      * 关键词，中文前缀查找
      */
-    @Field(type =  FieldType.Text, index = true, analyzer = "standard", searchAnalyzer = "standard", store = false)
+    @Field(type = FieldType.Text, index = true, analyzer = "standard", searchAnalyzer = "standard", store = false)
     private String keywordSuffix;
 
     /**
      * 关键词，拼音前缀查找
      */
-    @Field(type = FieldType.Text,analyzer = "pinyin",searchAnalyzer = "pinyin")
+    @Field(type = FieldType.Text, analyzer = "pinyin", searchAnalyzer = "pinyin")
     private String keywordPinyin;
 
     /**
      * 关键词属于何分类下
      */
-    @Field(type =  FieldType.Text, index = true, analyzer = "standard", searchAnalyzer = "standard", store = true)
+    @Field(type = FieldType.Text, index = true, analyzer = "standard", searchAnalyzer = "standard", store = true)
     private String catalogId;
 
     /**
      * 关键词相关商品数（含误差）
      */
-    @Field(type =  FieldType.Keyword, index = false, store = true)
+    @Field(type = FieldType.Keyword, index = false, store = true)
     private String amount;
-
 
 
     /**
      * 关键词，拼音前缀查找
      */
-    @CompletionField(searchAnalyzer="standard",analyzer = "standard")
+    @CompletionField(searchAnalyzer = "standard", analyzer = "standard")
     private CompletionField searchName;
     //搜索提示
-    @CompletionField(searchAnalyzer="standard",analyzer = "standard")
+    @CompletionField(searchAnalyzer = "standard", analyzer = "standard")
     private Completion promptName;
 
     @DynamicMapping(DynamicMappingValue.True)

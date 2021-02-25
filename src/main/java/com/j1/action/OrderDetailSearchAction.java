@@ -40,8 +40,8 @@ public class OrderDetailSearchAction {
     public String getOrderInfoN() {
 
         try {
-            long start =System.currentTimeMillis();
-            if(esUtils.existsIndex("b2b_order_detail")){
+            long start = System.currentTimeMillis();
+            if (esUtils.existsIndex("b2b_order_detail")) {
                 elasticsearchTemplate.deleteIndex("b2b_order_detail");
             }
             //通过注解创建index,mapping
@@ -64,13 +64,14 @@ public class OrderDetailSearchAction {
         }
         return "ok";
     }
+
     @RequestMapping(value = {"/getOrderInfoSearch"})
     @ResponseBody
     public String getOrderInfoSearch() {
 
         //参数封装测试
 
-       // bucketAndMetricService.aggsQuery();
+        // bucketAndMetricService.aggsQuery();
         return "ok";
     }
 

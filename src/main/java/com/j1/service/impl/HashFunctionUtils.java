@@ -16,7 +16,7 @@ public class HashFunctionUtils implements HashFunction {
     public Integer hash(String key) {
 
         final int p = 16777619;
-        int hash = (int)2166136261L;
+        int hash = (int) 2166136261L;
         for (int i = 0; i < key.length(); i++)
             hash = (hash ^ key.charAt(i)) * p;
         hash += hash << 13;
@@ -63,16 +63,12 @@ public class HashFunctionUtils implements HashFunction {
 
         private final HashFunction hashFunction;// hash 函数接口
         private final int numberOfReplicas;// 每个机器节点关联的虚拟节点个数
-        private final SortedMap<Integer,Node> circle = new TreeMap<>();// 环形虚拟节点
+        private final SortedMap<Integer, Node> circle = new TreeMap<>();// 环形虚拟节点
 
         /**
-         *
-         * @param hashFunction
-         *            hash 函数接口
-         * @param numberOfReplicas
-         *            每个机器节点关联的虚拟节点个数
-         * @param nodes
-         *            真实机器节点
+         * @param hashFunction     hash 函数接口
+         * @param numberOfReplicas 每个机器节点关联的虚拟节点个数
+         * @param nodes            真实机器节点
          */
         public ConsistentHash(HashFunction hashFunction, int numberOfReplicas, Collection<Node> nodes) {
             this.hashFunction = hashFunction;
@@ -118,7 +114,7 @@ public class HashFunctionUtils implements HashFunction {
 
             Integer hash = hashFunction.hash(key);
             if (!circle.containsKey(hash)) {
-                SortedMap<Integer,Node> tailMap = circle.tailMap(hash);// 沿环的顺时针找到一个虚拟节点
+                SortedMap<Integer, Node> tailMap = circle.tailMap(hash);// 沿环的顺时针找到一个虚拟节点
                 hash = tailMap.isEmpty() ? circle.firstKey() : tailMap.firstKey();
             }
 
@@ -129,7 +125,7 @@ public class HashFunctionUtils implements HashFunction {
     public class ConHashTest {
         private static final String IP_PREFIX = "localhost";// 机器节点IP前缀
 
-        public  void main(String[] args) {
+        public void main(String[] args) {
             Map<String, Integer> map = new HashMap<String, Integer>();// 每台真实机器节点上保存的记录条数
             HashFunction hashFunction = new HashFunctionUtils();
             //真实物理节点

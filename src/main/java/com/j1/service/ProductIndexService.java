@@ -11,5 +11,5 @@ import java.util.Map;
  */
 public interface ProductIndexService {
     //查询满足符合条件的商品
-    List<Product>  getAllProduct();
+    List<Product> getAllProduct();
 }

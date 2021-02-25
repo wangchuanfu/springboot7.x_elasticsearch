@@ -71,8 +71,7 @@ public class SheepPage {
      */
     private long total;
 
-    public SheepPage(SheepPage sheepPage)
-    {
+    public SheepPage(SheepPage sheepPage) {
         this.attrs = sheepPage.attrs;
         this.catalogId = sheepPage.catalogId;
         this.decodeKeyword = sheepPage.decodeKeyword;
@@ -88,23 +87,18 @@ public class SheepPage {
 
     public SheepPage(String originalKeyword, String previousKeyword,
                      String catalogId, String attrs, String sort, String pageSize,
-                     String pageNumber, String searchTypeCode) throws Exception
-    {
+                     String pageNumber, String searchTypeCode) throws Exception {
         // 关键词解码处理
-        if (originalKeyword == null || "".equals(originalKeyword.trim()))
-        {
+        if (originalKeyword == null || "".equals(originalKeyword.trim())) {
             this.originalKeyword = "%E6%AC%A7%E5%A7%86%E9%BE%99%E8%A1%80%E5%8E%8B%E8%AE%A1";
             this.decodeKeyword = "欧姆龙血压计";
-        }
-        else
-        {
+        } else {
             this.originalKeyword = originalKeyword;
             this.decodeKeyword = WebUtils.convertUnicode(this.originalKeyword
                     .trim());
         }
         // 上一次关键词解码处理
-        if (previousKeyword != null && !"".equals(previousKeyword.trim()))
-        {
+        if (previousKeyword != null && !"".equals(previousKeyword.trim())) {
             this.previousKeyword = previousKeyword;
             this.previousDecodeKeyword = WebUtils
                     .convertUnicode(this.previousKeyword.trim());
@@ -140,148 +134,119 @@ public class SheepPage {
      * 偏移值=每页显示内容数*当前页数
      */
     @JSONField(serialize = false)
-    public int getOffset()
-    {
+    public int getOffset() {
         return pageNumber * pageSize;
     }
 
-    public String getOriginalKeyword()
-    {
+    public String getOriginalKeyword() {
         return originalKeyword;
     }
 
-    public void setOriginalKeyword(String originalKeyword)
-    {
+    public void setOriginalKeyword(String originalKeyword) {
         this.originalKeyword = originalKeyword;
     }
 
-    public String getDecodeKeyword()
-    {
+    public String getDecodeKeyword() {
         return decodeKeyword;
     }
 
-    public void setDecodeKeyword(String decodeKeyword)
-    {
+    public void setDecodeKeyword(String decodeKeyword) {
         this.decodeKeyword = decodeKeyword;
     }
 
-    public String getPreviousKeyword()
-    {
+    public String getPreviousKeyword() {
         return previousKeyword;
     }
 
-    public void setPreviousKeyword(String previousKeyword)
-    {
+    public void setPreviousKeyword(String previousKeyword) {
         this.previousKeyword = previousKeyword;
     }
 
-    public String getPreviousDecodeKeyword()
-    {
+    public String getPreviousDecodeKeyword() {
         return previousDecodeKeyword;
     }
 
-    public void setPreviousDecodeKeyword(String previousDecodeKeyword)
-    {
+    public void setPreviousDecodeKeyword(String previousDecodeKeyword) {
         this.previousDecodeKeyword = previousDecodeKeyword;
     }
 
-    public String getCatalogId()
-    {
+    public String getCatalogId() {
         return catalogId;
     }
 
-    public void setCatalogId(String catalogId)
-    {
+    public void setCatalogId(String catalogId) {
         this.catalogId = catalogId;
     }
 
-    public String getAttrs()
-    {
+    public String getAttrs() {
         return attrs;
     }
 
-    public void setAttrs(String attrs)
-    {
+    public void setAttrs(String attrs) {
         this.attrs = attrs;
     }
 
-    public String getSort()
-    {
+    public String getSort() {
         return sort;
     }
 
-    public void setSort(String sort)
-    {
+    public void setSort(String sort) {
         this.sort = sort;
     }
 
-    public int getPageSize()
-    {
+    public int getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(int pageSize)
-    {
+    public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
 
-    public int getPageNumber()
-    {
+    public int getPageNumber() {
         return pageNumber;
     }
 
-    public void setPageNumber(int pageNumber)
-    {
+    public void setPageNumber(int pageNumber) {
         this.pageNumber = pageNumber;
     }
 
-    public boolean isDiscount()
-    {
+    public boolean isDiscount() {
         return discount;
     }
 
-    public void setDiscount(boolean discount)
-    {
+    public void setDiscount(boolean discount) {
         this.discount = discount;
     }
 
-    public SearchType getSearchType()
-    {
+    public SearchType getSearchType() {
         return searchType;
     }
 
-    public void setSearchType(SearchType searchType)
-    {
+    public void setSearchType(SearchType searchType) {
         this.searchType = searchType;
     }
 
-    public List<String> getFiltIds()
-    {
+    public List<String> getFiltIds() {
         return filtIds;
     }
 
-    public void setFiltIds(List<String> filtIds)
-    {
+    public void setFiltIds(List<String> filtIds) {
         this.filtIds = filtIds;
     }
 
-    public List<Object> getResults()
-    {
+    public List<Object> getResults() {
         return results;
     }
 
-    public void setResults(List<Object> results)
-    {
+    public void setResults(List<Object> results) {
         this.results = results;
     }
 
-    public long getTotal()
-    {
+    public long getTotal() {
         return total;
     }
 
-    public void setTotal(long total)
-    {
+    public void setTotal(long total) {
         this.total = total;
     }
 }

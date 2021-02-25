@@ -4,68 +4,67 @@
 
 
     <resultMap id="productResultMap" type="com.j1.pojo.Product">
-        <result column="good_eval_amount" property="goodEvalAmount" />
-        <result column="click_amount" property="clickAmount" />
-       <!-- <result column="onsale_time" property="onSaleTime" />-->
-        <result column="sale_time" property="saleTime" />
-        <result column="product_code" property="productCode" />
-        <result column="product_common_name" property="productCommonName" />
-        <result column="PRODUCT_ALIAS_NAME" property="productAliasName" />
-        <result column="pro_catalog_id" property="proCatalogId" />
+        <result column="good_eval_amount" property="goodEvalAmount"/>
+        <result column="click_amount" property="clickAmount"/>
+        <!-- <result column="onsale_time" property="onSaleTime" />-->
+        <result column="sale_time" property="saleTime"/>
+        <result column="product_code" property="productCode"/>
+        <result column="product_common_name" property="productCommonName"/>
+        <result column="PRODUCT_ALIAS_NAME" property="productAliasName"/>
+        <result column="pro_catalog_id" property="proCatalogId"/>
         <result column="catalog_list_id" property="cataLogListId" javaType="String"/>
         <result column="catalog_list_name" property="cataLogListName" javaType="String"/>
-        <result column="pro_catalog_name" property="proCatalogName" />
-        <result column="PROMOTE_PHRASE" property="promotePhrase" javaType="String" />
-        <result column="EC_PRICE" property="ecPrice" javaType="String" />
-        <result column="MARKET_PRICE" property="marketPrice" javaType="decimal" />
-        <result column="PRO_IMAGE_URL" property="proImageUrl" javaType="String" />
-        <result column="TAG_ICON_URL" property="tagIconUrl" javaType="String" />
+        <result column="pro_catalog_name" property="proCatalogName"/>
+        <result column="PROMOTE_PHRASE" property="promotePhrase" javaType="String"/>
+        <result column="EC_PRICE" property="ecPrice" javaType="String"/>
+        <result column="MARKET_PRICE" property="marketPrice" javaType="decimal"/>
+        <result column="PRO_IMAGE_URL" property="proImageUrl" javaType="String"/>
+        <result column="TAG_ICON_URL" property="tagIconUrl" javaType="String"/>
         <result column="DRUG_PRESCRIPTION_TYPE" property="drugPrescriptionType"
-                javaType="String" />
+                javaType="String"/>
         <result column="PRODUCT_LEAST_ORDER" property="productLeastOrder"
-                javaType="decimal" />
+                javaType="decimal"/>
         <result column="ORDER_LIMIT_AMOUNT" property="orderLimitAmount"
-                javaType="decimal" />
+                javaType="decimal"/>
         <result column="AVAILABLE_STOCK" property="availableStock"
-                javaType="decimal" />
-        <result column="PRODUCT_ID" property="productId" />
-        <result column="SALE_SCORE" property="saleScore"  javaType="decimal" />
-        <result column="GOODS_ID" property="goodsId" />
+                javaType="decimal"/>
+        <result column="PRODUCT_ID" property="productId"/>
+        <result column="SALE_SCORE" property="saleScore" javaType="decimal"/>
+        <result column="GOODS_ID" property="goodsId"/>
         <result column="goods_no" property="goodsNo"/>
         <result column="stock" property="stock"/>
         <result column="thumb" property="thumb"/>
         <result column="SALE_AMOUNT" property="saleAmount"/>
-        <result column="GOODS_NAME" property="productName" />
-        <result column="producer" property="producer" />
-        <result column="product_name1" property="productName1" />
+        <result column="GOODS_NAME" property="productName"/>
+        <result column="producer" property="producer"/>
+        <result column="product_name1" property="productName1"/>
         <result column="PRODUCT_CHN_NO" property="productChnNo"/>
         <result column="DRUG_TREATMENT" property="drugTreatment"
-                javaType="String" />
+                javaType="String"/>
         <result column="product_keyword" property="productKeyword"/>
         <result column="product_brand_id" property="productBrandId"/>
         <result column="product_brand_name" property="productBrandName"/>
         <result column="product_brand_name1" property="productBrandName1"/>
         <result column="product_order" property="productOrder"/>
-        <result column="comment_sum" property="commentSum" />
+        <result column="comment_sum" property="commentSum"/>
         <!--<result column="full_index" property="cataLogPathId" />-->
         <result column="discount_state" property="discountState"/>
         <result column="goods_seller" property="goodsSeller"/>
-       <!--  <result column="PRODUCT_ID" property="attrs" select="ProductAttribute.getAttrListByProduct" javaType="List"/>
-        <result column="PRODUCT_ID" property="keywordScore" select="ProductKeyword.getKeywordListByProduct" javaType="List"/>
+        <!--  <result column="PRODUCT_ID" property="attrs" select="ProductAttribute.getAttrListByProduct" javaType="List"/>
+         <result column="PRODUCT_ID" property="keywordScore" select="ProductKeyword.getKeywordListByProduct" javaType="List"/>
 
-        <association property="attrList" column="PRODUCT_ID" select="getAttrListByProduct"/>
- -->
+         <association property="attrList" column="PRODUCT_ID" select="getAttrListByProduct"/>
+  -->
         <association property="attrs" column="PRODUCT_ID"
-                     select="getAttrListByProduct" />
-
+                     select="getAttrListByProduct"/>
 
 
     </resultMap>
 
     <resultMap type="com.j1.pojo.ProductAttrs" id="productAttributeMap">
-    <result property="attrId" column="attribute_id" />
-    <result property="attrCode" column="attr_code" />
-</resultMap>
+        <result property="attrId" column="attribute_id"/>
+        <result property="attrCode" column="attr_code"/>
+    </resultMap>
     <!-- lucene通过ID建立索引sql语句 -->
     <select id="getAllProduct" parameterType="com.j1.pojo.Product" resultMap="productResultMap">
         select
@@ -94,18 +93,18 @@
         g.goods_id,
         g.goods_no,
         g.goods_name,
-        g.goods_name   product_name1,
+        g.goods_name product_name1,
         pw.sale_weight as "sale_score",
         g.market_price || '' as "market_price",
         g.sale_amount,
         g.click_amount,
         (
-        case   when pi.pro_image_url is null then
+        case when pi.pro_image_url is null then
         0
         else
         1
         end
-        )  thumb,
+        ) thumb,
         (
         case
         when g.available_stock=0 then
@@ -113,7 +112,7 @@
         else
         1
         end
-        )  stock,
+        ) stock,
         nvl(g.available_stock, 0) || '' as "available_stock",
         p.pro_catalog_id || '' as "pro_catalog_id",
         (select zh_concat(pcd.pro_catalog_id)
@@ -157,7 +156,7 @@
         p.product_keyword,
         p.PRODUCT_CHN_NO,
         pb.product_brand_id,
-        pb.product_brand_name   product_brand_name1,
+        pb.product_brand_name product_brand_name1,
         pb.product_brand_name,
         nvl(p.product_order, 0) product_order,
         (case
@@ -194,14 +193,14 @@
         and pt.tag_type = 'icon'
         group by ptd.goods_id) tag
         on tag.goods_id = g.goods_id
-        left join (select pig.product_id    as product_id,
+        left join (select pig.product_id as product_id,
         pig.image_order,
         pig.pro_image_url as pro_image_url
         from product_img pig
         where pig.image_type = 'list'
         and pig.image_order = 1) pi
         on p.product_id = pi.product_id
-        left join (select ge.PRODUCT_ID       as goodsid,
+        left join (select ge.PRODUCT_ID as goodsid,
         ge.EVALUATION_COUNT as comment_sum,
         ge.evaluation_count_hp as comment_hp
         from PRODUCT_EXPAND ge
@@ -216,7 +215,7 @@
 
 
         <if test="productId != null and productId != '' ">
-            and   p.product_id = #{productId}
+            and p.product_id = #{productId}
         </if>
         <!--
               <if test="addTime !=null || addTime!='' ">
@@ -233,10 +232,7 @@
                  -->
 
 
-
-
     </select>
-
 
 
     <select id="getAttrListByProduct" resultMap="productAttributeMap" parameterType="java.lang.Integer">

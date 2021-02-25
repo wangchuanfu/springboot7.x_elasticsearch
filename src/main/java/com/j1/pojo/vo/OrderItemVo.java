@@ -24,45 +24,45 @@ public class OrderItemVo extends BaseBO {
     /**
      * 主键
      */
-    @Field(type = FieldType.Keyword ,index =true ,store = false)
+    @Field(type = FieldType.Keyword, index = true, store = false)
     private Long orderItemId;
     /**
      * 订单ID
      */
-    @Field(type = FieldType.Keyword ,index =true ,store = false)
+    @Field(type = FieldType.Keyword, index = true, store = false)
 
     private Long orderId;
     /**
      * 商品类型
      */
-    @Field(type = FieldType.Keyword ,index =true ,store = false)
+    @Field(type = FieldType.Keyword, index = true, store = false)
 
     private String goodsType;
     /**
      * 货品ID
      */
-    @Field(type = FieldType.Keyword ,index =true ,store = false)
+    @Field(type = FieldType.Keyword, index = true, store = false)
 
     private Long goodsId;
     /**
      * 商品编码
      */
-    @Field(type = FieldType.Keyword ,index =true ,store = false)
+    @Field(type = FieldType.Keyword, index = true, store = false)
 
     private String goodsNo;
     /**
      * 商品名称
      */
-    @Field(type = FieldType.Text ,index =true, analyzer="ik_max_word",    searchAnalyzer = "ik_max_word"  ,store = true)
+    @Field(type = FieldType.Text, index = true, analyzer = "ik_max_word", searchAnalyzer = "ik_max_word", store = true)
     private String goodsName;
 
     /**
      * 成交价
      */
-    @Field(type = FieldType.Keyword ,index =true ,store = false)
+    @Field(type = FieldType.Keyword, index = true, store = false)
 
     private BigDecimal goodsPrice;
-    @Field(type = FieldType.Keyword ,index =true ,store = false)
+    @Field(type = FieldType.Keyword, index = true, store = false)
 
     /**
      * 商品数量
@@ -71,7 +71,7 @@ public class OrderItemVo extends BaseBO {
     /**
      * 小计金额
      */
-    @Field(type = FieldType.Keyword ,index =true ,store = false)
+    @Field(type = FieldType.Keyword, index = true, store = false)
 
     private BigDecimal goodsSumFee;
 
@@ -79,36 +79,35 @@ public class OrderItemVo extends BaseBO {
     /**
      * 商品图片的URL
      */
-    @Field(type = FieldType.Text ,index =true ,store = false)
+    @Field(type = FieldType.Text, index = true, store = false)
 
     private String proImageUrl;
     /**
      * 原始图片路径
      */
 
-    @Field(type = FieldType.Keyword ,index =false ,store = false)
+    @Field(type = FieldType.Keyword, index = false, store = false)
 
     private String producer;
 
     /**
      * 商品ID
      */
-    @Field(type = FieldType.Keyword ,index =true ,store = false)
+    @Field(type = FieldType.Keyword, index = true, store = false)
 
     private Long productId;
 
     /**
      * 药品处方类型
      */
-    @Field(type = FieldType.Keyword ,index =true ,store = false)
+    @Field(type = FieldType.Keyword, index = true, store = false)
 
     private String drugPrescriptionType;
 
     // 订单状态
-    @Field(type = FieldType.Keyword ,index =true ,store = false)
+    @Field(type = FieldType.Keyword, index = true, store = false)
 
     private Integer orderState;
-
 
 
 }

@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class SearchPageRequest {
     /**
-     *  页面传过来的，分页参数接口实现，从0页开始，最大页面99
+     * 页面传过来的，分页参数接口实现，从0页开始，最大页面99
      */
     //是否进行SEM查询，基于关键字的排序
     @JSONField(serialize = false)
@@ -70,6 +70,7 @@ public class SearchPageRequest {
      * 商品总数
      */
     private long total;
+
     public SearchPageRequest(String key, String prevKeyword, String stype,
                              String attrs, String pageSize, String pageNum, String catalogId,
                              String sort) throws Exception {
@@ -260,10 +261,10 @@ public class SearchPageRequest {
         Sort.Order orderkeyword = null;
         if (StringUtils.isNotBlank(this.decodeKeyword))
             orderkeyword = new Sort.Order(Sort.Direction.DESC, this.decodeKeyword);
-        Sort.Order order99 = new Sort.Order(Sort.Direction.DESC,"_score");
+        Sort.Order order99 = new Sort.Order(Sort.Direction.DESC, "_score");
         if (isSEM && (SearchType.SEGMENT_C_AND.equals(searchType)
                 || SearchType.SEGMENT_C_OR.equals(searchType))
-                && orderkeyword !=null) {
+                && orderkeyword != null) {
             if ("0".equals(sort)) {
                 sort0 = new Sort("98");
                 //按照关键字排序,search DSL 语句报错,先注释掉,以观后效
@@ -276,10 +277,10 @@ public class SearchPageRequest {
             }
         } else {
             if ("0".equals(sort)) {
-                sort0 = new Sort("98",sort);
+                sort0 = new Sort("98", sort);
                 sort0.add(order99);
             } else {
-                sort0 = new Sort("98",sort,"1");
+                sort0 = new Sort("98", sort, "1");
                 sort0.add(order99);
             }
         }

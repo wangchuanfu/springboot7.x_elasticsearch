@@ -95,20 +95,20 @@ public class ShoesTradeMallServiceImpl implements ShoesTradeMallService {
         NativeSearchQuery searchQuery = nativeSearchQueryBuilder.build();
         log.info("searchQuery dsl:{}", searchQuery.getQuery().toString());
         //执行查询,底层会利用反射
-        IndexCoordinates index=null;
-        AggregatedPage<ShoesTrade> aggregatedPage = customEsTemplate.queryForPage(searchQuery, ShoesTrade.class,index);
+        IndexCoordinates index = null;
+        AggregatedPage<ShoesTrade> aggregatedPage = customEsTemplate.queryForPage(searchQuery, ShoesTrade.class, index);
 
         List<ShoesTradeResultDto> shoesTradeResultDtoList = aggregatedPage.getContent().stream().map(
                 m -> {
-            ShoesTradeResultDto shoesTradeResultDto = new ShoesTradeResultDto();//返回给前段封装的model实体
+                    ShoesTradeResultDto shoesTradeResultDto = new ShoesTradeResultDto();//返回给前段封装的model实体
 
-            BeanUtils.copyProperties(m, shoesTradeResultDto);
+                    BeanUtils.copyProperties(m, shoesTradeResultDto);
 
-            shoesTradeResultDto.setGotoUrl(gotoUrl + m.getGoodsCode());
-            shoesTradeResultDto.setSellPrice(shoesTradeResultDto.getSellPrice() == null ? 0 : shoesTradeResultDto.getSellPrice());
-            return shoesTradeResultDto;
+                    shoesTradeResultDto.setGotoUrl(gotoUrl + m.getGoodsCode());
+                    shoesTradeResultDto.setSellPrice(shoesTradeResultDto.getSellPrice() == null ? 0 : shoesTradeResultDto.getSellPrice());
+                    return shoesTradeResultDto;
 
-        }).collect(Collectors.toList());
+                }).collect(Collectors.toList());
 
         log.info("searchKeyword: {} , shoesTradeResultDtoList size: {} ", shoesTradeQuery.getSk(), shoesTradeResultDtoList.size());
         //聚合
@@ -343,7 +343,7 @@ public class ShoesTradeMallServiceImpl implements ShoesTradeMallService {
                 suitCrowdList = suitCrowdList.stream().distinct().collect(Collectors.toList());
             }
             shoesTrade.setSuitCrowdAll(suitCrowdList);
-           // shoesTrade.setGPyTitle(HanyuPinyinHelper.hanyuIkAnalyzedToPinYin(g.getGoodsName()));
+            // shoesTrade.setGPyTitle(HanyuPinyinHelper.hanyuIkAnalyzedToPinYin(g.getGoodsName()));
             shoesTrade.setMeasures(measures);
             List<String> measuresList = Arrays.asList(measures.split(ShoesTradeConstant.SEPARATOR_DIAGONAL));
             if (CollectionUtils.isNotEmpty(measuresList)) {
@@ -383,7 +383,7 @@ public class ShoesTradeMallServiceImpl implements ShoesTradeMallService {
                     shoesTrade.getShoesFashtion().replace(ShoesTradeConstant.SEPARATOR_DIAGONAL, " ")
             );
             shoesTrade.setSk(sk);
-           // shoesTrade.setSkPyTitle(HanyuPinyinHelper.hanyuIkAnalyzedToPinYin(shoesTrade.getSk()));
+            // shoesTrade.setSkPyTitle(HanyuPinyinHelper.hanyuIkAnalyzedToPinYin(shoesTrade.getSk()));
             // searchAsyncHandle.asyncImportSuggestWord(shoesTrade);
             return shoesTrade;
         }).collect(Collectors.toList());
@@ -493,6 +493,7 @@ public class ShoesTradeMallServiceImpl implements ShoesTradeMallService {
         nativeSearchQueryBuilder.withQuery(functionScoreQueryBuilder);
 
     }
+
     //增加过滤条件
     private void addFilterClauseToBoolQuery(ShoesTradeQuery shoesTradeQuery, BoolQueryBuilder boolQueryBuilder) {
         BoolQueryBuilder boolQueryBuilderForBrand = QueryBuilders.boolQuery();
@@ -508,7 +509,7 @@ public class ShoesTradeMallServiceImpl implements ShoesTradeMallService {
 
                     .collect(Collectors.toList());
 
-            boolQueryBuilderForBrands.forEach(b -> boolQueryBuilderForBrand.should(termsQuery("brandName.brandName_analyzed",b, b.toLowerCase(), b.toUpperCase())));
+            boolQueryBuilderForBrands.forEach(b -> boolQueryBuilderForBrand.should(termsQuery("brandName.brandName_analyzed", b, b.toLowerCase(), b.toUpperCase())));
 
             boolQueryBuilder.filter(boolQueryBuilderForBrand);
         }
@@ -521,7 +522,7 @@ public class ShoesTradeMallServiceImpl implements ShoesTradeMallService {
         BoolQueryBuilder boolQueryBuilderForCategory = QueryBuilders.boolQuery();
         if (CollectionUtils.isNotEmpty(shoesTradeQuery.getCategorys())) {
             //使用不分词的字段,索引中的值没有转小写,所以这里的 c也不转小写 ,保持一致
-            shoesTradeQuery.getCategorys().forEach(c -> boolQueryBuilderForCategory.should(QueryBuilders.termsQuery("productCategoryName.productCategoryName_sym", c,c.toLowerCase(),c.toUpperCase())));
+            shoesTradeQuery.getCategorys().forEach(c -> boolQueryBuilderForCategory.should(QueryBuilders.termsQuery("productCategoryName.productCategoryName_sym", c, c.toLowerCase(), c.toUpperCase())));
             boolQueryBuilder.filter(boolQueryBuilderForCategory);
         }
         if (CollectionUtils.isNotEmpty(shoesTradeQuery.getCategoryIds())) {
@@ -535,7 +536,7 @@ public class ShoesTradeMallServiceImpl implements ShoesTradeMallService {
         }
         if (CollectionUtils.isNotEmpty(shoesTradeQuery.getSerisNames())) {
             //使用不分词的字段,索引中的值没有转小写,所以这里的 c也不转小写 ,保持一致
-            shoesTradeQuery.getSerisNames().forEach(c -> boolQueryBuilderForSerisName.should(QueryBuilders.termsQuery("serisName.serisName_sym", c,c.toLowerCase(),c.toUpperCase())));
+            shoesTradeQuery.getSerisNames().forEach(c -> boolQueryBuilderForSerisName.should(QueryBuilders.termsQuery("serisName.serisName_sym", c, c.toLowerCase(), c.toUpperCase())));
             boolQueryBuilder.filter(boolQueryBuilderForSerisName);
         }
 
@@ -546,7 +547,7 @@ public class ShoesTradeMallServiceImpl implements ShoesTradeMallService {
             boolQueryBuilder.filter(boolQueryBuilderForsuitCrowd);
         }
 
-        BoolQueryBuilder boolQueryBuilderForMeasures= QueryBuilders.boolQuery();
+        BoolQueryBuilder boolQueryBuilderForMeasures = QueryBuilders.boolQuery();
         if (CollectionUtils.isNotEmpty(shoesTradeQuery.getMeasures())) {
             //使用不分词的字段,索引中的值没有转小写,所以这里的 c也不转小写 ,保持一致
             shoesTradeQuery.getMeasures().forEach(c -> boolQueryBuilderForMeasures.should(QueryBuilders.termQuery("measuresAll", c)));
@@ -611,11 +612,12 @@ public class ShoesTradeMallServiceImpl implements ShoesTradeMallService {
 
         //查询品牌
         SeFeature.Feature feature = seFeature.getFeature(realSkWord(shoesTradeQuery.getOriginalSk()));
-        if (CollectionUtils.isNotEmpty(feature.getBrandSet())){
-          boolQueryBuilder.should(
-                  constantScoreQuery(termsQuery("brandName.brandName_analyzed",feature.getBrandSet()).boost(0.005f))
-          );
-        }  if (CollectionUtils.isNotEmpty(feature.getCategorySet())) {
+        if (CollectionUtils.isNotEmpty(feature.getBrandSet())) {
+            boolQueryBuilder.should(
+                    constantScoreQuery(termsQuery("brandName.brandName_analyzed", feature.getBrandSet()).boost(0.005f))
+            );
+        }
+        if (CollectionUtils.isNotEmpty(feature.getCategorySet())) {
             boolQueryBuilder.should(constantScoreQuery(termsQuery("productCategoryName.productCategoryName_sym",
                     feature.getCategorySet())).boost(0.005f));
         }
@@ -630,8 +632,9 @@ public class ShoesTradeMallServiceImpl implements ShoesTradeMallService {
     }
 
     /**
-     *排序
-     * @param shoesTradeQuery 前台传递的参数
+     * 排序
+     *
+     * @param shoesTradeQuery          前台传递的参数
      * @param nativeSearchQueryBuilder query
      */
 
@@ -639,34 +642,34 @@ public class ShoesTradeMallServiceImpl implements ShoesTradeMallService {
 
         if (StringUtils.isNotBlank(shoesTradeQuery.getPriceSort())) {
             SortBuilder gPriceSortBuilder = new FieldSortBuilder("sellPrice").missing(0);//按照售价排序
-            switch (shoesTradeQuery.getPriceSort()){
+            switch (shoesTradeQuery.getPriceSort()) {
                 case "desc":
                     gPriceSortBuilder.order(SortOrder.DESC);
                     break;
                 case "asc":
                     gPriceSortBuilder = gPriceSortBuilder.order(SortOrder.ASC);
-                    default:
+                default:
             }
             nativeSearchQueryBuilder.withSort(gPriceSortBuilder);
-        }else if(StringUtils.isNotBlank(shoesTradeQuery.getSalesVolumeSort())){
+        } else if (StringUtils.isNotBlank(shoesTradeQuery.getSalesVolumeSort())) {
 
             FieldSortBuilder saleCountBuileder = new FieldSortBuilder("saleCount").missing(0);//按照销量排序
-            switch (shoesTradeQuery.getSalesVolumeSort()){
+            switch (shoesTradeQuery.getSalesVolumeSort()) {
                 case "desc":
-                    saleCountBuileder= saleCountBuileder.order(SortOrder.DESC);
+                    saleCountBuileder = saleCountBuileder.order(SortOrder.DESC);
                     break;
                 case "asc":
                     saleCountBuileder = saleCountBuileder.order(SortOrder.ASC);
                 default:
             }
             nativeSearchQueryBuilder.withSort(saleCountBuileder);
-        } else if(shoesTradeQuery.getSaleTimeSort()!=null&&shoesTradeQuery.getSaleTimeSort()==1){
+        } else if (shoesTradeQuery.getSaleTimeSort() != null && shoesTradeQuery.getSaleTimeSort() == 1) {
 
             SortBuilder saleTimeSortBuilder = new FieldSortBuilder("saleTime");//销售时间
             saleTimeSortBuilder = saleTimeSortBuilder.order(SortOrder.DESC);
             nativeSearchQueryBuilder.withSort(saleTimeSortBuilder);
 
-        }else{
+        } else {
             SortBuilder salesSortBuilder = new FieldSortBuilder("saleCount").missing(0);
             salesSortBuilder = salesSortBuilder.order(SortOrder.DESC);
             nativeSearchQueryBuilder.withSort(salesSortBuilder);

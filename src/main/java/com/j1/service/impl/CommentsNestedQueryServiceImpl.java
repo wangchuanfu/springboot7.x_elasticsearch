@@ -18,11 +18,12 @@ import javax.annotation.Resource;
 import java.io.IOException;
 
 @Service
-public class CommentsNestedQueryServiceImpl  implements CommentsNestedQueryService {
+public class CommentsNestedQueryServiceImpl implements CommentsNestedQueryService {
     private static final String INDEX = "nested_index";
     @Resource
     @Qualifier("restHighLevelClient")
     public RestHighLevelClient client;
+
     @Override
     public void getCommments() {
         BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();

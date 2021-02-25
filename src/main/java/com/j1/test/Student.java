@@ -4,8 +4,8 @@ package com.j1.test;
  * Created by wangchuanfu on 20/9/14.
  */
 public class Student {
-    private  String name;
-    private  String age;
+    private String name;
+    private String age;
 
     public String getName() {
         return name;

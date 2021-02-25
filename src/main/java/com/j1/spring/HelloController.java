@@ -17,6 +17,7 @@ public class HelloController {
     public String addData2(String deviceId) {
         return "success";
     }
+
     @RequestMapping("/add3")
     public String addData3(String deviceId) {
         return "success";

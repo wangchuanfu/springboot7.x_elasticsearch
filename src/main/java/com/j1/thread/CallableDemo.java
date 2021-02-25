@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class CallableDemo {
     public static void main(String[] args) {
-       // ExecutorService executorService = Executors.newCachedThreadPool();
+        // ExecutorService executorService = Executors.newCachedThreadPool();
         List<Future<String>> resultList = new ArrayList<Future<String>>();
         AtomicInteger thCount = new AtomicInteger(6);
         ExecutorService executorService = Executors.newFixedThreadPool(thCount.intValue());
@@ -36,6 +36,7 @@ public class CallableDemo {
 
         }
     }
+
     static class TaskWithResult implements Callable<String> {
         private int id;
 
@@ -53,7 +54,7 @@ public class CallableDemo {
             System.out.println("call()方法被自动调用,干活！！！             " + Thread.currentThread().getName());
             //一个模拟耗时的操作
             for (int i = 999999; i > 0; i--) ;
-            return"call()方法被自动调用，任务的结果是：" + id + "    " + Thread.currentThread().getName();
+            return "call()方法被自动调用，任务的结果是：" + id + "    " + Thread.currentThread().getName();
         }
     }
 

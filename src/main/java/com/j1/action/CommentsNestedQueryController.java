@@ -14,7 +14,7 @@ public class CommentsNestedQueryController {
 
     @RequestMapping(value = "/getCommments")
     @ResponseBody
-    public  String commentsNestedQuery(){
+    public String commentsNestedQuery() {
         commentsNestedQueryService.getCommments();
         return "ok";
     }

@@ -16,5 +16,5 @@ public class ProductAttrs extends BaseBO {
     private String attrId;
 
     // 属性名称
-    private String attrCode ;
+    private String attrCode;
 }

@@ -11,8 +11,7 @@ public class Integers {
      * @param digit
      * @return
      */
-    public static Integer parseInteger(String digit)
-    {
+    public static Integer parseInteger(String digit) {
         return parseInteger(digit, 0);
     }
 
@@ -23,14 +22,10 @@ public class Integers {
      * @param defaultDigit
      * @return
      */
-    public static Integer parseInteger(String digit, Integer defaultDigit)
-    {
-        try
-        {
+    public static Integer parseInteger(String digit, Integer defaultDigit) {
+        try {
             return Integer.parseInt(digit);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return defaultDigit;
         }
     }

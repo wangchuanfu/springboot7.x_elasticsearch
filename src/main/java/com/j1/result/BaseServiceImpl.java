@@ -30,7 +30,7 @@ public class BaseServiceImpl {
 
     public <T> ServiceMessage<T> returnException(String message) {
         ServiceMessageImpl serviceMessage = new ServiceMessageImpl(MsgStatus.EXCEPTION, message);
-        if(message == null || "null".equalsIgnoreCase(message) || "".equals(message.trim()) || "Unexpected error".equals(message)) {
+        if (message == null || "null".equalsIgnoreCase(message) || "".equals(message.trim()) || "Unexpected error".equals(message)) {
             this.logMethodCallStack();
         }
 
@@ -44,7 +44,7 @@ public class BaseServiceImpl {
         StackTraceElement[] arr$ = stackTrace;
         int len$ = stackTrace.length;
 
-        for(int i$ = 0; i$ < len$; ++i$) {
+        for (int i$ = 0; i$ < len$; ++i$) {
             StackTraceElement stackTraceElement = arr$[i$];
             errorMessage.append(stackTraceElement.toString() + "\n");
         }
@@ -57,7 +57,7 @@ public class BaseServiceImpl {
 
     public <T> ServiceMessage<T> returnException(Throwable e) {
         String message = e.getMessage();
-        if(message == null || "null".equalsIgnoreCase(message) || "".equals(message.trim()) || e instanceof NullPointerException) {
+        if (message == null || "null".equalsIgnoreCase(message) || "".equals(message.trim()) || e instanceof NullPointerException) {
             this.logMethodCallStack();
             message = "服务器开小差了";
         }

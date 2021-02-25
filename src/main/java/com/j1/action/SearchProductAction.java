@@ -17,11 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 public class SearchProductAction {
     @Resource
     SearchProductService searchProductService;
+
     @RequestMapping(value = "/searchproduct/{keyword}/{pageNo}/{pageSize}")
     @ResponseBody
     public String searchGoodsList(HttpServletRequest request,
                                   HttpServletResponse response, @PathVariable String keyword, @PathVariable Integer pageNo,
-                                  @PathVariable Integer pageSize ) {
+                                  @PathVariable Integer pageSize) {
 
         return searchProductService.querySearchGoods(keyword, pageNo, pageSize);
 

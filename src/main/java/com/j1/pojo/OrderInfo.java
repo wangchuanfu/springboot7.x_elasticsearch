@@ -40,7 +40,7 @@ public class OrderInfo extends BaseBO {
     private Integer orderPoints;
     private BigDecimal orderVouchers;
     private BigDecimal otherDiscounts;
-    private BigDecimal deliveryFee;		//运费
+    private BigDecimal deliveryFee;        //运费
     private BigDecimal realDeliveryFee;//实际运费
     private BigDecimal taxFee;//税金
     private BigDecimal realTaxFee;//实际税金
@@ -162,9 +162,13 @@ public class OrderInfo extends BaseBO {
     private String goodsNo;
 
     private String isTc;
-    /**优惠券批次号*/
+    /**
+     * 优惠券批次号
+     */
     private Long publishId;
-    /**用户状态*/
+    /**
+     * 用户状态
+     */
     private String userState;
 
     private Long stockId;//仓库id（海外购订单使用）
@@ -210,25 +214,25 @@ public class OrderInfo extends BaseBO {
     private String type; //是不是my
 
     private String memberType; //客户类型
-    private String buyGoods;	//订单商品
-    private String goodsNos;	//订单商品编号
-    private String catalogId;	//商品类别
+    private String buyGoods;    //订单商品
+    private String goodsNos;    //订单商品编号
+    private String catalogId;    //商品类别
     private String catalogName;
     private String sale;
 
-    private String workGoodsCostPrice;	//商品成本
-    private String userRealName;	//销售员姓名
-    private String userName;	//销售员账号
-    private String[] goodSkus;	//商品sku编码集合
-    private Integer groupId;		//销售人员分组ID
-    private String isReturn;	//是否退货
-    private String isComplete;	//是否完成
-    private String isAddWork;	//是否已计入销售业绩
+    private String workGoodsCostPrice;    //商品成本
+    private String userRealName;    //销售员姓名
+    private String userName;    //销售员账号
+    private String[] goodSkus;    //商品sku编码集合
+    private Integer groupId;        //销售人员分组ID
+    private String isReturn;    //是否退货
+    private String isComplete;    //是否完成
+    private String isAddWork;    //是否已计入销售业绩
     private BigDecimal goodsSumFee;
 
-    private String discountPlan;	//促销方案
-    private String promoteRuleName;	//促销规则名称
-    private String promoteRuleNo;	//促销规则编号
+    private String discountPlan;    //促销方案
+    private String promoteRuleName;    //促销规则名称
+    private String promoteRuleNo;    //促销规则编号
 
     private String userIdChannel; //获取渠道权限的用户ID
     private List<Integer> bizIds = new ArrayList<Integer>();
@@ -286,8 +290,8 @@ public class OrderInfo extends BaseBO {
      */
     private Long memberAddressId;
     /*
-      * 订单返还积分
-      */
+     * 订单返还积分
+     */
     private Integer returnPoint;
     /*
      * 订单商品列表
@@ -307,16 +311,16 @@ public class OrderInfo extends BaseBO {
     /**
      * 处方单图片列表
      */
-    private List<String>  prescriptionImgs;
+    private List<String> prescriptionImgs;
 
     //是否上传处方单成功
     private String isUploadPrescription;
 
-    private  String  packageStand;
+    private String packageStand;
 
 
     private String isNewMuliPkg;
-    private	String weixinOrderNo;
+    private String weixinOrderNo;
 
     /***
      * 审方状态(指订单为处方药时，审核处方单的状态):  1:待审核  2:审核通过  3:审核未通过

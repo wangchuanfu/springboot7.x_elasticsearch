@@ -10,7 +10,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
  * Created by wangchuanfu on 20/7/14.
  */
 @Data
-@Document(indexName = "product",type = "product", shards = 1, replicas = 1)
+@Document(indexName = "product", type = "product", shards = 1, replicas = 1)
 public class Product {
     @Id
     private Long id;

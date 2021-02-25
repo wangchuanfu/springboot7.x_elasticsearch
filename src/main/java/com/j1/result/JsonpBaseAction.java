@@ -65,7 +65,7 @@ public class JsonpBaseAction {
         PrintWriter writer = null;
         try {
             writer = response.getWriter();
-            if (callback!=null)
+            if (callback != null)
                 result = _result.toString();
             else
                 result = callback + "(" + _result.toString() + ")";

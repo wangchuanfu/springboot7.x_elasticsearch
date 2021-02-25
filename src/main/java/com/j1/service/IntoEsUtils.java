@@ -31,10 +31,10 @@ public class IntoEsUtils {
     public RestHighLevelClient client;
 
     //批量插入数据到es中
-    public boolean insertEsByBulk(String indexName, String type, List <?> dataList, String idFieldName) throws Exception {
+    public boolean insertEsByBulk(String indexName, String type, List<?> dataList, String idFieldName) throws Exception {
         try {
             //先判断索引是否存在
-            if(!existsIndex(indexName)){
+            if (!existsIndex(indexName)) {
                 creatIndex(indexName);
             }
             BulkRequest bulkRequest = new BulkRequest();
@@ -44,7 +44,7 @@ public class IntoEsUtils {
                 try {
                     id = FieldUtils.readField(data, idFieldName, true);
                 } catch (Exception e) {
-                    e.printStackTrace ();
+                    e.printStackTrace();
                     log.error("{} 获取id失败", id, e);
                 }
                 request.id(String.valueOf(id));
@@ -63,11 +63,11 @@ public class IntoEsUtils {
     }
 
     private UpdateRequest getUpdateRequest(String indexName, String type) {
-        UpdateRequest request = new UpdateRequest ();
-        request.index (indexName);
+        UpdateRequest request = new UpdateRequest();
+        request.index(indexName);
         if (StringUtils.isNotBlank(type)) {
             //7.x之后type 可以不指定,默认为_doc
-          request.type(type);
+            request.type(type);
         }
 
         return request;
@@ -75,19 +75,19 @@ public class IntoEsUtils {
     }
 
     //判断index是否存在
-   public boolean existsIndex(String indexName) throws  Exception{
-       GetIndexRequest request = new GetIndexRequest ( indexName );
-       boolean exists = client.indices ().exists ( request, RequestOptions.DEFAULT );
+    public boolean existsIndex(String indexName) throws Exception {
+        GetIndexRequest request = new GetIndexRequest(indexName);
+        boolean exists = client.indices().exists(request, RequestOptions.DEFAULT);
         return exists;
-   }
+    }
 
     //创建index
-    public  boolean creatIndex(String indexName) throws Exception {
+    public boolean creatIndex(String indexName) throws Exception {
         //这里只是创建索引,并没有创建mapping,
         //创建索引请求
-        CreateIndexRequest request = new CreateIndexRequest ( indexName );
+        CreateIndexRequest request = new CreateIndexRequest(indexName);
         //执行请求
-       client.indices ().create ( request, RequestOptions.DEFAULT );
+        client.indices().create(request, RequestOptions.DEFAULT);
         return true;
     }
 

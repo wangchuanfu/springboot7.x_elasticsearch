@@ -135,13 +135,14 @@ public class SearchProductPageAction extends WebSearchBaseAction {
     @RequestMapping(value = "/searchgoods/{keyword}/{pageNo}/{pageSize}")
     @ResponseBody
     public String searchGoodsList(HttpServletRequest request,
-                                     HttpServletResponse response,@PathVariable String keyword, @PathVariable Integer pageNo,
-                                     @PathVariable Integer pageSize ) {
+                                  HttpServletResponse response, @PathVariable String keyword, @PathVariable Integer pageNo,
+                                  @PathVariable Integer pageSize) {
 
         return searchProductService.querySearchGoods(keyword, pageNo, pageSize);
 
 
     }
+
     //分页查询
     private Page<WebProductVo> searchPage(String orderBy, Integer pageNumInt, Integer pageSize, String[] luceneKeyword, String proCatalogId, String attrs,
                                           String searchType, boolean discount) {

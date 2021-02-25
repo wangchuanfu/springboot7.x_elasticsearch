@@ -31,12 +31,12 @@ import static java.util.stream.Collectors.toList;
 
 @RestController
 @Slf4j
-public class ShoesTradeController  implements ShoesTradeControllerApi {
+public class ShoesTradeController implements ShoesTradeControllerApi {
 
     @Autowired
     private SeFeature seFeature;
 
-  //  @Value("#{'${se.feature.otherBrands}'.split(',')}")
+    //  @Value("#{'${se.feature.otherBrands}'.split(',')}")
     private List<String> otherBrands;
 
     @Autowired
@@ -52,6 +52,7 @@ public class ShoesTradeController  implements ShoesTradeControllerApi {
 
     /**
      * 潮鞋搜索查询
+     *
      * @param
      * @return
      */
@@ -63,9 +64,9 @@ public class ShoesTradeController  implements ShoesTradeControllerApi {
         /**
          * 校验搜索词是否合法
          */
-        if(checkAndProcessSk(shoesTradeQuery)){
+        if (checkAndProcessSk(shoesTradeQuery)) {
             searchData = shoesTradeMallService.search(shoesTradeQuery);
-        }else {
+        } else {
             searchData = new PageResultDto<>(shoesTradeQuery.getPage(), shoesTradeQuery.getPageSize(), 0, Lists.newArrayList());
 
         }
@@ -77,14 +78,15 @@ public class ShoesTradeController  implements ShoesTradeControllerApi {
 
     /**
      * 检查并优化搜索词,去除表情,非法的字符
+     *
      * @param shoesTradeQuery
      * @return
      */
     private boolean checkAndProcessSk(ShoesTradeQuery shoesTradeQuery) {
         shoesTradeQuery.setSk(realSkWord(shoesTradeQuery.getSk()));
         skProcess(shoesTradeQuery);
-        if(shoesTradeQuery==null|| StringUtils.isEmpty(shoesTradeQuery.getSk())){
-            log.error("shoesTradeQuery 为空:{}",shoesTradeQuery);
+        if (shoesTradeQuery == null || StringUtils.isEmpty(shoesTradeQuery.getSk())) {
+            log.error("shoesTradeQuery 为空:{}", shoesTradeQuery);
             throw new BusinessException(SGErrors.SK_INVALID);
         }
         if (RegUtil.isAllIllegalChar(shoesTradeQuery.getSk())) {
@@ -109,6 +111,7 @@ public class ShoesTradeController  implements ShoesTradeControllerApi {
 
     /**
      * 正确的分词
+     *
      * @param shoesTradeQuery
      */
 
@@ -116,14 +119,16 @@ public class ShoesTradeController  implements ShoesTradeControllerApi {
         ConcurrentHashMap<String, List<String>> repalceSk = seFeature.getFilterCategary("personFenCi");
         Result parseResult = DicAnalysis.parse(shoesTradeQuery.getSk());
         List<String> skList = parseResult.getTerms().stream().map(e -> e.getName()).collect(toList());
-        repalceSk.entrySet().stream().forEach(e->{
-            if(shoesTradeQuery.getSk().contains(e.getKey())&&skList.contains(e.getKey())){
-                shoesTradeQuery.setSk(shoesTradeQuery.getSk().replace(e.getKey(),e.getValue().get(0)));
+        repalceSk.entrySet().stream().forEach(e -> {
+            if (shoesTradeQuery.getSk().contains(e.getKey()) && skList.contains(e.getKey())) {
+                shoesTradeQuery.setSk(shoesTradeQuery.getSk().replace(e.getKey(), e.getValue().get(0)));
             }
         });
     }
+
     /**
      * 处理搜索词中 汉字加数字,并将其拆分开来,比如,iphone11--> iPhone 11
+     *
      * @param shoesTradeQuery
      */
     private void skProcess(ShoesTradeQuery shoesTradeQuery) {
@@ -132,7 +137,7 @@ public class ShoesTradeController  implements ShoesTradeControllerApi {
         boolean findInt = false;
         //查询搜索品牌
         List<String> brands = seFeature.getBrands(sk);
-        if(RegUtil.isAllEnglish(sk)){
+        if (RegUtil.isAllEnglish(sk)) {
             for (int i = 0; i < sk.length(); i++) {
                 if (Character.isDigit(sk.charAt(i))) {
                     String word = "";
@@ -144,7 +149,7 @@ public class ShoesTradeController  implements ShoesTradeControllerApi {
                             break;
                         }
                     }
-                    if (!findInt&&brands.contains(word)&& !isContainStr(word)) {//fix bug,针对关键字是eg开头的搜索,比如:eg4235,不要将其拆解为eg 4235
+                    if (!findInt && brands.contains(word) && !isContainStr(word)) {//fix bug,针对关键字是eg开头的搜索,比如:eg4235,不要将其拆解为eg 4235
                         newStr.append(" ");
                     }
                     findInt = true;
@@ -158,6 +163,7 @@ public class ShoesTradeController  implements ShoesTradeControllerApi {
 
     /**
      * 潮鞋批量导入数据
+     *
      * @return
      */
     @Override
@@ -167,27 +173,29 @@ public class ShoesTradeController  implements ShoesTradeControllerApi {
         Set<Integer> allIdSet;
         if (!CollectionUtils.isEmpty(allId)) {
             allIdSet = new HashSet<>(allId);
-        }else{
+        } else {
             allIdSet = new HashSet<>();
         }
         //导入各种联想词,job
         //searchSuggestScheduled.importShoesTradeSuggestToESScheduled("");
         //删除不在上架商品id集合内的商品
-       // shoesTradeMallService.deleteGoodsNotInIds(allIdSet);
+        // shoesTradeMallService.deleteGoodsNotInIds(allIdSet);
         //导入应该上架的商品
-        if(!CollectionUtils.isEmpty(allId)){
+        if (!CollectionUtils.isEmpty(allId)) {
             shoesTradeMallService.batchImportShoesTradeGoodsData(allId);
         }
         long endTime = System.currentTimeMillis();
-        return new ResultBean<>(String.format("全量同步数据完毕,耗时:%s,导入总数："+allId.size(), endTime-startTime));
+        return new ResultBean<>(String.format("全量同步数据完毕,耗时:%s,导入总数：" + allId.size(), endTime - startTime));
     }
+
     /**
      * 黑名单字段判断
+     *
      * @param str
      * @return
      */
-    public  boolean isContainStr(String str){
-        if(otherBrands.contains(str)){
+    public boolean isContainStr(String str) {
+        if (otherBrands.contains(str)) {
             return true;
         }
         return false;

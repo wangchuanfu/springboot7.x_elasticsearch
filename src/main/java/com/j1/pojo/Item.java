@@ -1,29 +1,31 @@
 package com.j1.pojo;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
+
 /**
  * Created by wangchuanfu on 20/7/14.
  */
-@Document(indexName = "item",type = "item", shards = 1, replicas = 1)
+@Document(indexName = "item", type = "item", shards = 1, replicas = 1)
 public class Item {
     @Id
     private Long id;
 
-    @Field(type = FieldType.Text, analyzer = "ik_max_word",store = true)
+    @Field(type = FieldType.Text, analyzer = "ik_max_word", store = true)
     private String title; //标题
 
-    @Field(type = FieldType.Keyword,store = true)
+    @Field(type = FieldType.Keyword, store = true)
     private String category;// 分类
 
-    @Field(type = FieldType.Text,analyzer = "ik_max_word",store = true)
+    @Field(type = FieldType.Text, analyzer = "ik_max_word", store = true)
     private String brand; // 品牌
 
-    @Field(type = FieldType.Double,store = true)
+    @Field(type = FieldType.Double, store = true)
     private Double price; // 价格
 
-    @Field(index = false, type = FieldType.Keyword,store = true)
+    @Field(index = false, type = FieldType.Keyword, store = true)
     private String images; // 图片地址
 
     public Item() {

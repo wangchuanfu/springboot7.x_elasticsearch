@@ -2,44 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.j1.dao.NewsMapper">
     <resultMap id="NewsResultMap" type="com.j1.pojo.News">
-        <id column="id" jdbcType="BIGINT" property="id" />
-        <result column="title" jdbcType="VARCHAR" property="title" />
-        <result column="content" jdbcType="VARCHAR" property="content" />
-        <result column="postdate" jdbcType="VARCHAR" property="postdate" />
-        <result column="url" jdbcType="VARCHAR" property="url" />
-        <result column="source" jdbcType="VARCHAR" property="source" />
-        <result column="reply" jdbcType="INTEGER" property="reply" />
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="postdate" jdbcType="VARCHAR" property="postdate"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="source" jdbcType="VARCHAR" property="source"/>
+        <result column="reply" jdbcType="INTEGER" property="reply"/>
 
 
     </resultMap>
 
     <resultMap id="MemberResultMap" type="com.j1.pojo.Member">
-        <id column="member_id" jdbcType="BIGINT" property="memberId" />
-        <result column="account" jdbcType="VARCHAR" property="account" />
-        <result column="email" jdbcType="VARCHAR" property="email" />
-        <result column="mobile" jdbcType="VARCHAR" property="mobile" />
-        <result column="address" jdbcType="VARCHAR" property="address" />
-        <result column="LOGIN_PASSWORD" jdbcType="VARCHAR" property="loginPassword" />
+        <id column="member_id" jdbcType="BIGINT" property="memberId"/>
+        <result column="account" jdbcType="VARCHAR" property="account"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="LOGIN_PASSWORD" jdbcType="VARCHAR" property="loginPassword"/>
     </resultMap>
-
-
-
-
-
 
 
     <select id="selectNewsInfo" resultType="com.j1.pojo.News">
 
-        SELECT  * from  news
+        SELECT * from news
         <if test="id != null">
-            where  id = #{id,jdbcType=BIGINT}
+            where id = #{id,jdbcType=BIGINT}
         </if>
     </select>
     <select id="getMemberById" resultType="com.j1.pojo.Member" resultMap="MemberResultMap">
 
-        SELECT  * from  member
+        SELECT * from member
         <if test="id != null">
-            where  member_id = #{memberId,jdbcType=BIGINT}
+            where member_id = #{memberId,jdbcType=BIGINT}
         </if>
     </select>
 

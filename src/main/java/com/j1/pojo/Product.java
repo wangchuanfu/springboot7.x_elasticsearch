@@ -39,7 +39,7 @@ public class Product extends BaseBO {
     private Integer unitId;
     private String isOnsale;
     private String saleTime;//saleTime 和mapping的model保持一致,同时.xml也要保持一致   <result column="sale_time" property="saleTime" />
-                            //不过为了代码的可读性,还是保持和数据库的字段一致,各个方面都是onsale_time
+    //不过为了代码的可读性,还是保持和数据库的字段一致,各个方面都是onsale_time
 
     private BigDecimal productLeastOrder;
     private BigDecimal orderLimitAmount;
@@ -66,7 +66,7 @@ public class Product extends BaseBO {
 
     private List<ProductAttrs> attrs;
     private String cataLogListId;
-    private  String cataLogListName;
+    private String cataLogListName;
 
     private long goodEvalAmount;
     private long clickAmount;
@@ -77,26 +77,22 @@ public class Product extends BaseBO {
 
     private String proImageUrl;
     private String tagIconUrl;
-    private  BigDecimal availableStock;
+    private BigDecimal availableStock;
     private BigDecimal saleScore;
-    private  Integer saleAmount;
+    private Integer saleAmount;
 
     private Integer goodsId;
     private String goodsNo;
     private Integer stock;
     private String thumb;
     private String productName1;
-    private  String productBrandName;
+    private String productBrandName;
     private String productBrandName1;
-    private  Integer commentSum;
+    private Integer commentSum;
     private Integer cataLogPathId;
     private String discountState;
     private String goodsSeller;
     private String productAliasName;
-
-
-
-
 
 
 }

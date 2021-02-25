@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public interface SearchProductService {
     //查询
-    public List<Map<String, Object>>  querySearch(String keyword, Integer pageNo, Integer pageSize);
+    public List<Map<String, Object>> querySearch(String keyword, Integer pageNo, Integer pageSize);
 
     String querySearchGoods(String keyword, Integer pageNo, Integer pageSize);
 }

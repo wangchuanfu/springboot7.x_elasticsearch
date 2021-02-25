@@ -12,5 +12,5 @@ import java.util.Set;
 @Component
 public interface SuggestionSearchService {
 
-    public ServiceMessage<List<String> > querySuggest(String keyword);
+    public ServiceMessage<List<String>> querySuggest(String keyword);
 }

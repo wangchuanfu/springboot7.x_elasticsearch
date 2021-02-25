@@ -43,10 +43,10 @@ public class SuggestIndexAction {
     public String produceVo(@RequestParam(value = "userName") String userName) {
         try {
             //创建之前先判断索引是否存在,
-            if(esUtils.existsIndex(esAttribute.getSuggestIndexName())){
+            if (esUtils.existsIndex(esAttribute.getSuggestIndexName())) {
                 elasticsearchTemplate.deleteIndex(esAttribute.getSuggestIndexName());
             }
-            if(!esUtils.existsIndex(esAttribute.getSuggestIndexName())) {
+            if (!esUtils.existsIndex(esAttribute.getSuggestIndexName())) {
                 elasticsearchTemplate.createIndex(SuggestKeyWordVo.class);
                 elasticsearchTemplate.putMapping(SuggestKeyWordVo.class);
 

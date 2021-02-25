@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
  * Created by wangchuanfu on 20/7/14.
  */
 @EnableElasticsearchRepositories(basePackages = "com.j1.*")
-public interface ItemRepository extends ElasticsearchRepository<Item,Long> {
+public interface ItemRepository extends ElasticsearchRepository<Item, Long> {
 
 }

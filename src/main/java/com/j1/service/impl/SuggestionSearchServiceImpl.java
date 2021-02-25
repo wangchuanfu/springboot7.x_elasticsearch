@@ -56,9 +56,9 @@ public class SuggestionSearchServiceImpl extends BaseServiceImpl implements Sugg
     ElasticsearchRestTemplate elasticsearchRestTemplate;
 
     @Override
-    public ServiceMessage<List<String> > querySuggest(String keyword) {
+    public ServiceMessage<List<String>> querySuggest(String keyword) {
         try {
-            List<String>  keywords = new ArrayList<>();
+            List<String> keywords = new ArrayList<>();
 
             //全拼前缀匹配
             CompletionSuggestionBuilder fullPinyinSuggest = new CompletionSuggestionBuilder("full_pinyin_suggest")
@@ -78,46 +78,46 @@ public class SuggestionSearchServiceImpl extends BaseServiceImpl implements Sugg
              *
              PUT /station_test/
              {
-                 "settings": {
-                 "index": {
-                 "analysis": {
-                 "analyzer": {
-                 "pinyin_analyzer": {
-                 "tokenizer": "my_pinyin"
-                 }
+             "settings": {
+             "index": {
+             "analysis": {
+             "analyzer": {
+             "pinyin_analyzer": {
+             "tokenizer": "my_pinyin"
+             }
              },
-                 "tokenizer": {
-                     "my_pinyin": {
-                     "type": "pinyin",
-                     "keep_first_letter":true,
-                     "keep_separate_first_letter": true,
-                     "keep_full_pinyin": true,
-                     "keep_original": true,
-                     "limit_first_letter_length": 16,
-                     "lowercase": true
-                            }
-                       }
-                    }
-                }
+             "tokenizer": {
+             "my_pinyin": {
+             "type": "pinyin",
+             "keep_first_letter":true,
+             "keep_separate_first_letter": true,
+             "keep_full_pinyin": true,
+             "keep_original": true,
+             "limit_first_letter_length": 16,
+             "lowercase": true
+             }
+             }
+             }
+             }
              },
              "mappings": {
 
-                     "properties": {
-                     "station_name": {
-                     "type": "text",
-                     "analyzer": "ik_max_word",
-                     "fields": {
-                     "s-pinyin": {
-                     "type": "completion",
-                     "analyzer": "pinyin_analyzer"
-                     }
-                 }
+             "properties": {
+             "station_name": {
+             "type": "text",
+             "analyzer": "ik_max_word",
+             "fields": {
+             "s-pinyin": {
+             "type": "completion",
+             "analyzer": "pinyin_analyzer"
+             }
+             }
              },
-                 "station_code": {
-                 "type": "completion"
-                    }
-                 }
-              }
+             "station_code": {
+             "type": "completion"
+             }
+             }
+             }
 
              }
 
@@ -152,25 +152,25 @@ public class SuggestionSearchServiceImpl extends BaseServiceImpl implements Sugg
 
             SearchRequest suggestSearchRequest = new SearchRequest().indices("station_test1").source(new SearchSourceBuilder().suggest(
                     new SuggestBuilder().addSuggestion("pinyin-suggest", stationName)
-                           // .addSuggestion("code-suggest", stationCode)
+                    // .addSuggestion("code-suggest", stationCode)
             ));
             /**
              * GET station_test/_search
              {
-                     "suggest": {
-                     "code-suggest": {
-                     "prefix": "bj",
-                     "completion": {
-                     "field": "station_code"
-                     }
-                 },
-                     "pinyin-suggest": {
-                     "prefix": "bj",
-                     "completion": {
-                     "field": "station_name.s-pinyin"
-                       }
-                     }
-               }
+             "suggest": {
+             "code-suggest": {
+             "prefix": "bj",
+             "completion": {
+             "field": "station_code"
+             }
+             },
+             "pinyin-suggest": {
+             "prefix": "bj",
+             "completion": {
+             "field": "station_name.s-pinyin"
+             }
+             }
+             }
              }
              */
 
@@ -180,18 +180,10 @@ public class SuggestionSearchServiceImpl extends BaseServiceImpl implements Sugg
             Suggest suggestResult = suggestResponse.getSuggest();
 
 
-
-
-
-
-
-
-
-
             SuggestBuilder suggestBuilder = new SuggestBuilder();
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             SearchRequest searchRequest = new SearchRequest(esAttribute.getSuggestIndexName());
-           // SearchRequest searchRequest = new SearchRequest("station_test1");
+            // SearchRequest searchRequest = new SearchRequest("station_test1");
 
             SuggestionBuilder suggestionBuilder = SuggestBuilders.completionSuggestion("promptName").prefix(keyword);
             suggestBuilder.addSuggestion("pinyin-suggest", suggestionBuilder);
@@ -229,7 +221,7 @@ public class SuggestionSearchServiceImpl extends BaseServiceImpl implements Sugg
                     }
                 }
             }
-            if(suggestResult!=null){
+            if (suggestResult != null) {
 
 
                 List<? extends Suggest.Suggestion.Entry<? extends Suggest.Suggestion.Entry.Option>> results = suggestResult.getSuggestion("pinyin-suggest").getEntries();
@@ -251,8 +243,8 @@ public class SuggestionSearchServiceImpl extends BaseServiceImpl implements Sugg
                     }
                 }
             }
-        //  return keywords;
-            return super.returnCorrectResult("查询活动成功！",keywords);
+            //  return keywords;
+            return super.returnCorrectResult("查询活动成功！", keywords);
 
         } catch (IOException e) {
             e.printStackTrace();

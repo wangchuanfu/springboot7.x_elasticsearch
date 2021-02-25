@@ -1,4 +1,5 @@
 package com.j1.pojo.vo;
+
 import com.alibaba.fastjson.annotation.JSONField;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Field;

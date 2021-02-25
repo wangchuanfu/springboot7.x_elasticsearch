@@ -15,6 +15,7 @@ public class DateUtils {
 
     /**
      * 计算两个日期相差的天数的绝对值
+     *
      * @param dateStr1 格式：yyyy-MM-dd
      * @param dateStr2 格式：yyyy-MM-dd
      * @return
@@ -29,6 +30,7 @@ public class DateUtils {
 
     /**
      * 计算两个日期相差的天数的绝对值
+     *
      * @param date1
      * @param date1
      * @return
@@ -40,6 +42,7 @@ public class DateUtils {
 
     /**
      * 计算两个日期相差的天数的绝对值
+     *
      * @param date1
      * @param dateStr2 格式：yyyy-MM-dd
      * @return
@@ -51,6 +54,7 @@ public class DateUtils {
 
     /**
      * 计算两个日期相差的天数的绝对值
+     *
      * @param dateStr1 格式：yyyy-MM-dd
      * @param date2
      * @return
@@ -60,17 +64,18 @@ public class DateUtils {
         return getDayDifference(dateStr1, dateToStr(date2));
     }
 
-    public static String dateToStr(Date date){
+    public static String dateToStr(Date date) {
         return dateToStr(date, "yyyy-MM-dd");
     }
 
-    public static String dateToStr(Date date, String pattern){
+    public static String dateToStr(Date date, String pattern) {
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         return sdf.format(date);
     }
 
     /**
      * 字符串转换成日期
+     *
      * @param str
      * @param formatStr
      * @return
@@ -86,21 +91,23 @@ public class DateUtils {
         return date;
     }
 
-    public static Date strToDate(String str){
+    public static Date strToDate(String str) {
         return strToDate(str, "yyyy-MM-dd");
     }
-    public static Date strToDateYWeek(String str){
+
+    public static Date strToDateYWeek(String str) {
         return strToDate(str, "yyyy-MM");
     }
 
-    public static Date strToDateY(String str){
+    public static Date strToDateY(String str) {
         return strToDate(str, "yyyy");
     }
 
     /**
      * 时间计算，加减秒（分钟、小时、天、星期）
-     * @param date 被计算的日期
-     * @param amount 数量（比如加3小时就是3）
+     *
+     * @param date       被计算的日期
+     * @param amount     数量（比如加3小时就是3）
      * @param typeMillis 类型毫秒数，已在此工具类中定义常量
      * @return
      */

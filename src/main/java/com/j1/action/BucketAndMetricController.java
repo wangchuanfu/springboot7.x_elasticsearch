@@ -17,7 +17,7 @@ public class BucketAndMetricController {
 
     @RequestMapping(value = "/dateHistogramAggregation")
     @ResponseBody
-    public  String dateHistogramAggregation(){
+    public String dateHistogramAggregation() {
         bucketAndMetricService.dateHistogramAggregation();
         return "ok";
     }

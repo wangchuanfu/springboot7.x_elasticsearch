@@ -10,24 +10,24 @@ import java.util.List;
 public class Test {
     public static void main(String[] args) {
         int[] a = {20, 2, 10, 8, 12, 17, 4, 25, 11, 6, 33, 13, 24};
-       // bubbleSort();
-       // binarySearch();
-       // choseSort();
-     // test2();
-       //test3();
+        // bubbleSort();
+        // binarySearch();
+        // choseSort();
+        // test2();
+        //test3();
         //test4();
-       // testList();
-      //  test6();
-     //   test7();
+        // testList();
+        //  test6();
+        //   test7();
         test8();
      /* String str=  realSkWord("eeeee");
         System.out.print(str);*/
     }
 
     private static void test8() {
-        String s="1.2.3.4";
-       s= s.replace(".","-");
-       System.out.print(s);
+        String s = "1.2.3.4";
+        s = s.replace(".", "-");
+        System.out.print(s);
     }
 
     private static void test7() {
@@ -42,7 +42,6 @@ public class Test {
             System.out.print("B");
         }
     }
-
 
 
     private static void test6() {
@@ -135,7 +134,7 @@ public class Test {
     public static void test2() {
         String a = "money";
         String b = new String("money");
-        System.out.println(a==b);  //比较的是地址//false
+        System.out.println(a == b);  //比较的是地址//false
         System.out.println(a.equals(b));  //true
     }
 
@@ -145,28 +144,31 @@ public class Test {
         System.out.println(a == b);  //比较的是地址
         System.out.println(a.equals(b));  //比较的是值
     }
+
     public static void test4() {
         String a = new String("money");
         String b = new String("money");
-        System.out.println(a==b);  //比较的是地址false
+        System.out.println(a == b);  //比较的是地址false
         System.out.println(a.equals(b));  //比较的是值true
     }
-    public static void testList(){
+
+    public static void testList() {
         List<String> list = new ArrayList<String>();
         list.add("保护环境");  //向列表中添加数据
         list.add("爱护地球");  //向列表中添加数据
         list.add("从我做起");  //向列表中添加数据
-        List<String>list1 = new ArrayList<String>();
+        List<String> list1 = new ArrayList<String>();
         list1.add("保护环境");  //向列表中添加数据
         list1.add("爱护地球");  //向列表中添加数据
         boolean ret = list.removeAll(list1);  //从list中移除与list1相同的元素
         Iterator<String> it = list.iterator();  //创建迭代器
-        while(it.hasNext()){  //循环遍历迭代器
+        while (it.hasNext()) {  //循环遍历迭代器
             System.out.println(it.next());  //输出集合中元素
         }
     }
-    public static String realSkWord(String str){
-        return  str.replaceAll(str, "bbbb");
+
+    public static String realSkWord(String str) {
+        return str.replaceAll(str, "bbbb");
     }
 
 }

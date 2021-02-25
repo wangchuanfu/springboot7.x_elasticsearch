@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Item {
-    private  String time;
+    private String time;
     private String name;
-    private  String age;
-    private  String count;
+    private String age;
+    private String count;
 
 }

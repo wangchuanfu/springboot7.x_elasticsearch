@@ -51,8 +51,8 @@ import java.util.Map;
 @Service
 @Slf4j
 public class SearchProductServiceImpl implements SearchProductService {
-   @Resource
-   InitIndexService initIndexService;
+    @Resource
+    InitIndexService initIndexService;
     @Resource
     SearchProductService searchProductService;
 
@@ -63,11 +63,12 @@ public class SearchProductServiceImpl implements SearchProductService {
     public RestHighLevelClient client;
     @Resource
     EsAttribute esAttribute;
+
     @Override
     public List<Map<String, Object>> querySearch(String keyword, Integer pageNo, Integer pageSize) {
 
         try {
-            initIndexService.querySearch(keyword,pageNo,pageSize);
+            initIndexService.querySearch(keyword, pageNo, pageSize);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -77,7 +78,6 @@ public class SearchProductServiceImpl implements SearchProductService {
     }
 
     /**
-     *
      * @param keyword
      * @param pageNo
      * @param pageSize
@@ -96,6 +96,7 @@ public class SearchProductServiceImpl implements SearchProductService {
         BoolQueryBuilder boolQuery2 = QueryBuilders.boolQuery().should(boolQuery);
         return searchGoodsList(boolQuery2, pageRequest);
     }
+
     private String searchGoodsList(BoolQueryBuilder boolQuery2, Pageable page) {
         List<Map<String, Object>> list = new ArrayList<>();
         try {
@@ -149,7 +150,7 @@ public class SearchProductServiceImpl implements SearchProductService {
             searchSourceBuilder.sort(ecPrice); //根据field DESC 排序
             searchSourceBuilder.sort(saleTime);
             log.error(searchSourceBuilder.toString());
-           // logger.error(searchSourceBuilder.toString());
+            // logger.error(searchSourceBuilder.toString());
             searchRequest.source(searchSourceBuilder);
 
             SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
@@ -160,9 +161,9 @@ public class SearchProductServiceImpl implements SearchProductService {
             Histogram aggs = searchResponse.getAggregations().get("agg");
 
             List<? extends Histogram.Bucket> buckets = aggs.getBuckets();
-            for (Histogram.Bucket agg: buckets) {
+            for (Histogram.Bucket agg : buckets) {
 
-                DocValueFormat.DateTime key = (DocValueFormat.DateTime)agg.getKey();
+                DocValueFormat.DateTime key = (DocValueFormat.DateTime) agg.getKey();
                 String keyAsString = agg.getKeyAsString(); // Key as String
                 long docCount = agg.getDocCount(); // Doc count
             }
@@ -172,7 +173,7 @@ public class SearchProductServiceImpl implements SearchProductService {
             SearchHits hits = searchResponse.getHits();
             //查询出来的总数据
             long total = hits.getTotalHits().value;
-            log.error( Long.toString(total));
+            log.error(Long.toString(total));
             for (SearchHit searchHit : searchHits) {
                 Map<String, Object> sourceAsMap = searchHit.getSourceAsMap();//查询的原来的结果
                 Map<String, HighlightField> highlightFields = searchHit.getHighlightFields();
@@ -204,7 +205,7 @@ public class SearchProductServiceImpl implements SearchProductService {
         //构造查询条件
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
 
-        for (int i = 0; i < DefaultIndexField.secondAnalyzeFields.length ; i++) {
+        for (int i = 0; i < DefaultIndexField.secondAnalyzeFields.length; i++) {
             String tfieldName = DefaultIndexField.secondAnalyzeFields[i];
             float tboost = DefaultIndexField.secondAnalyzeFieldsBoost[i] != null ? DefaultIndexField.secondAnalyzeFieldsBoost[i] : 1.0f;
 

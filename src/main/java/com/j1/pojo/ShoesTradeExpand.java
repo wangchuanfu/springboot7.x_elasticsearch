@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,7 +32,7 @@ public class ShoesTradeExpand {
      */
     private Integer clickCount;
     /**
-     *  实际售价
+     * 实际售价
      */
     private Integer sellPrice;
     /**

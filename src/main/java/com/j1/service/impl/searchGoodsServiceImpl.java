@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class searchGoodsServiceImpl extends AbstractEsService<WebProductVo> {
 
-    public  void prin(){
+    public void prin() {
         log.error(" =====init AbstractEsService===");
     }
 

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 public class QueryAccount {
     @AssertOK
-    public String queryAccount(){
+    public String queryAccount() {
 
         System.out.println("账户查询成功....");
         return "success";

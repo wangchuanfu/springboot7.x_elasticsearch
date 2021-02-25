@@ -52,7 +52,7 @@ public class MemberServiceImpl implements MemberService {
     public RestHighLevelClient client;
     @Resource
     EsAttribute esAttribute;
-    private static  final  String orderIndex="member_info_index";
+    private static final String orderIndex = "member_info_index";
 
     @Override
     public List<Member> queryMemberPage(Member member) {
@@ -61,7 +61,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public String searchMemberInfo(String keyword) {
-        String loginName=keyword;
+        String loginName = keyword;
         BoolQueryBuilder boolQuery = getBoolQueryBuilder(loginName);
 
         //getQueryByBoost(keyword, boolQuery);
@@ -75,67 +75,66 @@ public class MemberServiceImpl implements MemberService {
 
         List<Map<String, Object>> list = new ArrayList<>();
         try {
-        SearchRequest searchRequest = new SearchRequest(orderIndex);
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+            SearchRequest searchRequest = new SearchRequest(orderIndex);
+            SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 
-        BoolQueryBuilder postFilter = QueryBuilders.boolQuery();
-       // postFilter.mustNot(QueryBuilders.termQuery("ecPrice", -1));
-        //范围查询
-      //  QueryBuilder postFilter2 = QueryBuilders.rangeQuery("ecPrice").gte(30).lte(50);
-        //searchSourceBuilder.postFilter(postFilter2);
-        //显示高亮
-        HighlightBuilder highlightBuilder = new HighlightBuilder();
-        highlightBuilder.field("loginName");
-        highlightBuilder.preTags("<span style='color:red'>");
-        highlightBuilder.postTags("</span>");
-        searchSourceBuilder.highlighter(highlightBuilder);
-        searchSourceBuilder.query(boolQuery2);
-        searchSourceBuilder.postFilter(postFilter);
-
-
-        log.error(searchSourceBuilder.toString());
-        // logger.error(searchSourceBuilder.toString());
-        searchRequest.source(searchSourceBuilder);
-
-        SearchResponse searchResponse = null;
-        try {
-            searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
+            BoolQueryBuilder postFilter = QueryBuilders.boolQuery();
+            // postFilter.mustNot(QueryBuilders.termQuery("ecPrice", -1));
+            //范围查询
+            //  QueryBuilder postFilter2 = QueryBuilders.rangeQuery("ecPrice").gte(30).lte(50);
+            //searchSourceBuilder.postFilter(postFilter2);
+            //显示高亮
+            HighlightBuilder highlightBuilder = new HighlightBuilder();
+            highlightBuilder.field("loginName");
+            highlightBuilder.preTags("<span style='color:red'>");
+            highlightBuilder.postTags("</span>");
+            searchSourceBuilder.highlighter(highlightBuilder);
+            searchSourceBuilder.query(boolQuery2);
+            searchSourceBuilder.postFilter(postFilter);
 
 
-        //循环遍历
-        SearchHit[] searchHits = searchResponse.getHits().getHits();
-        SearchHits hits = searchResponse.getHits();
-        //查询出来的总数据
-        long total = hits.getTotalHits().value;
-        log.error( Long.toString(total));
-        for (SearchHit searchHit : searchHits) {
-            Map<String, Object> sourceAsMap = searchHit.getSourceAsMap();//查询的原来的结果
-            Map<String, HighlightField> highlightFields = searchHit.getHighlightFields();
-            HighlightField title = highlightFields.get("loginName");
-            if (title != null) {
-                //解析高亮字段,将之前查出来的没高亮的字段 替换为高亮字段
-                Text[] fragments = title.fragments();
-                StringBuilder newTitle = new StringBuilder();
-                for (Text fragment : fragments) {
-                    newTitle.append(fragment.string());
-                }
-                sourceAsMap.put("loginName", newTitle);
+            log.error(searchSourceBuilder.toString());
+            // logger.error(searchSourceBuilder.toString());
+            searchRequest.source(searchSourceBuilder);
+
+            SearchResponse searchResponse = null;
+            try {
+                searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+            } catch (IOException e1) {
+                e1.printStackTrace();
             }
-            list.add(sourceAsMap);
 
+
+            //循环遍历
+            SearchHit[] searchHits = searchResponse.getHits().getHits();
+            SearchHits hits = searchResponse.getHits();
+            //查询出来的总数据
+            long total = hits.getTotalHits().value;
+            log.error(Long.toString(total));
+            for (SearchHit searchHit : searchHits) {
+                Map<String, Object> sourceAsMap = searchHit.getSourceAsMap();//查询的原来的结果
+                Map<String, HighlightField> highlightFields = searchHit.getHighlightFields();
+                HighlightField title = highlightFields.get("loginName");
+                if (title != null) {
+                    //解析高亮字段,将之前查出来的没高亮的字段 替换为高亮字段
+                    Text[] fragments = title.fragments();
+                    StringBuilder newTitle = new StringBuilder();
+                    for (Text fragment : fragments) {
+                        newTitle.append(fragment.string());
+                    }
+                    sourceAsMap.put("loginName", newTitle);
+                }
+                list.add(sourceAsMap);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
 
 
         return list.toString();
     }
-
 
 
     private BoolQueryBuilder getBoolQueryBuilder(String loginName) {

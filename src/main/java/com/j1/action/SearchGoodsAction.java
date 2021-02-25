@@ -57,7 +57,7 @@ public class SearchGoodsAction extends SoaApiBaseAction {
 
     //搜索提示
     @RequestMapping("/search/suggest")
-    public List<String>  searchSuggest(HttpServletRequest request,
+    public List<String> searchSuggest(HttpServletRequest request,
                                       HttpServletResponse response, @RequestParam(required = false) String keyword) {
         try {
             JSONObject resultObject = new JSONObject();
@@ -78,7 +78,7 @@ public class SearchGoodsAction extends SoaApiBaseAction {
                             .fromObject(listSuggest));
             this._result.setObjData(resultObject);
 
-           // this.setResultInfo(MsgStatus.NORMAL.getCode(), ResultMsg.Common.OK).write(request,response);
+            // this.setResultInfo(MsgStatus.NORMAL.getCode(), ResultMsg.Common.OK).write(request,response);
 
             return listSuggest.getResult();
         } catch (Exception e) {

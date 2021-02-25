@@ -102,6 +102,7 @@ public class SoaApiBaseAction extends JsonpBaseAction {
     /**
      * 设置返回信息
      * 用此方法需要在action层加@Scope("request")
+     *
      * @param status 返回状态
      * @param msg    返回消息
      * @return

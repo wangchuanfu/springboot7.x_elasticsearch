@@ -64,11 +64,11 @@ public enum NewProductFieldEnum {
 
     private String i;
 
-    private NewProductFieldEnum(String n){
+    private NewProductFieldEnum(String n) {
         this.i = n;
     }
 
-    public String getCode(){
+    public String getCode() {
         return this.i;
     }
 

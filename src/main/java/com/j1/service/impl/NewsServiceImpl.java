@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class NewsServiceImpl implements NewsService {
 
     @Autowired
-    private  NewsMapper newsMapper;
+    private NewsMapper newsMapper;
 
 
     @Override

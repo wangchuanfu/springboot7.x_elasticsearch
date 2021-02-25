@@ -11,13 +11,13 @@
 
     <select id="getAllSuggestProduct" resultMap="suggestPromptMap" parameterType="com.j1.pojo.SuggestPrompt">
 
-   select
-       sp.PROMPT_ID,
-       sp.PROMPT_NAME,
-       sp.SEARCH_NAME,
-       sp.PROMPT_ORDER
-   from
-   SEARCH_KEYWORD_PROMPT sp
+        select
+        sp.PROMPT_ID,
+        sp.PROMPT_NAME,
+        sp.SEARCH_NAME,
+        sp.PROMPT_ORDER
+        from
+        SEARCH_KEYWORD_PROMPT sp
 
 
     </select>

@@ -18,10 +18,11 @@ import java.util.Map;
 public class ProductIndexServiceImpl implements ProductIndexService {
     @Resource
     ProductIndexMapper productIndexMapper;
+
     @Override
     @ResponseBody
-    public List<Product>  getAllProduct() {
-        List<Product>allProduct = productIndexMapper.getAllProduct();
+    public List<Product> getAllProduct() {
+        List<Product> allProduct = productIndexMapper.getAllProduct();
 
         return allProduct;
     }

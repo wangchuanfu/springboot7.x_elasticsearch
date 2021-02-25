@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class ExecutorServiceTest1 {
     public static void main(String[] args) {
-      //  ExecutorService executorService = Executors.newCachedThreadPool();
+        //  ExecutorService executorService = Executors.newCachedThreadPool();
         AtomicInteger thCount = new AtomicInteger(6);
         ExecutorService executorService = Executors.newFixedThreadPool(thCount.intValue());
         List<Future<String>> resultList = new ArrayList<>();
@@ -23,7 +23,7 @@ public class ExecutorServiceTest1 {
         // 遍历任务的结果
         for (Future<String> fs : resultList) {
             try {
-                System.out.println("================="+fs.get()); // 打印各个线程（任务）执行的结果
+                System.out.println("=================" + fs.get()); // 打印各个线程（任务）执行的结果
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -33,6 +33,7 @@ public class ExecutorServiceTest1 {
             }
         }
     }
+
     static class TaskWithResult1 implements Callable<String> {
         private int id;
 
@@ -52,14 +53,15 @@ public class ExecutorServiceTest1 {
             if (new Random().nextBoolean())
                 throw new TaskException("Meet error in task." + Thread.currentThread().getName());
             // 一个模拟耗时的操作
-            for (int i = 999999999; i > 0; i--);
+            for (int i = 999999999; i > 0; i--) ;
             return "call()方法被自动调用，任务的结果是：" + id + "    " + Thread.currentThread().getName();
         }
     }
+
     static class TaskException extends Exception {
         public TaskException(String message) {
             super(message);
         }
-}
+    }
 }
 

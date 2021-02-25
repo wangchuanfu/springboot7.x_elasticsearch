@@ -7,7 +7,7 @@ import java.lang.reflect.Type;
 /**
  * Created by wangchuanfu on 20/7/31.
  */
-public abstract class AbstractEsService <T>{
+public abstract class AbstractEsService<T> {
 
     /**
      *  在项目启动的时候此抽象类中init方法会先执行,
@@ -41,6 +41,7 @@ public abstract class AbstractEsService <T>{
     public AbstractEsService() {
         //init();
     }
+
     private void init() {
         try {
             // 获得超类，e.g.：Service2 extends

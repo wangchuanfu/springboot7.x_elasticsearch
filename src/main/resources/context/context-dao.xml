@@ -1,0 +1,203 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+
+<!--       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"-->
+<!--       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd-->
+<!--        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">-->
+
+<!--    &lt;!&ndash;se 数据源&ndash;&gt;-->
+<!--    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"-->
+<!--          init-method="init"-->
+<!--          destroy-method="close"-->
+<!--          primary="true">-->
+<!--        <property name="url" value="${se.db.url}" />-->
+<!--        <property name="username" value="${se.db.username}" />-->
+<!--        <property name="password" value="${se.db.password}" />-->
+
+<!--        &lt;!&ndash; 配置初始化大小、最小、最大 &ndash;&gt;-->
+<!--        <property name="initialSize" value="50"/>-->
+<!--        <property name="minIdle" value="10"/>-->
+<!--        <property name="maxActive" value="300"/>-->
+<!--        &lt;!&ndash; 配置获取连接等待超时的时间 &ndash;&gt;-->
+<!--        <property name="maxWait" value="10000"/>-->
+<!--        &lt;!&ndash; 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 &ndash;&gt;-->
+<!--        <property name="timeBetweenEvictionRunsMillis" value="60000"/>-->
+<!--        &lt;!&ndash; 配置一个连接在池中最小生存的时间，单位是毫秒 &ndash;&gt;-->
+<!--        <property name="minEvictableIdleTimeMillis" value="300000"/>-->
+
+<!--        <property name="validationQuery" value="SELECT 'x'"/>-->
+<!--        <property name="testWhileIdle" value="true"/>-->
+<!--        <property name="testOnBorrow" value="false"/>-->
+<!--        <property name="testOnReturn" value="false"/>-->
+<!--    </bean>-->
+
+
+<!--    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+<!--        <property name="dataSource" ref="dataSource" />-->
+<!--        <property name="configLocation" value="classpath:mybatis-conf.xml" />-->
+<!--        <property name="mapperLocations"-->
+<!--                  value="classpath*:com/bsd/se/business/dao/se/**/*.xml" />-->
+<!--    </bean>-->
+
+<!--    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">-->
+<!--        <constructor-arg index="0" ref="sqlSessionFactory" />-->
+<!--    </bean>-->
+
+<!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+<!--        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />-->
+<!--        <property name="basePackage" value="com.bsd.se.business.dao.se" />-->
+<!--    </bean>-->
+
+<!--    &lt;!&ndash;news 数据源&ndash;&gt;-->
+<!--    <bean id="newsDataSource" class="com.alibaba.druid.pool.DruidDataSource"-->
+<!--          destroy-method="close">-->
+<!--        <property name="url" value="${se.newsDb.url}"/>-->
+<!--        <property name="username" value="${se.newsDb.url}"/>-->
+<!--        <property name="password" value="${se.newsDb.userName}"/>-->
+<!--        &lt;!&ndash; 配置初始化大小、最小、最大 &ndash;&gt;-->
+<!--        <property name="initialSize" value="50"/>-->
+<!--        <property name="minIdle" value="10"/>-->
+<!--        <property name="maxActive" value="300"/>-->
+<!--        &lt;!&ndash; 配置获取连接等待超时的时间 &ndash;&gt;-->
+<!--        <property name="maxWait" value="10000"/>-->
+<!--        &lt;!&ndash; 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 &ndash;&gt;-->
+<!--        <property name="timeBetweenEvictionRunsMillis" value="60000"/>-->
+<!--        &lt;!&ndash; 配置一个连接在池中最小生存的时间，单位是毫秒 &ndash;&gt;-->
+<!--        <property name="minEvictableIdleTimeMillis" value="300000"/>-->
+<!--        <property name="testWhileIdle" value="true"/>-->
+<!--        <property name="testOnBorrow" value="false"/>-->
+<!--        <property name="testOnReturn" value="false"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="newsSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+<!--        <property name="dataSource" ref="newsDataSource" />-->
+<!--        <property name="configLocation" value="classpath:mybatis-conf.xml" />-->
+<!--        <property name="mapperLocations"-->
+<!--                  value="classpath*:com/bsd/se/business/dao/newsmapper/**/*.xml" />-->
+<!--    </bean>-->
+
+<!--    <bean id="newsSqlSession" class="org.mybatis.spring.SqlSessionTemplate">-->
+<!--        <constructor-arg index="0" ref="newsSqlSessionFactory" />-->
+<!--    </bean>-->
+
+
+<!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+<!--        <property name="sqlSessionFactoryBeanName" value="newsSqlSessionFactory" />-->
+<!--        <property name="basePackage" value="com.bsd.se.business.dao.newsmapper" />-->
+<!--    </bean>-->
+
+<!--    &lt;!&ndash;installment数据源&ndash;&gt;-->
+<!--    <bean id="installmentDataSource" class="com.alibaba.druid.pool.DruidDataSource"-->
+<!--          destroy-method="close">-->
+<!--        &lt;!&ndash;<property name="driverClass" value="${goods.ext.datasource.driver}"/>&ndash;&gt;-->
+<!--        <property name="url" value="${se.insdb.url}"/>-->
+<!--        <property name="username" value="${se.insdb.username}"/>-->
+<!--        <property name="password" value="${se.insdb.password}"/>-->
+<!--        &lt;!&ndash; 配置初始化大小、最小、最大 &ndash;&gt;-->
+<!--        <property name="initialSize" value="50"/>-->
+<!--        <property name="minIdle" value="10"/>-->
+<!--        <property name="maxActive" value="300"/>-->
+<!--        &lt;!&ndash; 配置获取连接等待超时的时间 &ndash;&gt;-->
+<!--        <property name="maxWait" value="10000"/>-->
+<!--        &lt;!&ndash; 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 &ndash;&gt;-->
+<!--        <property name="timeBetweenEvictionRunsMillis" value="60000"/>-->
+<!--        &lt;!&ndash; 配置一个连接在池中最小生存的时间，单位是毫秒 &ndash;&gt;-->
+<!--        <property name="minEvictableIdleTimeMillis" value="300000"/>-->
+
+<!--        <property name="testWhileIdle" value="true"/>-->
+<!--        <property name="testOnBorrow" value="false"/>-->
+<!--        <property name="testOnReturn" value="false"/>-->
+<!--    </bean>-->
+<!--    <bean id="installmentSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+<!--        <property name="dataSource" ref="installmentDataSource" />-->
+<!--        <property name="configLocation" value="classpath:mybatis-conf.xml" />-->
+<!--        <property name="mapperLocations"-->
+<!--                  value="classpath*:com/bsd/se/business/dao/installmentMapper/**/*.xml" />-->
+<!--    </bean>-->
+
+<!--    <bean id="installmentSqlSession" class="org.mybatis.spring.SqlSessionTemplate">-->
+<!--        <constructor-arg index="0" ref="installmentSqlSessionFactory" />-->
+<!--    </bean>-->
+
+<!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+<!--        <property name="sqlSessionFactoryBeanName" value="installmentSqlSessionFactory" />-->
+<!--        <property name="basePackage" value="com.bsd.se.business.dao.installmentMapper" />-->
+<!--    </bean>-->
+
+<!--    &lt;!&ndash;faceCircle数据源&ndash;&gt;-->
+<!--    <bean id="faceCircleDataSource" class="com.alibaba.druid.pool.DruidDataSource"-->
+<!--          destroy-method="close">-->
+<!--        &lt;!&ndash;<property name="driverClass" value="${goods.ext.datasource.driver}"/>&ndash;&gt;-->
+<!--        <property name="url" value="${faceCircle.db.url}" />-->
+<!--        <property name="username" value="${faceCircle.db.username}" />-->
+<!--        <property name="password" value="${faceCircle.db.password}" />-->
+<!--        &lt;!&ndash; 配置初始化大小、最小、最大 &ndash;&gt;-->
+<!--        <property name="initialSize" value="50"/>-->
+<!--        <property name="minIdle" value="10"/>-->
+<!--        <property name="maxActive" value="300"/>-->
+<!--        &lt;!&ndash; 配置获取连接等待超时的时间 &ndash;&gt;-->
+<!--        <property name="maxWait" value="10000"/>-->
+<!--        &lt;!&ndash; 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 &ndash;&gt;-->
+<!--        <property name="timeBetweenEvictionRunsMillis" value="60000"/>-->
+<!--        &lt;!&ndash; 配置一个连接在池中最小生存的时间，单位是毫秒 &ndash;&gt;-->
+<!--        <property name="minEvictableIdleTimeMillis" value="300000"/>-->
+
+<!--        <property name="testWhileIdle" value="true"/>-->
+<!--        <property name="testOnBorrow" value="false"/>-->
+<!--        <property name="testOnReturn" value="false"/>-->
+<!--    </bean>-->
+<!--    <bean id="faceCircleSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+<!--        <property name="dataSource" ref="faceCircleDataSource" />-->
+<!--        <property name="configLocation" value="classpath:mybatis-conf.xml" />-->
+<!--        <property name="mapperLocations"-->
+<!--                  value="classpath*:com/bsd/se/business/dao/facecircle/**/*.xml" />-->
+<!--    </bean>-->
+
+<!--    <bean id="faceCircleSqlSession" class="org.mybatis.spring.SqlSessionTemplate">-->
+<!--        <constructor-arg index="0" ref="faceCircleSqlSessionFactory" />-->
+<!--    </bean>-->
+
+<!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+<!--        <property name="sqlSessionFactoryBeanName" value="faceCircleSqlSessionFactory" />-->
+<!--        <property name="basePackage" value="com.bsd.se.business.dao.facecircle.mapper" />-->
+<!--    </bean>-->
+<!--    &lt;!&ndash;user数据源&ndash;&gt;-->
+<!--    <bean id="userDataSource" class="com.alibaba.druid.pool.DruidDataSource"-->
+<!--          destroy-method="close">-->
+<!--        &lt;!&ndash;<property name="driverClass" value="${goods.ext.datasource.driver}"/>&ndash;&gt;-->
+<!--        <property name="url" value="${user.db.url}" />-->
+<!--        <property name="username" value="${user.db.username}" />-->
+<!--        <property name="password" value="${user.db.password}" />-->
+<!--        &lt;!&ndash; 配置初始化大小、最小、最大 &ndash;&gt;-->
+<!--        <property name="initialSize" value="50"/>-->
+<!--        <property name="minIdle" value="10"/>-->
+<!--        <property name="maxActive" value="300"/>-->
+<!--        &lt;!&ndash; 配置获取连接等待超时的时间 &ndash;&gt;-->
+<!--        <property name="maxWait" value="10000"/>-->
+<!--        &lt;!&ndash; 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 &ndash;&gt;-->
+<!--        <property name="timeBetweenEvictionRunsMillis" value="60000"/>-->
+<!--        &lt;!&ndash; 配置一个连接在池中最小生存的时间，单位是毫秒 &ndash;&gt;-->
+<!--        <property name="minEvictableIdleTimeMillis" value="300000"/>-->
+
+<!--        <property name="testWhileIdle" value="true"/>-->
+<!--        <property name="testOnBorrow" value="false"/>-->
+<!--        <property name="testOnReturn" value="false"/>-->
+<!--    </bean>-->
+<!--    <bean id="userSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">-->
+<!--        <property name="dataSource" ref="userDataSource" />-->
+<!--        <property name="configLocation" value="classpath:mybatis-conf.xml" />-->
+<!--        <property name="mapperLocations"-->
+<!--                  value="classpath*:com/bsd/se/business/dao/user/*.xml" />-->
+<!--    </bean>-->
+
+<!--    <bean id="userSqlSession" class="org.mybatis.spring.SqlSessionTemplate">-->
+<!--        <constructor-arg index="0" ref="userSqlSessionFactory" />-->
+<!--    </bean>-->
+
+<!--    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+<!--        <property name="sqlSessionFactoryBeanName" value="userSqlSessionFactory" />-->
+<!--        <property name="basePackage" value="com.bsd.se.business.dao.user" />-->
+<!--    </bean>-->
+
+<!--</beans>-->

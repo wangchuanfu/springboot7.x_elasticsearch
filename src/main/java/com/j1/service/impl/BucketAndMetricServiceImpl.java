@@ -246,12 +246,12 @@ public class BucketAndMetricServiceImpl implements BucketAndMetricService {
             Terms groupByBrand = (Terms) asMap.get("group_by_brand");
             double value = avgPrice.getValue();
             log.error("key [{}], date [{}], doc_count [{}],avg_price [{}]", keyAsString, key, docCount, value);
-            for ( Terms.Bucket groupByBrands:groupByBrand.getBuckets()) {
+            for (Terms.Bucket groupByBrands : groupByBrand.getBuckets()) {
 
-                String keyBrand= groupByBrands.getKey().toString();
-                String doc_count=String.valueOf(groupByBrands.getDocCount());
+                String keyBrand = groupByBrands.getKey().toString();
+                String doc_count = String.valueOf(groupByBrands.getDocCount());
 
-                log.error("keyBrand :[{}],doc_count :[{}]", keyBrand,doc_count);
+                log.error("keyBrand :[{}],doc_count :[{}]", keyBrand, doc_count);
 
             }
 

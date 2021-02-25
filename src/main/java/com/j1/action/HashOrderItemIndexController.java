@@ -13,7 +13,7 @@ public class HashOrderItemIndexController {
     HashFunctionUtils hashFunctionUtils;
 
     //根据会员id,取模,查询出对应的订单商品数据,取模后动态的插入索引中
-    public  void  InitHashOrderItemIndex(String memberId){
+    public void InitHashOrderItemIndex(String memberId) {
         //hash 算法取模
         Integer hash = hashFunctionUtils.hash(memberId);
 
@@ -22,4 +22,4 @@ public class HashOrderItemIndexController {
 
 
     }
-    }
+}

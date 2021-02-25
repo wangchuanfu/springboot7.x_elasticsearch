@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LogbackController {
     @RequestMapping("/testlogback")
     public String testEsItem(@RequestParam(value = "userName") String userName) {
-       log.info("==========test logback============");
+        log.info("==========test logback============");
         return userName;
     }
 }

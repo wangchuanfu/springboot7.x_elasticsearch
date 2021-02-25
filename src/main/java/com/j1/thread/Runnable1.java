@@ -12,6 +12,7 @@ public class Runnable1 {
         }
         executorService.shutdown();
     }
+
     public static class TestRunnable implements Runnable {
         public void run() {
             System.out.println(Thread.currentThread().getName() + "线程被调用了。");

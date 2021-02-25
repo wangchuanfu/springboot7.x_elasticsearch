@@ -47,11 +47,11 @@ public enum ProductFieldEnum {
 
     private String i;
 
-    private ProductFieldEnum(String n){
+    private ProductFieldEnum(String n) {
         this.i = n;
     }
 
-    public String getCode(){
+    public String getCode() {
         return this.i;
     }
 }

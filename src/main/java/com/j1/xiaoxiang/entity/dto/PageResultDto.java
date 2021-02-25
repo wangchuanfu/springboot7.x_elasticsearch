@@ -62,28 +62,29 @@ public class PageResultDto<T> {
     private List<String> measuresAgg;
 
     public PageResultDto(int targetPage, int pageSize, int totalRecord, List<T> itemList, Set<String> brandAgg,
-                         Set<String> categoryAgg,Set<String> platformAgg,
-                         Set<String> serisNameAgg,Set<String> suitCrowdAgg,List<String> measuresAgg) {
+                         Set<String> categoryAgg, Set<String> platformAgg,
+                         Set<String> serisNameAgg, Set<String> suitCrowdAgg, List<String> measuresAgg) {
         this.targetPage = targetPage;
         this.pageSize = pageSize;
         this.totalRecord = totalRecord;
         this.itemList = itemList;
         this.brandAgg = brandAgg;
         this.categoryAgg = categoryAgg;
-        this.platformAgg=platformAgg;
-        this.serisNameAgg=serisNameAgg;
-        this.suitCrowdAgg=suitCrowdAgg;
-        this.measuresAgg=measuresAgg;
+        this.platformAgg = platformAgg;
+        this.serisNameAgg = serisNameAgg;
+        this.suitCrowdAgg = suitCrowdAgg;
+        this.measuresAgg = measuresAgg;
         buildPageCount();
     }
-    public PageResultDto(int targetPage, int pageSize, int totalRecord, List<T> itemList, Set<String> brandAgg, Set<String> categoryAgg,Set<String> platformAgg) {
+
+    public PageResultDto(int targetPage, int pageSize, int totalRecord, List<T> itemList, Set<String> brandAgg, Set<String> categoryAgg, Set<String> platformAgg) {
         this.targetPage = targetPage;
         this.pageSize = pageSize;
         this.totalRecord = totalRecord;
         this.itemList = itemList;
         this.brandAgg = brandAgg;
         this.categoryAgg = categoryAgg;
-        this.platformAgg=platformAgg;
+        this.platformAgg = platformAgg;
         buildPageCount();
     }
 

@@ -1,8 +1,5 @@
 package com.j1.stream;
 
-/**
- *
-
 
 import com.google.common.collect.Lists;
 import org.junit.Test;
@@ -471,4 +468,3 @@ public class TetsStream1 {
     }
 
 }
- */

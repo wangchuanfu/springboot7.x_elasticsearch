@@ -5,7 +5,7 @@ import com.j1.type.MsgStatus;
 /**
  * Created by wangchuanfu on 20/8/7.
  */
-public class ServiceMessageImpl <T> implements ServiceMessage<T>{
+public class ServiceMessageImpl<T> implements ServiceMessage<T> {
 
     private MsgStatus status;
     private String message;

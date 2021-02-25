@@ -4,7 +4,7 @@ import com.j1.xiaoxiang.entity.dto.CommonRequest;
 import lombok.Data;
 
 @Data
-public class SearchEvent  extends CommonRequest {
+public class SearchEvent extends CommonRequest {
     //用户ID
     private String userId;
     //设备识别号

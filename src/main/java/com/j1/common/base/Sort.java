@@ -14,20 +14,17 @@ public class Sort implements Iterable {
 
     private List<Order> orders;
 
-    public Sort()
-    {
+    public Sort() {
     }
 
-    public Sort(Order... orders)
-    {
+    public Sort(Order... orders) {
         this(Arrays.asList(orders));
     }
 
     // 预设定的排序Map
     private final static Map<String, Order> orderMap = new HashMap<String, Order>();
 
-    static
-    {
+    static {
         // 默认排序(评分)
         Order order99 = new Order(Direction.DESC, "_score");
         orderMap.put("99", order99);
@@ -56,20 +53,20 @@ public class Sort implements Iterable {
         Order order4 = new Order(Direction.DESC, ProductFieldEnum.commentSum.name());
         orderMap.put("4", order4);
         //5   --上架时间(最近)
-        Order order5=new Order(Direction.DESC,ProductFieldEnum.saleTime.name());
+        Order order5 = new Order(Direction.DESC, ProductFieldEnum.saleTime.name());
         orderMap.put("5", order5);
         //6   --点击总量(降序)
-        Order order6=new Order(Direction.DESC,ProductFieldEnum.clickAmount.name());
+        Order order6 = new Order(Direction.DESC, ProductFieldEnum.clickAmount.name());
         orderMap.put("6", order6);
         //7   --好评总量(降序)
-        Order order7=new Order(Direction.DESC,ProductFieldEnum.goodEvalAmount.name());
+        Order order7 = new Order(Direction.DESC, ProductFieldEnum.goodEvalAmount.name());
         orderMap.put("7", order7);
         //8   --销量升序(低到高)
-        Order order8=new Order(Direction.ASC,ProductFieldEnum.saleAmount.name());
+        Order order8 = new Order(Direction.ASC, ProductFieldEnum.saleAmount.name());
         orderMap.put("8", order8);
         //增加两个排序2015-06-26 zhuzhong,品牌列表查询
         //9   --上架时间(最近)
-        Order order9=new Order(Direction.ASC,ProductFieldEnum.saleTime.name());
+        Order order9 = new Order(Direction.ASC, ProductFieldEnum.saleTime.name());
         orderMap.put("9", order9);
         // 10 --评论降序
         Order order10 = new Order(Direction.ASC, ProductFieldEnum.commentSum.name());
@@ -83,43 +80,39 @@ public class Sort implements Iterable {
     }
 
 
-    public Sort(String... orderTypes)
-    {
+    public Sort(String... orderTypes) {
         List<Order> orders = new ArrayList<Order>();
-        for(String orderType : orderTypes)
-        {
-            if(orderMap.containsKey(orderType))
+        for (String orderType : orderTypes) {
+            if (orderMap.containsKey(orderType))
                 orders.add(orderMap.get(orderType));
         }
         this.orders = orders;
     }
 
 
-    public void add(Order order){
-        if(orders==null){
+    public void add(Order order) {
+        if (orders == null) {
             orders = new ArrayList<Order>();
         }
         orders.add(order);
     }
 
-    public Sort(Order order,String ...orderTypes){
+    public Sort(Order order, String... orderTypes) {
 
         List<Order> orders = new ArrayList<Order>();
-        if(null!=order){
+        if (null != order) {
             orders.add(order);
         }
 
-        for(String orderType : orderTypes)
-        {
-            if(orderMap.containsKey(orderType))
+        for (String orderType : orderTypes) {
+            if (orderMap.containsKey(orderType))
                 orders.add(orderMap.get(orderType));
         }
 
-        this.orders=orders;
+        this.orders = orders;
     }
 
-    public Sort(List<Order> orders)
-    {
+    public Sort(List<Order> orders) {
 
         // if (null == orders || orders.isEmpty()) {
         // throw new
@@ -129,55 +122,45 @@ public class Sort implements Iterable {
         this.orders = orders;
     }
 
-    public Sort(Direction direction, String... properties)
-    {
+    public Sort(Direction direction, String... properties) {
 
         this(direction, properties == null ? new ArrayList<String>() : Arrays
                 .asList(properties));
     }
 
-    public Sort(Direction direction, List<String> properties)
-    {
+    public Sort(Direction direction, List<String> properties) {
 
-        if (properties == null || properties.isEmpty())
-        {
+        if (properties == null || properties.isEmpty()) {
             throw new IllegalArgumentException(
                     "You have to provide at least one property to sort by!");
         }
 
         this.orders = new ArrayList<Order>(properties.size());
 
-        for (String property : properties)
-        {
+        for (String property : properties) {
             this.orders.add(new Order(direction, property));
         }
     }
 
-    public Sort and(Sort sort)
-    {
+    public Sort and(Sort sort) {
 
-        if (sort == null)
-        {
+        if (sort == null) {
             return this;
         }
 
         ArrayList<Order> these = new ArrayList<Order>(this.orders);
 
-        for (Order order : sort.orders)
-        {
+        for (Order order : sort.orders) {
             these.add(order);
         }
 
         return new Sort(these);
     }
 
-    public Order getOrderFor(String property)
-    {
+    public Order getOrderFor(String property) {
 
-        for (Order order : this.orders)
-        {
-            if (order.getProperty().equals(property))
-            {
+        for (Order order : this.orders) {
+            if (order.getProperty().equals(property)) {
                 return order;
             }
         }
@@ -185,22 +168,19 @@ public class Sort implements Iterable {
         return null;
     }
 
-    public Iterator<Order> iterator()
-    {
+    public Iterator<Order> iterator() {
 
         return this.orders.iterator();
     }
-    @Override
-    public boolean equals(Object obj)
-    {
 
-        if (this == obj)
-        {
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) {
             return true;
         }
 
-        if (!(obj instanceof Sort))
-        {
+        if (!(obj instanceof Sort)) {
             return false;
         }
 
@@ -210,8 +190,7 @@ public class Sort implements Iterable {
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
 
         int result = 17;
         result = 31 * result + orders.hashCode();
@@ -219,35 +198,27 @@ public class Sort implements Iterable {
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
 
         return orders.toString();
     }
 
     /**
-     *
+     * @author 槐实(karlspace7 @ gmail.com)
+     * @version 上午11:06:38, 2014年3月19日
      * @包名 com.huayuan.search.core.common.page
      * @类名 Direction
      * @描述 排序方式枚举
-     *
-     * @author 槐实(karlspace7@gmail.com)
-     * @version 上午11:06:38, 2014年3月19日
      */
-    public static enum Direction
-    {
+    public static enum Direction {
 
         ASC, DESC;
 
-        public static Direction fromString(String value)
-        {
+        public static Direction fromString(String value) {
 
-            try
-            {
+            try {
                 return Direction.valueOf(value.toUpperCase(Locale.US));
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 throw new IllegalArgumentException(
                         String.format(
                                 "Invalid value '%s' for orders given! Has to be either 'desc' or 'asc' (case insensitive).",
@@ -256,24 +227,20 @@ public class Sort implements Iterable {
         }
     }
 
-    public static class Order
-    {
+    public static class Order {
 
 
         private final Direction direction;
         private final String property;
 
-        public Order()
-        {
+        public Order() {
             this.direction = DEFAULT_DIRECTION;
             this.property = "";
         }
 
-        public Order(Direction direction, String property)
-        {
+        public Order(Direction direction, String property) {
 
-            if (property == null || "".equals(property.trim()))
-            {
+            if (property == null || "".equals(property.trim())) {
                 throw new IllegalArgumentException(
                         "PropertyPath must not null or empty!");
             }
@@ -282,51 +249,42 @@ public class Sort implements Iterable {
             this.property = property;
         }
 
-        public Order(String property)
-        {
+        public Order(String property) {
             this(DEFAULT_DIRECTION, property);
         }
 
         public static List<Order> create(Direction direction,
-                                         Iterable<String> properties)
-        {
+                                         Iterable<String> properties) {
 
             List<Order> orders = new ArrayList<Sort.Order>();
-            for (String property : properties)
-            {
+            for (String property : properties) {
                 orders.add(new Order(direction, property));
             }
             return orders;
         }
 
-        public Direction getDirection()
-        {
+        public Direction getDirection() {
             return direction;
         }
 
-        public String getProperty()
-        {
+        public String getProperty() {
             return property;
         }
 
-        public boolean isAscending()
-        {
+        public boolean isAscending() {
             return this.direction.equals(Direction.ASC);
         }
 
-        public Order with(Direction order)
-        {
+        public Order with(Direction order) {
             return new Order(order, this.property);
         }
 
-        public Sort withProperties(String... properties)
-        {
+        public Sort withProperties(String... properties) {
             return new Sort(this.direction, properties);
         }
 
         @Override
-        public int hashCode()
-        {
+        public int hashCode() {
 
             int result = 17;
 
@@ -337,16 +295,13 @@ public class Sort implements Iterable {
         }
 
         @Override
-        public boolean equals(Object obj)
-        {
+        public boolean equals(Object obj) {
 
-            if (this == obj)
-            {
+            if (this == obj) {
                 return true;
             }
 
-            if (!(obj instanceof Order))
-            {
+            if (!(obj instanceof Order)) {
                 return false;
             }
 
@@ -357,8 +312,7 @@ public class Sort implements Iterable {
         }
 
         @Override
-        public String toString()
-        {
+        public String toString() {
             return String.format("%s: %s", property, direction);
         }
     }

@@ -22,14 +22,15 @@ public class SuggestionSearchAction {
     //搜索提示
     @Autowired
     SuggestionSearchService suggestionSearchService;
+
     @ResponseBody
     @RequestMapping(value = "/searchSuggestion/{keyword}")
 
-    public ServiceMessage<List<String>>setSuggestionSearchService(HttpServletRequest request,
-                                                   HttpServletResponse response, @PathVariable String keyword ) {
+    public ServiceMessage<List<String>> setSuggestionSearchService(HttpServletRequest request,
+                                                                   HttpServletResponse response, @PathVariable String keyword) {
 
         if (keyword == null || "".equals(keyword.trim())) {
-        return  null;
+            return null;
         }
         ServiceMessage<List<String>> strings = suggestionSearchService.querySuggest(keyword);
         return strings;

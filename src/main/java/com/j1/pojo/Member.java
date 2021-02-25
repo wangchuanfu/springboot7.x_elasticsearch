@@ -21,7 +21,7 @@ public class Member {
     //手机
     private String mobile;
     //登陆密码
-    private  String loginPassword;
-    private  String address;
+    private String loginPassword;
+    private String address;
 
 }
